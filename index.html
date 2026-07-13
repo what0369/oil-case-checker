@@ -40,10 +40,10 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">中聯油脂案-查詢比對系統</h1>
-                    <p class="text-xs text-slate-400 mt-0.5">最後更新版本: 115.7.8 預防性下架與油品比對工具</p>
+                    <p class="text-xs text-slate-400 mt-0.5">最後更新版本: 115.7.13 預防性下架與油品比對工具</p>
                 </div>
             </div>
-            <div class="flex gap-2">
+            <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="switchTab('single')" id="btn-tab-single" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white shadow">
                     🔍 單一品項比對
                 </button>
@@ -52,6 +52,9 @@
                 </button>
                 <button onclick="switchTab('database')" id="btn-tab-database" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
                     📋 瀏覽完整資料庫
+                </button>
+                <button onclick="switchTab('businesses')" id="btn-tab-businesses" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+                    🏪 店家／業者查詢
                 </button>
             </div>
         </div>
@@ -64,7 +67,7 @@
                 <span class="text-2xl font-black text-indigo-700" id="stat-total-products">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">項</span>
             </div>
             <div class="p-2 border-r border-indigo-100 last:border-none">
-                <span class="text-xs text-slate-500 block">涉案業者總數</span>
+                <span class="text-xs text-slate-500 block">產品名單業者數</span>
                 <span class="text-2xl font-black text-indigo-700" id="stat-total-vendors">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">家</span>
             </div>
             <div class="p-2 border-r border-indigo-100 last:border-none">
@@ -73,7 +76,7 @@
             </div>
             <div class="p-2 last:border-none">
                 <span class="text-xs text-slate-500 block">最後更新日期</span>
-                <span class="text-md font-bold text-slate-700 leading-8">民國115年7月8日</span>
+                <span class="text-md font-bold text-slate-700 leading-8">民國115年7月13日</span>
             </div>
         </div>
     </section>
@@ -128,7 +131,7 @@
                                 </svg>
                             </div>
                             <h3 class="text-md font-bold text-slate-700">請在左側輸入要查詢的品項名稱</h3>
-                            <p class="text-sm text-slate-400 mt-1 max-w-sm">我們將即時掃描比對公告的管制食品、原油與預防性下架清單（共 419 項）與有效日期。</p>
+                            <p class="text-sm text-slate-400 mt-1 max-w-sm">我們將即時掃描比對公告的 440 項預防性下架產品與 50 項油品範圍（共 490 項）。</p>
                         </div>
                         <!-- 狀態結果顯示 (會透過JS動態抽換) -->
                         <div id="single-result-content" class="hidden space-y-6">
@@ -148,8 +151,29 @@
                             </div>
                         </div>
                         <!-- 宣導警語 -->
-                        <div class="text-center text-xs text-slate-400 border-t border-slate-100 pt-4 mt-4">
-                            *本清單比對資料，源於主管機關公佈之中聯油脂案管制及預防性下架產品清單與有效期限。若有疑慮，應以官方原檔公告為準。
+                        <div class="text-center text-xs text-slate-400 border-t border-slate-100 pt-4 mt-4 space-y-1">
+                            <p>*本清單以主管機關公告為資料來源。油品範圍涵蓋中聯 115 年 4 至 6 月生產之 29 批油品及其製成品；精確批號與有效日期請以官方或業者最新公告為準。</p>
+                            <p>
+                                官方來源：
+                                <a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/site13712.aspx" target="_blank" rel="noopener noreferrer">食藥署中聯油脂案專區</a>
+                                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639192111390612445&amp;iid=13719&amp;type=3" target="_blank" rel="noopener noreferrer">440 項預防性下架清單（115.7.9）</a>
+                                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639195480017506674&amp;iid=13717&amp;type=3" target="_blank" rel="noopener noreferrer">最新下游流向圖（115.7.13）</a>
+                            </p>
+                            <details class="mt-2 text-left rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                                <summary class="cursor-pointer font-semibold text-slate-600">各地衛生局追蹤入口（同步核對至 115.7.13）</summary>
+                                <p class="mt-2 leading-6">
+                                    <a class="text-indigo-600 hover:underline" href="https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D" target="_blank" rel="noopener noreferrer">臺北市</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/oil" target="_blank" rel="noopener noreferrer">新北市</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://food-safety.tycg.gov.tw/News_Content.aspx?n=1268&amp;s=6264&amp;sms=11293" target="_blank" rel="noopener noreferrer">桃園市</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://dep.hcchb.gov.tw/ch/home.jsp?dataserno=202607090001&amp;id=43&amp;mcustomize=onemessages_view.jsp&amp;mserno=202310020002&amp;parentpath=0%2C40%2C42&amp;t=HcchbOnes&amp;toolsflag=Y" target="_blank" rel="noopener noreferrer">新竹市</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://www.hcshb.gov.tw/News_Content.aspx?n=24&amp;s=109802" target="_blank" rel="noopener noreferrer">新竹縣</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://www.mlshb.gov.tw/nc/article?id=64766940-e130-48d1-9736-acabed4454b5" target="_blank" rel="noopener noreferrer">苗栗縣</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://www.taichung.gov.tw/3320502/post" target="_blank" rel="noopener noreferrer">臺中市</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874" target="_blank" rel="noopener noreferrer">彰化縣</a>
+                                    ・<a class="text-indigo-600 hover:underline" href="https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B" target="_blank" rel="noopener noreferrer">高雄市</a>
+                                </p>
+                                <p class="mt-1 text-slate-500">地方資料多為下游業者、通路、稽查與下架進度；產品查詢仍以食藥署清單為主，避免把業者名單重複計為產品。</p>
+                            </details>
                         </div>
                     </div>
                 </div>
@@ -317,19 +341,58 @@
                 </div>
             </div>
         </div>
+        <!-- TAB 4: 店家與下游業者查詢 -->
+        <div id="tab-businesses" class="tab-content hidden space-y-6">
+            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
+                <div class="border-b border-slate-100 pb-4">
+                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+                        <span class="w-1.5 h-5 bg-amber-500 rounded-full"></span>
+                        店家／下游業者官方紀錄查詢
+                    </h2>
+                    <p class="text-sm text-slate-500 mt-1">搜尋官方公開流向或稽查附件中的業者名稱、店名、地址、品項與批號。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+                    <div class="md:col-span-3">
+                        <label for="business-search" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">店家、業者、地址或品項</label>
+                        <input type="search" id="business-search" oninput="applyBusinessFilters()"
+                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white"
+                               placeholder="例如：胖老爹、勝博殿、臺北市中山區、沙茶醬">
+                    </div>
+                    <div>
+                        <label for="business-county" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">縣市</label>
+                        <select id="business-county" onchange="applyBusinessFilters()" class="w-full px-3 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
+                            <option value="">-- 全部縣市 --</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-4 text-xs leading-relaxed">
+                    <strong>重要說明：</strong>出現在名單中通常代表曾有進貨、供應、流向或接受稽查紀錄，不等於該店家違規，也不表示目前仍在使用。請查看每筆公告狀態、日期及官方來源。
+                </div>
+            </div>
+            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                <p class="text-sm font-semibold text-slate-700">找到 <span id="business-result-count" class="text-amber-700">0</span> 筆業者／店家紀錄</p>
+                <p id="business-result-limit" class="hidden text-xs text-slate-500">為便於閱讀，目前顯示前 100 筆；請增加關鍵字或縣市縮小範圍。</p>
+            </div>
+            <div id="business-results" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+            <div id="business-no-data" class="hidden bg-white rounded-2xl border border-slate-200 py-16 text-center">
+                <p class="text-slate-500 font-semibold">目前公開附件中沒有符合條件的紀錄</p>
+                <p class="text-xs text-slate-400 mt-1">未命中不代表沒有使用，地方衛生局仍可能持續更新流向資料。</p>
+            </div>
+        </div>
     </main>
     <!-- 頁腳 -->
     <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 text-center py-6 text-xs mt-12 space-y-1">
         <p>© 115 中聯油脂案-查詢比對系統 版權所有</p>
         <p>本工具採用在地化前端架構，保護您的機密盤點資料不會被傳輸至伺服器外洩，請安心使用。</p>
     </footer>
+    <script src="business-data.js"></script>
     <!-- JS 邏輯代碼 -->
     <script>
-        // 401項防下架產品與18項泰山/福壽/福懋原油產品，總計419項完整資料庫
+        // 440項預防性下架產品與50項泰山/福壽/福懋油品範圍，共490項
         const productsDatabase = [
             { id: 1, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "雙蔬鮪魚飯糰", expiry: "已逾有效日期" },
             { id: 2, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "林聰明-雞肉飯飯糰", expiry: "已逾有效日期" },
-            { id: 3, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "木燻雞飯糰", expiry: "已逾有效日期" },
+            { id: 3, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "櫸木燻雞飯糰", expiry: "已逾有效日期" },
             { id: 4, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "炭火燒肉飯糰", expiry: "已逾有效日期" },
             { id: 5, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "韓式燒肉泡菜飯糰", expiry: "已逾有效日期" },
             { id: 6, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "炙烤鹽蔥燒肉飯糰", expiry: "已逾有效日期" },
@@ -343,7 +406,7 @@
             { id: 14, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "新極上飯糰-蔥鹽生鮭", expiry: "已逾有效日期" },
             { id: 15, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(金馬)雙蔬鮪魚飯糰", expiry: "已逾有效日期" },
             { id: 16, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(金馬)林聰明-雞肉飯飯糰", expiry: "已逾有效日期" },
-            { id: 17, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(金馬)木燻雞飯糰", expiry: "已逾有效日期" },
+            { id: 17, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(金馬)櫸木燻雞飯糰", expiry: "已逾有效日期" },
             { id: 18, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(金馬)炭火燒肉飯糰", expiry: "已逾有效日期" },
             { id: 19, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(金馬)炙烤鹽蔥燒肉飯糰", expiry: "已逾有效日期" },
             { id: 20, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(金馬)宗家府泡菜燒肉飯糰", expiry: "已逾有效日期" },
@@ -407,388 +470,431 @@
             { id: 78, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(離)(蔬)經典獅子頭燴飯", expiry: "已逾有效日期" },
             { id: 79, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "三起司肉醬焗飯", expiry: "已逾有效日期" },
             { id: 80, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "(離)三起司肉醬焗飯", expiry: "已逾有效日期" },
-
-            { id: 81, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "南僑NEBOS機能性脂肪抹醬", expiry: "2026.10.06" },
-            { id: 82, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "王牌液態油炸專用油", expiry: "2027.05.28 / 2027.06.02 / 2027.06.04 / 2027.06.08" },
-            { id: 83, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "南僑烘焙潔淨升級油-無添加攪拌油", expiry: "2026.10.08" },
-            { id: 84, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "維佳無水烘焙油脂", expiry: "2027.06.02" },
+            { id: 81, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "南僑NEBOS機能性脂肪抹醬", expiry: "2026.10.6" },
+            { id: 82, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "王牌液態油炸專用油", expiry: "2027.5.28、2027.6.2、2027.6.4、 2027.6.8" },
+            { id: 83, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "南僑烘焙潔淨升級油-無添加攪拌油", expiry: "2026.10.8" },
+            { id: 84, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "維佳無水烘焙油脂", expiry: "2027.6.2" },
             { id: 85, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "植物性起酥用油", expiry: "2026.11.29" },
             { id: 86, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "維佳特製丹麥專用油", expiry: "2026.11.30" },
             { id: 87, county: "臺北市", vendor: "南僑油脂事業股份有限公司", name: "特製專用烘焙油脂", expiry: "2026.11.30" },
-
-            { id: 88, county: "臺北市", vendor: "國防部福利事業管理處", name: "營區團膳使用", expiry: "即食品(下架管制)" },
-            { id: 89, county: "臺北市", vendor: "故宮晶華股份有限公司", name: "員工餐廳(烹調)使用", expiry: "現場烹調即食" },
-            { id: 90, county: "臺北市", vendor: "新祥食品有限公司", name: "員工餐廳(烹調)使用", expiry: "即食品" },
-
-            { id: 91, county: "新北市", vendor: "享記食品有限公司", name: "大紅袍花椒油", expiry: "2027.10.07" },
-            { id: 92, county: "新北市", vendor: "享記食品有限公司", name: "麻辣紅油", expiry: "2027.10.07" },
-            { id: 93, county: "新北市", vendor: "享記食品有限公司", name: "青麻花椒油", expiry: "2027.10.07" },
-            { id: 94, county: "新北市", vendor: "享記食品有限公司", name: "麻辣鍋底醬", expiry: "2027.10.09" },
-            { id: 95, county: "新北市", vendor: "享記食品有限公司", name: "麻辣鍋底醬(素)", expiry: "2027.11.03" },
-            { id: 96, county: "新北市", vendor: "享記食品有限公司", name: "咖哩鍋底醬", expiry: "2027.04.19" },
-            { id: 97, county: "新北市", vendor: "享記食品有限公司", name: "調味豆酥", expiry: "2027.04.09" },
-
+            { id: 88, county: "臺北市", vendor: "國防部福利事業管理處", name: "營區團膳使用", expiry: "即食食品(已過食用期限)" },
+            { id: 89, county: "臺北市", vendor: "故宮晶華股份有限公司", name: "員工餐廳(烹調)使用", expiry: "即食食品(已過食用期限)" },
+            { id: 90, county: "臺北市", vendor: "晶華國際酒店股份有限公司", name: "烹調使用", expiry: "即食食品(已過食用期限)" },
+            { id: 91, county: "新北市", vendor: "享記食品有限公司", name: "大紅袍花椒油", expiry: "2027.10.7" },
+            { id: 92, county: "新北市", vendor: "享記食品有限公司", name: "麻辣紅油", expiry: "2027.10.7" },
+            { id: 93, county: "新北市", vendor: "享記食品有限公司", name: "青麻花椒油", expiry: "2027.10.7" },
+            { id: 94, county: "新北市", vendor: "享記食品有限公司", name: "麻辣鍋底醬", expiry: "2027.10.9" },
+            { id: 95, county: "新北市", vendor: "享記食品有限公司", name: "麻辣鍋底醬(素)", expiry: "2027.11.3" },
+            { id: 96, county: "新北市", vendor: "享記食品有限公司", name: "咖哩鍋底醬", expiry: "2027.4.19" },
+            { id: 97, county: "新北市", vendor: "享記食品有限公司", name: "調味豆酥", expiry: "2027.4.9" },
             { id: 98, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "巧達濃湯", expiry: "2026.10.26" },
-            { id: 99, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "涼拌墨魚醬", expiry: "2026.07.19" },
-            { id: 100, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "西班牙海鮮燉飯(高湯)", expiry: "2026.07.19" },
-            { id: 101, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "酸菜", expiry: "2026.07.22" },
-            { id: 102, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "海鮮鍋底醬", expiry: "2026.07.12 / 2026.07.20 / 2026.07.26" },
-            { id: 103, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "紅雲調味醬", expiry: "2026.07.27" },
-
-            { id: 104, county: "新北市", vendor: "老協珍股份有限公司", name: "TOMMI湯米-白醬鱈魚排米漢堡(2入)", expiry: "2027.06.25" },
-            { id: 105, county: "新北市", vendor: "老協珍股份有限公司", name: "TOMMI湯米-海鮮蝦排米漢堡(1入)", expiry: "2027.06.25" },
-
-            { id: 106, county: "新北市", vendor: "泰信食品行", name: "肉粽(散裝)", expiry: "2027.04.24 / 2027.05.21" },
-            { id: 107, county: "新北市", vendor: "東穎食品實業有限公司", name: "沙拉醬", expiry: "已逾有效日期" },
-            { id: 108, county: "新北市", vendor: "桂冠實業股份有限公司", name: "桂冠沙拉", expiry: "產品效期最晚至 2026.07.15" },
-
-            { id: 109, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "蜂蜜芥末醬", expiry: "2026.05.26" },
-            { id: 110, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "煙燻芥末醬", expiry: "2026.05.26 / 2026.05.27" },
-            { id: 111, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "凱薩醬", expiry: "2026.05.11 ~ 2026.05.13" },
-            { id: 112, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "薑汁番茄醬", expiry: "2026.05.27" },
-            { id: 113, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "刀口辣油", expiry: "2026.06.26" },
-            { id: 114, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "美玉白汁", expiry: "2026.05.28" },
-            { id: 115, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "青龍醬", expiry: "2026.05.16 / 2026.05.17" },
-            { id: 116, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "蔥油醬", expiry: "2026.07.25" },
-            { id: 117, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "義大利綜合菇物", expiry: "2026.05.11 ~ 2026.05.13" },
-            { id: 118, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "肉醬", expiry: "2026.07.25" },
-            { id: 119, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "打拋豬", expiry: "2026.07.26" },
-            { id: 120, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "榨菜肉絲", expiry: "2026.07.26" },
-            { id: 121, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "香料烤腿排", expiry: "2026.07.26 / 2026.07.27" },
-            { id: 122, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "泰式酸菜", expiry: "2026.07.26" },
-            { id: 123, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "烤鮭魚碎肉", expiry: "2026.07.27" },
-            { id: 124, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "植物素排", expiry: "2026.10.27" },
-            { id: 125, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "皮蛋醬", expiry: "2026.07.28" },
-            { id: 126, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "油封鴨腿車輪餅", expiry: "2026.08.02 / 2026.08.09 / 2026.08.16" },
-            { id: 127, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "慢熬洋蔥醬", expiry: "2026.05.27 ~ 2026.06.12" },
-            { id: 128, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "滷豬腳", expiry: "2026.07.25 / 2026.07.27" },
-            { id: 129, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "滷豬五花", expiry: "2026.07.27" },
-            { id: 130, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "滷棒腿", expiry: "2026.07.25" },
-            { id: 131, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "香草草莓小蛋糕", expiry: "2026.07.06 ~ 2026.07.21" },
-            { id: 132, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "芝麻蜂蜜小蛋糕", expiry: "2026.07.06 ~ 2026.07.21" },
-            { id: 133, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "焙茶柚香小蛋糕", expiry: "2026.07.06 ~ 2026.07.20" },
-            { id: 134, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "泰奶波士頓小蛋糕", expiry: "2026.07.06 ~ 2026.07.21" },
-            { id: 135, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "抹茶草莓小蛋糕", expiry: "2026.07.06 ~ 2026.07.21" },
-            { id: 136, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "焙茶瑪德蓮", expiry: "2026.07.06 ~ 2026.07.19" },
-            { id: 137, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "咖啡小蛋糕", expiry: "2026.07.06 ~ 2026.07.21" },
-            { id: 138, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "香草水蜜桃小蛋糕", expiry: "2026.07.06 ~ 2026.07.21" },
-            { id: 139, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "檸檬小蛋糕", expiry: "2026.07.06 ~ 2026.07.20" },
-            { id: 140, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "波隆那肉醬", expiry: "2026.07.16 ~ 2026.09.24" },
-            { id: 141, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "印度咖哩醬", expiry: "2026.07.27 ~ 2026.09.21" },
-
-            { id: 142, county: "新北市", vendor: "健衛生技有限公司", name: "炸甜不辣", expiry: "已逾有效日期" },
-            { id: 143, county: "新北市", vendor: "大王肉脯店", name: "炸肉捲", expiry: "已逾有效日期" },
-            { id: 144, county: "新北市", vendor: "華福食品股份有限公司", name: "麵包烘焙食品", expiry: "已逾有效日期" },
-            { id: 145, county: "新北市", vendor: "廣達香食品股份有限公司", name: "塔塔醬", expiry: "2026.10.22" },
-            { id: 146, county: "新北市", vendor: "廣達香食品股份有限公司", name: "凱薩醬口", expiry: "2026.10.16 / 2026.10.27" },
-            { id: 147, county: "新北市", vendor: "廣達香食品股份有限公司", name: "蜂蜜芥末醬", expiry: "2026.07.29 / 2026.10.29" },
-            { id: 148, county: "新北市", vendor: "廣達香食品股份有限公司", name: "素食香鬆(海苔)", expiry: "2027.04.16" },
-
-            { id: 149, county: "桃園市", vendor: "野味企業有限公司", name: "便當", expiry: "即食品" },
-            { id: 150, county: "桃園市", vendor: "芳水有限公司", name: "甜不辣", expiry: "即食品" },
-            { id: 151, county: "桃園市", vendor: "點線麵餐飲股份有限公司", name: "辣醬包原料", expiry: "2028.04.22" },
-            { id: 152, county: "桃園市", vendor: "點線麵餐飲股份有限公司", name: "素肉燥", expiry: "2028.04.23" },
-            { id: 153, county: "桃園市", vendor: "點線麵餐飲股份有限公司", name: "熟麵", expiry: "已逾有效日期" },
-            { id: 154, county: "桃園市", vendor: "福泰團膳股份有限公司", name: "便當", expiry: "即食品" },
-            { id: 155, county: "桃園市", vendor: "大地農產有限公司", name: "蔥頭醬", expiry: "2027.04.22" },
-            { id: 156, county: "桃園市", vendor: "大地農產有限公司", name: "油蔥酥", expiry: "2027.04.17" },
-            { id: 157, county: "桃園市", vendor: "富崨食品有限公司", name: "公司行號-社會餐", expiry: "即食品" },
-            { id: 158, county: "桃園市", vendor: "龍膳坊企業有限公司", name: "冷凍餅皮", expiry: "2026.10.09 ~ 2026.11.10" },
-            { id: 159, county: "桃園市", vendor: "聯華食品工業股份有限公司-中壢", name: "荷卡炙燒明太子鮭魚烤飯糰", expiry: "2027.04.15" },
-            { id: 160, county: "桃園市", vendor: "聯華食品工業股份有限公司-中壢", name: "荷卡極上經典飯糰", expiry: "2027.04.09" },
-
-            { id: 161, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)紅燒獅子頭", expiry: "116.04.24 ~ 116.04.30" },
-            { id: 162, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)糖醋雞丁", expiry: "116.04.24 ~ 116.04.30" },
-            { id: 163, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)海鮮豆腐煲", expiry: "116.04.24 ~ 116.05.01" },
-            { id: 164, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)馬鈴薯燉牛肉", expiry: "116.04.24 ~ 116.04.29" },
-            { id: 165, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)金沙豆腐", expiry: "116.04.24 ~ 116.04.28" },
-            { id: 166, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)(預)馬鈴薯燉牛肉", expiry: "116.04.24 ~ 116.05.01" },
-            { id: 167, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)三杯杏鮑菇", expiry: "116.04.25 ~ 116.04.30" },
-            { id: 168, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)鐵板黑胡椒豆腐", expiry: "116.04.25 ~ 116.05.01" },
-            { id: 169, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "(快煮餐)(預)海鮮豆腐煲", expiry: "116.04.25 ~ 116.04.28" },
-            { id: 170, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "鐵板滑蛋炸豬排丼", expiry: "116.04.24 ~ 116.05.01" },
-            { id: 171, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "美式豬腿堡", expiry: "116.04.25 ~ 116.05.02" },
-            { id: 172, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "黃金魚堡(114年)", expiry: "116.04.25 ~ 116.05.02" },
-            { id: 173, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "王愛吃辣雞堡", expiry: "116.04.25 ~ 116.05.02" },
-            { id: 174, county: "新竹縣", vendor: "屏榮食品股份有限公司-新豐廠", name: "配粗飽系雞腿排炒飯(114年)", expiry: "116.04.24 ~ 116.04.26" },
-
-            { id: 175, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "香甜沙拉醬", expiry: "2026.10.21" },
-            { id: 176, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "美玉白汁", expiry: "2026.10.22" },
-            { id: 177, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "百事福美玉白汁", expiry: "2026.10.23" },
-            { id: 178, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "香蒜風味醬", expiry: "2026.09.29" },
-
-            { id: 179, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣鍋底醬 3公斤/罐", expiry: "2028.06.04" },
-            { id: 180, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣鍋底醬 0.28公斤/罐", expiry: "2028.06.04" },
-            { id: 181, county: "臺中市", vendor: "富達食品有限公司", name: "蕃茄湯料 1公斤/包", expiry: "2027.06.04" },
-            { id: 182, county: "臺中市", vendor: "富達食品有限公司", name: "古早味油蔥拌醬 1公斤/包", expiry: "2027.05.25" },
-            { id: 183, county: "臺中市", vendor: "富達食品有限公司", name: "古早味油蔥拌醬 0.06公斤/包", expiry: "2027.05.25" },
-            { id: 184, county: "臺中市", vendor: "富達食品有限公司", name: "香辣油包 0.004公斤/包", expiry: "2027.11.30" },
-            { id: 185, county: "臺中市", vendor: "富達食品有限公司", name: "麻醬醬包 0.045公斤/包", expiry: "2027.08.31" },
-            { id: 186, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣臭豆腐金針菇 0.85公斤/包", expiry: "2027.11.24" },
-            { id: 187, county: "臺中市", vendor: "富達食品有限公司", name: "麻油猴頭菇 0.6公斤/包", expiry: "2027.11.24" },
-            { id: 188, county: "臺中市", vendor: "富達食品有限公司", name: "台灣蘑菇醬 2.9KG/罐", expiry: "2029.05.18" },
-            { id: 189, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣鍋底醬 1公斤/包", expiry: "2027.11.13" },
-            { id: 190, county: "臺中市", vendor: "富達食品有限公司", name: "番茄鍋底醬 1公斤/包", expiry: "2027.11.13" },
-            { id: 191, county: "臺中市", vendor: "富達食品有限公司", name: "美味大師 1公斤/包", expiry: "2027.11.12" },
-            { id: 192, county: "臺中市", vendor: "富達食品有限公司", name: "沙茶醬 2.9公斤/罐", expiry: "2028.05.05" },
-
-            { id: 193, county: "臺中市", vendor: "味源股份有限公司", name: "椒麻拌醬", expiry: "2027.04.27" },
-            { id: 194, county: "臺中市", vendor: "味源股份有限公司", name: "油蔥拌醬", expiry: "2027.06.24" },
-            { id: 195, county: "臺中市", vendor: "味源股份有限公司", name: "椒麻油", expiry: "2027.06.23" },
-            { id: 196, county: "臺中市", vendor: "味源股份有限公司", name: "ABAO辣油", expiry: "116.04.16 ~ 116.06.25" },
-            { id: 197, county: "臺中市", vendor: "味源股份有限公司", name: "油蔥蒜醬", expiry: "2027.04.23" },
-
-            { id: 198, county: "臺中市", vendor: "大買家股份有限公司大里國光分公司", name: "麵包", expiry: "即食品(市面已無本批次)" },
-            { id: 199, county: "臺中市", vendor: "大買家股份有限公司大里國光分公司", name: "熟食", expiry: "即食品(市面已無本批次)" },
-            { id: 200, county: "臺中市", vendor: "頂裕食品股份有限公司", name: "素瓜子肉罐頭", expiry: "2030.04.15" },
-
-            { id: 201, county: "臺中市", vendor: "金安信食品有限公司", name: "切達芝士餡", expiry: "2026.10.06 / 2026.10.11" },
-            { id: 202, county: "臺中市", vendor: "金安信食品有限公司", name: "北海道牛奶風味餡", expiry: "2026.10.10" },
-            { id: 203, county: "臺中市", vendor: "金安信食品有限公司", name: "蜜烤地瓜餡", expiry: "2026.10.06 / 2026.10.11" },
-            { id: 204, county: "臺中市", vendor: "金安信食品有限公司", name: "烤地瓜餡", expiry: "2026.10.06 / 2026.10.11" },
-            { id: 205, county: "臺中市", vendor: "金安信食品有限公司", name: "蔬果南瓜泥", expiry: "2026.10.06" },
-            { id: 206, county: "臺中市", vendor: "金安信食品有限公司", name: "日式果子皮", expiry: "2027.04.23 / 2027.04.29" },
-            { id: 207, county: "臺中市", vendor: "金安信食品有限公司", name: "紅豆餡", expiry: "2026.07.12 / 2026.07.13" },
-            { id: 208, county: "臺中市", vendor: "金安信食品有限公司", name: "蛋糕用芋泥餡", expiry: "2026.05.03" },
-            { id: 209, county: "臺中市", vendor: "金安信食品有限公司", name: "香芋豆餡", expiry: "2026.07.12 / 2026.07.14" },
-            { id: 210, county: "臺中市", vendor: "金安信食品有限公司", name: "醇芋(顆粒)", expiry: "2026.05.28 / 2026.05.30" },
-            { id: 211, county: "臺中市", vendor: "金安信食品有限公司", name: "F.P芋頭粒餡CL", expiry: "2026.07.13" },
-            { id: 212, county: "臺中市", vendor: "金安信食品有限公司", name: "芋頭餡", expiry: "2026.10.09 ~ 2027.04.14" },
-            { id: 213, county: "臺中市", vendor: "金安信食品有限公司", name: "炭焙烏龍茶餡", expiry: "2027.01.04" },
-            { id: 214, county: "臺中市", vendor: "金安信食品有限公司", name: "白玉QQ麻糬", expiry: "2026.10.06 / 2026.10.09 / 2027.04.09" },
-            { id: 215, county: "臺中市", vendor: "金安信食品有限公司", name: "心黑糖麻糬", expiry: "2026.12.08" },
-            { id: 216, county: "臺中市", vendor: "金安信食品有限公司", name: "心原味麻糬M.T", expiry: "2026.12.10" },
-            { id: 217, county: "臺中市", vendor: "金安信食品有限公司", name: "黑糖麻糬餡片", expiry: "2026.10.09" },
-            { id: 218, county: "臺中市", vendor: "金安信食品有限公司", name: "拔絲麻糬", expiry: "2026.04.13製造" },
-            { id: 219, county: "臺中市", vendor: "金安信食品有限公司", name: "原味麻糬切丁", expiry: "2027.04.12" },
-            { id: 220, county: "臺中市", vendor: "金安信食品有限公司", name: "蜂蜜麻糬切丁", expiry: "2027.04.12" },
-            { id: 221, county: "臺中市", vendor: "金安信食品有限公司", name: "黑糖麻糬切丁", expiry: "2026.10.09" },
-            { id: 222, county: "臺中市", vendor: "金安信食品有限公司", name: "和風黑糖切丁", expiry: "2026.10.11" },
-            { id: 223, county: "臺中市", vendor: "金安信食品有限公司", name: "原味巧達心仁", expiry: "2026.10.11" },
-            { id: 224, county: "臺中市", vendor: "金安信食品有限公司", name: "鹹蛋黃心仁", expiry: "2026.12.07 ~ 2027.01.28" },
-
-            { id: 225, county: "彰化縣", vendor: "麥仕佳食品股份有限公司", name: "麵包", expiry: "即食品" },
-            { id: 226, county: "彰化縣", vendor: "源泰昌食品工廠", name: "素食包子", expiry: "即食品" },
-            { id: 227, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "水餃等麵製品", expiry: "調查中" },
-            { id: 228, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "肉鬆", expiry: "調查中" },
-
-            { id: 229, county: "南投縣", vendor: "金福華食品", name: "沙茶醬", expiry: "2029.04.09 / 2029.04.12" },
-            { id: 230, county: "南投縣", vendor: "金福華食品", name: "清鍋底醬", expiry: "2027.04.12" },
-            { id: 231, county: "南投縣", vendor: "金福華食品", name: "香蒜青蔥醬", expiry: "2027.04.14" },
-            { id: 232, county: "南投縣", vendor: "金福華食品", name: "麻辣醬", expiry: "2029.04.19" },
-            { id: 233, county: "南投縣", vendor: "金福華食品", name: "豆瓣醬", expiry: "2027.04.12 ~ 2027.04.14" },
-            { id: 234, county: "南投縣", vendor: "金福華食品", name: "綠咖哩湯底", expiry: "2027.04.15" },
-            { id: 235, county: "南投縣", vendor: "金福華食品", name: "麻辣鴨血", expiry: "2027.02.27 ~ 2027.05.21" },
-
-            { id: 236, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "番茄肉醬義大利麵 225g", expiry: "2027.04.16 ~ 2027.04.27" },
-            { id: 237, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "泰式打拋豬肉炒飯 170g", expiry: "2027.04.23 / 2027.04.30" },
-            { id: 238, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "火腿肉絲黃金蛋炒飯 215g", expiry: "2027.04.16 ~ 2027.04.29" },
-            { id: 239, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "奶油培根義大利麵 225g", expiry: "2027.04.19 ~ 2027.04.30" },
-            { id: 240, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "香Q白米飯 160g", expiry: "2027.04.19 ~ 2027.04.30" },
-            { id: 241, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "沙茶豬肉蛋炒飯 170g", expiry: "2027.04.28" },
-            { id: 242, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "泰式辣炒雞肉拌飯 280g", expiry: "2027.04.28" },
-            { id: 243, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "秘製滷雞翅 100g", expiry: "2027.04.22 / 2027.04.24" },
-            { id: 244, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "勁辣泰式打拋豬 200g", expiry: "2027.04.26" },
-            { id: 245, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "紅藜燕麥飯 120g", expiry: "2027.04.26" },
-            { id: 246, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "番茄紅醬義大利麵 220g", expiry: "2027.04.21" },
-            { id: 247, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "蒜香醃漬里肌豬排 2200g", expiry: "2027.04.21" },
-            { id: 248, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "111年醃漬里肌肉排 80g", expiry: "2027.04.19" },
-            { id: 249, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "112年醃漬原味雞胸塊 3000g", expiry: "2027.04.20" },
-            { id: 250, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "113年打拋雞肉醬 1000g", expiry: "2027.04.15 / 2027.04.16" },
-            { id: 251, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "醃薄鹽肉排 65g CL 1950g", expiry: "2027.04.19" },
-            { id: 252, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "醃漬黃金油雞腿排肉 80g CL 2000g", expiry: "2027.04.19 / 2027.04.20" },
-            { id: 253, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "冷凍清香雞排 2600g", expiry: "2027.04.19" },
-            { id: 254, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "中翅與翅腿調味包 (2300g/2500g)", expiry: "2026.04.25 / 2026.04.26" },
-            { id: 255, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "檸檬雞柳條 1000g", expiry: "2027.04.20" },
-            { id: 256, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "黑胡椒豬肉燴飯 320g", expiry: "2027.04.21" },
-            { id: 257, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "香檸三節翅 2250g", expiry: "2027.04.20" },
-            { id: 258, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "美式燒烤翅腿 600g", expiry: "2027.04.20" },
-            { id: 259, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "蟹肉風味炒飯 200g", expiry: "2027.04.21" },
-            { id: 260, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "雞肉玉米蛋炒飯 230g", expiry: "2027.04.16 / 2027.04.24" },
-            { id: 261, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "肉絲蛋炒飯 230g", expiry: "2027.04.29" },
-            { id: 262, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "培根蛋炒飯 230g", expiry: "2027.04.17 / 2027.04.23 / 2027.04.30" },
-            { id: 263, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "蕃茄紅醬義大利麵 230g", expiry: "2027.04.29" },
-            { id: 264, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "泰式打拋豬肉炒飯 190g", expiry: "2027.04.22" },
-            { id: 265, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "培根香蔥蛋炒飯 230g", expiry: "2027.04.17" },
-            { id: 266, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "清香羅勒義大利麵 230g", expiry: "2027.04.28" },
-            { id: 267, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "泰式打拋豬肉醬(凍) 1000g", expiry: "2027.04.17" },
-            { id: 268, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "卜蜂泰式打拋豬肉醬 1000g", expiry: "2027.04.28" },
-            { id: 269, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "蝦仁蛋炒飯 280g", expiry: "2026.05.31 ~ 2026.06.21" },
-            { id: 270, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "泰式打拋豬肉飯 309g", expiry: "2026.04.23 ~ 2026.06.20" },
-            { id: 271, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "肉絲黃金蛋炒飯 270g", expiry: "2026.04.23 ~ 2026.05.29" },
-            { id: 272, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "爆炒滷雞胗 116g", expiry: "2026.05.16 ~ 2026.05.27" },
-            { id: 273, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "法式經典嫩雞胸 100g", expiry: "2026.06.06 ~ 2026.06.12" },
-            { id: 274, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "黑胡椒蒜味雞柳條 120g", expiry: "2026.04.27 ~ 2026.04.30" },
-            { id: 275, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "義式雞胸肉 840g", expiry: "2026.07.04 ~ 2026.07.11" },
-            { id: 276, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "瑪莎曼咖哩雞肉 840g", expiry: "2026.07.04 ~ 2026.07.11" },
-            { id: 277, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "川味椒麻雞胸肉 1000g", expiry: "2026.05.27 ~ 2026.06.06" },
-            { id: 278, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "醬爆雞胗 100g", expiry: "2026.05.13 ~ 2026.06.04" },
-            { id: 279, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "香滷雞胗 90g", expiry: "2026.06.10 ~ 2026.06.27" },
-            { id: 280, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司-南投肉品加工廠", name: "香燻鳳爪 160g", expiry: "2026.06.01 ~ 2026.06.06" },
-
-            { id: 281, county: "雲林縣", vendor: "松鼎", name: "黃金調和油", expiry: "2028.04.10 ~ 2028.04.13" },
-
-            { id: 282, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "健康廚房纖活優格沙拉醬", expiry: "調查中" },
-            { id: 283, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "台式香甜沙拉(無扣環)", expiry: "調查中" },
-            { id: 284, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "105沙拉", expiry: "調查中" },
-            { id: 285, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全美食沙拉(205/白玉沙拉)", expiry: "調查中" },
-            { id: 286, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "日式山葵風味沙拉醬(安倖)", expiry: "調查中" },
-            { id: 287, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "歐風甜口沙拉醬(歐式沙拉醬)", expiry: "調查中" },
-            { id: 288, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "歐風甜口沙拉醬(香純)", expiry: "調查中" },
-            { id: 289, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "日式芳醇原味沙拉醬", expiry: "調查中" },
-            { id: 290, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "101沙拉", expiry: "調查中" },
-            { id: 291, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "101-日式蛋黃沙拉醬", expiry: "調查中" },
-            { id: 292, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "106-歐風酸甜沙拉醬", expiry: "調查中" },
-            { id: 293, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "日式芳醇原味沙拉醬(批次版)", expiry: "調查中" },
-            { id: 294, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "F-104歐風鹹式沙拉醬", expiry: "調查中" },
-            { id: 295, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "F-101日式蛋黃醬", expiry: "調查中" },
-            { id: 296, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "健康廚房-焙煎芝麻", expiry: "調查中" },
-            { id: 297, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "屋馬焙煎芝麻醬", expiry: "調查中" },
-            { id: 298, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全焙煎芝麻(109版)", expiry: "調查中" },
-            { id: 299, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "經典凱薩沾拌淋醬(新)", expiry: "調查中" },
-            { id: 300, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "油醋沙拉醬-經典凱薩(108新版)", expiry: "調查中" },
-            { id: 301, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "特級沙拉醬", expiry: "調查中" },
-            { id: 302, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全沙拉醬袋裝", expiry: "調查中" },
-            { id: 303, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "F-台式特級沙拉", expiry: "調查中" },
-            { id: 304, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全105S沙拉醬", expiry: "調查中" },
-            { id: 305, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "105沙拉醬袋裝", expiry: "調查中" },
-
-            { id: 306, county: "雲林縣", vendor: "味王股份有限公司", name: "原汁牛肉湯麵(袋裝)", expiry: "調查中" },
-            { id: 307, county: "雲林縣", vendor: "味王股份有限公司", name: "紅燒牛肉湯麵(袋裝、碗裝)", expiry: "調查中" },
-            { id: 308, county: "雲林縣", vendor: "味王股份有限公司", name: "金味王紅燒牛肉麵(碗裝)", expiry: "調查中" },
-            { id: 309, county: "雲林縣", vendor: "味王股份有限公司", name: "十三香麻辣拌麵(袋裝、碗裝)", expiry: "調查中" },
-            { id: 310, county: "雲林縣", vendor: "味王股份有限公司", name: "辣辣麻辣燙湯麵(袋裝)", expiry: "調查中" },
-            { id: 311, county: "雲林縣", vendor: "味王股份有限公司", name: "辣辣海鮮湯麵(袋裝)", expiry: "調查中" },
-            { id: 312, county: "雲林縣", vendor: "味王股份有限公司", name: "素食麵(袋裝)", expiry: "調查中" },
-            { id: 313, county: "雲林縣", vendor: "味王股份有限公司", name: "香素雞湯麵(桶裝)", expiry: "調查中" },
-
-            { id: 314, county: "雲林縣", vendor: "張○發", name: "油炸豆包", expiry: "散裝 (已逾有效日期)" },
-            { id: 315, county: "雲林縣", vendor: "林隆", name: "油炸豆包", expiry: "散裝 (已逾有效日期)" },
-            { id: 316, county: "雲林縣", vendor: "峰妙商行", name: "油炸豆包", expiry: "散裝 (已逾有效日期)" },
-            { id: 317, county: "雲林縣", vendor: "玉品實業有限公司", name: "油炸豆包", expiry: "散裝 (已逾有效日期)" },
-            { id: 318, county: "雲林縣", vendor: "廖○盛", name: "油炸豆包", expiry: "散裝 (已逾有效日期)" },
-
-            { id: 319, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "川味紅油冷麵醬", expiry: "2027.06.28" },
-            { id: 320, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "赤象拔蚌沙拉", expiry: "2027.11.28" },
-            { id: 321, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "水果沙拉", expiry: "2027.05.18 / 2027.05.19" },
-            { id: 322, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "辣味美乃滋", expiry: "2027.05.10 / 2027.05.11" },
-
-            { id: 323, county: "高雄市", vendor: "維義事業股份有限公司", name: "維義大豆沙拉油", expiry: "2027.04.03" },
-            { id: 324, county: "高雄市", vendor: "維義事業股份有限公司", name: "順發興專用油", expiry: "2027.04.03" },
-            { id: 325, county: "高雄市", vendor: "維義事業股份有限公司", name: "鼎冠油炸專用油", expiry: "2027.04.14" },
-            { id: 326, county: "高雄市", vendor: "維義事業股份有限公司", name: "鼎冠大豆沙拉油", expiry: "2027.04.03" },
-
-            { id: 327, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "里仁調味便當菜 155g", expiry: "2028.04.23" },
-            { id: 328, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "紅油辣椒 410g", expiry: "2029.04.26" },
-            { id: 329, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "甜麵醬 460g", expiry: "2028.04.28" },
-            { id: 330, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "眷村剁椒蒜香", expiry: "2029.04.27" },
-            { id: 331, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "老北京 440g", expiry: "2029.04.29" },
-            { id: 332, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "家常辣 270g", expiry: "2029.05.04" },
-            { id: 333, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "訂製品 甜麵醬含香油及乳酸 20kg", expiry: "2026.09.05" },
-            { id: 334, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "甜麵醬 3kg", expiry: "2027.05.06" },
-            { id: 335, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "眷村剁椒蒜香 150g", expiry: "2029.05.12" },
-
-            { id: 336, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黑芝麻醬TA-6320", expiry: "2026.10.23" },
-            { id: 337, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "金豚骨湯TA-6154", expiry: "2027.04.23" },
-            { id: 338, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "多蜜醬TA", expiry: "2027.04.27" },
-            { id: 339, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黃金味噌醬", expiry: "2027.04.29" },
-            { id: 340, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2271", expiry: "2027.05.03" },
-            { id: 341, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "白芝麻醬TA-6298", expiry: "2026.11.05" },
-            { id: 342, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "四川豚骨麻辣TA-2232", expiry: "2027.05.05" },
-            { id: 343, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "九州豚骨", expiry: "2027.05.07" },
-            { id: 344, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "豚骨高湯TA-6630", expiry: "2027.08.07" },
-            { id: 345, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黑咖哩醬TA-1249", expiry: "2027.05.07" },
-            { id: 346, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "甘口黑咖哩TA-1705", expiry: "2027.05.10" },
-            { id: 347, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "麻辣火鍋TA-3683", expiry: "2027.05.10" },
-            { id: 348, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2271 (第二批)", expiry: "2027.05.11" },
-            { id: 349, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "甘口黑咖哩TA-1705 (第二批)", expiry: "2027.05.13" },
-            { id: 350, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2380", expiry: "2027.05.13" },
-            { id: 351, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "豚骨高湯TA-6630 (第二批)", expiry: "2027.08.14" },
-            { id: 352, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "麻辣高湯TA-6899", expiry: "2027.05.14" },
-            { id: 353, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "牛肉湯TA-3899", expiry: "2027.05.14" },
-            { id: 354, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2271 (第三批)", expiry: "2027.05.17" },
-            { id: 355, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "日式咖哩醬BFT", expiry: "2027.05.17" },
-            { id: 356, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黑咖哩醬TA-5495", expiry: "2027.05.17" },
-            { id: 357, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "豚骨高湯TA-6630 (第三批)", expiry: "2027.08.18" },
-            { id: 358, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "海鮮醬油TA-5758", expiry: "2027.05.18" },
-            { id: 359, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "燒肉醬TA", expiry: "2027.05.19" },
-            { id: 360, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "九州豚骨 (第二批)", expiry: "2027.05.20" },
-            { id: 361, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "日式咖哩醬BFT (第二批)", expiry: "2027.05.21" },
-            { id: 362, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "甘口黑咖哩TA-1705 (第三批)", expiry: "2027.05.24" },
-            { id: 363, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "拌麵醬TA-6805", expiry: "2027.05.25" },
-            { id: 364, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "濃厚豚骨高湯TA-3338", expiry: "2027.05.27" },
-            { id: 365, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "四川豚骨麻辣TA-2232 (第二批)", expiry: "2027.06.02" },
-            { id: 366, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "大蒜激辛拉麵高湯TA-4774", expiry: "2027.06.15" },
-            { id: 367, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "味噌 TA-7152", expiry: "2027.06.17" },
-            { id: 368, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "大蒜激辛拉麵高湯TA-4774 (第二批)", expiry: "2027.06.23" },
-
-            { id: 369, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "普通香油", expiry: "2027.04.13 ~ 2027.05.11" },
-            { id: 370, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "特級香油", expiry: "2027.04.13 ~ 2027.05.11" },
-            { id: 371, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "香油", expiry: "2027.04.13 ~ 2027.05.11" },
-            { id: 372, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "普通麻油", expiry: "2027.04.13 ~ 2027.05.11" },
-            { id: 373, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "麻醬包", expiry: "2027.04.13 ~ 2027.05.11" },
-
-            { id: 374, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "SH番茄汁鮪魚腹肉", expiry: "2029.06.10" },
-            { id: 375, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "紅SH油漬鮪魚", expiry: "2029.06.11" },
-            { id: 376, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "綠SH油漬鮪魚", expiry: "2029.06.10" },
-            { id: 377, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "三興特製紅燒鰻", expiry: "2029.06.07 / 2029.06.08" },
-            { id: 378, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "興辣味燒鰻", expiry: "2029.06.09" },
-
-            { id: 379, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)豆竹", expiry: "2027.05.12 / 2027.06.01 / 2027.06.02" },
-            { id: 380, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)一級棒A", expiry: "2027.05.13 / 2027.05.14 / 2027.05.20 / 2027.05.21" },
-            { id: 381, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)一級棒", expiry: "2027.05.18 ~ 2027.05.31" },
-            { id: 382, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)北海貝", expiry: "2027.05.19" },
-            { id: 383, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)魚豆腐", expiry: "2027.05.19 / 2027.05.31 / 2027.06.02" },
-            { id: 384, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)起司海鮮卷", expiry: "2027.05.20" },
-            { id: 385, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)竹輪", expiry: "2027.05.21 / 2027.05.24" },
-            { id: 386, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)切片椿花", expiry: "2027.05.21" },
-            { id: 387, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)北海翅", expiry: "2027.05.26 / 2027.05.27" },
-            { id: 388, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)香檬麻吉燒", expiry: "2027.05.26" },
-            { id: 389, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)魚卵卷", expiry: "2027.05.27" },
-            { id: 390, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)切片魚板", expiry: "2027.05.28 / 2027.05.31 / 2027.06.01" },
-            { id: 391, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)一口天", expiry: "2027.05.17 ~ 2027.06.01" },
-            { id: 392, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)一口天", expiry: "2027.05.17" },
-            { id: 393, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)一級棒A", expiry: "2027.05.17" },
-            { id: 394, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)北海翅", expiry: "2027.05.18 ~ 2027.05.31" },
-            { id: 395, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)魚豆腐", expiry: "2027.05.18 / 2027.05.20 / 2027.05.26 / 2027.06.01" },
-            { id: 396, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)豆竹", expiry: "2027.05.19 / 2027.05.28" },
-            { id: 397, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)魚卵卷", expiry: "2027.05.24" },
-            { id: 398, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)切片魚板", expiry: "2027.05.25" },
-            { id: 399, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)圓蝦味球", expiry: "2027.05.25" },
-            { id: 400, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)蝦味球", expiry: "2027.05.25" },
-            { id: 401, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(小武)魚豆腐", expiry: "2027.05.27" },
+            { id: 99, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "涼拌墨魚醬", expiry: "2026.7.19" },
+            { id: 100, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "西班牙海鮮燉飯(高湯)", expiry: "2026.7.19" },
+            { id: 101, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "酸菜", expiry: "2026.7.22" },
+            { id: 102, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "海鮮鍋", expiry: "2026.7.12 2026.7.20 2026.7.26" },
+            { id: 103, county: "新北市", vendor: "金色三麥餐飲股份有限公司", name: "紅醬", expiry: "2026.7.27" },
+            { id: 104, county: "新北市", vendor: "老協珍股份有限公司", name: "TOMMI湯米-白醬鱈魚排米漢堡(2入)", expiry: "2027.6.25" },
+            { id: 105, county: "新北市", vendor: "老協珍股份有限公司", name: "TOMMI湯米-海鮮蝦排米漢堡(1入)", expiry: "2027.6.25" },
+            { id: 106, county: "新北市", vendor: "泰佶食品行", name: "肉粽(散裝)", expiry: "2027.4.24、2027.5.21" },
+            { id: 107, county: "新北市", vendor: "貴族世家企業股份有限公司", name: "供門市餐飲用", expiry: "即食食品(已過食用期限)" },
+            { id: 108, county: "新北市", vendor: "東穎食品實業有限公司", name: "沙拉醬", expiry: "已逾有效日期" },
+            { id: 109, county: "新北市", vendor: "桂冠實業股份有限公司", name: "桂冠沙拉", expiry: "產品效期最晚到2026.7.15" },
+            { id: 110, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "蜂蜜芥末醬", expiry: "2026.05.26" },
+            { id: 111, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "煙燻芥末醬", expiry: "2026.05.26、2026.05.27" },
+            { id: 112, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "凱薩醬", expiry: "2026.05.11、2026.05.12、2026.05.13" },
+            { id: 113, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "薑汁番茄醬", expiry: "2026.05.27" },
+            { id: 114, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "刀口辣油", expiry: "2026.06.26" },
+            { id: 115, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "美玉白汁", expiry: "2026.05.28" },
+            { id: 116, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "青龍醬", expiry: "2026.05.16、2026.05.17" },
+            { id: 117, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "蔥油醬", expiry: "2026.07.25" },
+            { id: 118, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "義大利綜合菇", expiry: "2026.05.11、2026.05.12、2026.05.13" },
+            { id: 119, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "肉臊醬", expiry: "2026.07.25" },
+            { id: 120, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "打拋豬", expiry: "2026.07.26" },
+            { id: 121, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "榨菜肉絲", expiry: "2026.07.26" },
+            { id: 122, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "香料烤腿排", expiry: "2026.07.26、2026.07.27" },
+            { id: 123, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "德式酸菜", expiry: "2026.07.26" },
+            { id: 124, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "烤鮭魚碎肉", expiry: "2026.07.27" },
+            { id: 125, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "植物素排", expiry: "2026.10.27" },
+            { id: 126, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "皮蛋醬", expiry: "2026.07.28" },
+            { id: 127, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "油封鴨腿車輪餅", expiry: "2026.08.02、2026.08.09、2026.08.16" },
+            { id: 128, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "慢熬洋蔥醬", expiry: "2026.05.27、2026.06.02、 2026.06.05、2026.06.06、 2026.06.09、2026.06.10、2026.06.12" },
+            { id: 129, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "滷豬腳", expiry: "2026.07.25、2026.07.27" },
+            { id: 130, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "滷豬腱", expiry: "2026.07.27" },
+            { id: 131, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "滷棒腿", expiry: "2026.07.25" },
+            { id: 132, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "香草草莓小蛋糕", expiry: "2026.07.06、2026.07.07、 2026.07.08、2026.07.11、 2026.07.12、2026.07.13、 2026.07.14、2026.07.15、 2026.07.19、2026.07.21" },
+            { id: 133, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "芝麻蜂蜜小蛋糕", expiry: "2026.07.06、2026.07.07、 2026.07.08、2026.07.11、 2026.07.12、2026.07.13、 2026.07.14、2026.07.15、 2026.07.19、2026.07.21" },
+            { id: 134, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "焙茶柚香小蛋糕", expiry: "2026.07.06、2026.07.07、 2026.07.08、2026.07.11、 2026.07.12、2026.07.13、 2026.07.15、2026.07.18、 2026.07.19、2026.07.20" },
+            { id: 135, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "泰奶波士頓小蛋糕", expiry: "2026.07.06、2026.07.07、 2026.07.08、2026.07.12、 2026.07.14、2026.07.15、 2026.07.19、2026.07.21" },
+            { id: 136, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "抹茶草莓小蛋糕", expiry: "2026.07.06、2026.07.07、 2026.07.08、2026.07.11、 2026.07.12、2026.07.13、 2026.07.14、2026.07.15、 2026.07.18、2026.07.19、2026.07.21" },
+            { id: 137, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "焙茶瑪德蓮", expiry: "2026.07.06、2026.07.07、 2026.07.11、2026.07.13、 2026.07.14、2026.07.19" },
+            { id: 138, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "咖啡小蛋糕", expiry: "2026.07.06、2026.07.07、 2026.07.08、2026.07.12、 2026.07.13、2026.07.14、 2026.07.15、2026.07.18、 2026.07.19、2026.07.20、2026.07.21" },
+            { id: 139, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "香草水蜜桃小蛋糕", expiry: "2026.07.06、2026.07.07、 2026.07.08、2026.07.11、 2026.07.12、2026.07.13、 2026.07.14、2026.07.15、 2026.07.19、2026.07.20、2026.07.21" },
+            { id: 140, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "檸檬小蛋糕", expiry: "2026.07.06、2026.07.08、 2026.07.13、2026.07.15、 2026.07.18、2026.07.20" },
+            { id: 141, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "波隆那肉醬", expiry: "2026.07.16、2026.08.01、 2026.08.04、2026.08.08、 2026.08.17、2026.08.31、 2026.09.06、2026.09.15、2026.09.24" },
+            { id: 142, county: "新北市", vendor: "路易莎職人咖啡股份有限公司", name: "印度咖哩醬", expiry: "2026.07.27、2026.08.05、 2026.08.12、2026.08.15、 2026.09.06、2026.09.21" },
+            { id: 143, county: "新北市", vendor: "布列德麵包股份有限公司", name: "烘焙食品", expiry: "即食食品(已過食用期限)" },
+            { id: 144, county: "新北市", vendor: "健衢生技有限公司", name: "炸甜不辣", expiry: "已逾有效日期" },
+            { id: 145, county: "新北市", vendor: "大王肉脯店", name: "炸肉捲", expiry: "已逾有效日期" },
+            { id: 146, county: "新北市", vendor: "華福食品股份有限公司", name: "麵包烘焙食品", expiry: "已逾有效日期" },
+            { id: 147, county: "新北市", vendor: "廣達香食品股份有限公司", name: "塔塔醬", expiry: "2026.10.22" },
+            { id: 148, county: "新北市", vendor: "廣達香食品股份有限公司", name: "凱薩醬", expiry: "2026.10.16、2026.10.27" },
+            { id: 149, county: "新北市", vendor: "廣達香食品股份有限公司", name: "蜂蜜芥末醬", expiry: "2026.7.29、2026.10.29" },
+            { id: 150, county: "新北市", vendor: "廣達香食品股份有限公司", name: "素食香鬆(海苔)", expiry: "2027.4.16" },
+            { id: 151, county: "桃園市", vendor: "野味企業有限公司", name: "便當", expiry: "即食食品(已過食用期限)" },
+            { id: 152, county: "桃園市", vendor: "芳水有限公司", name: "甜不辣", expiry: "即食食品(已過食用期限)" },
+            { id: 153, county: "桃園市", vendor: "點線麵餐飲(股)公司", name: "辣醬包原料", expiry: "2028.4.22" },
+            { id: 154, county: "桃園市", vendor: "點線麵餐飲(股)公司", name: "素肉燥", expiry: "2028.4.23" },
+            { id: 155, county: "桃園市", vendor: "點線麵餐飲(股)公司", name: "熟麵", expiry: "已逾有效日期" },
+            { id: 156, county: "桃園市", vendor: "泰康食品企業社", name: "辣油香筍", expiry: "供外銷" },
+            { id: 157, county: "桃園市", vendor: "福泰團膳股份有限公司", name: "便當", expiry: "即食食品(已過食用期限)" },
+            { id: 158, county: "桃園市", vendor: "大地農產有限公司", name: "蔥頭醬", expiry: "2027.4.22" },
+            { id: 159, county: "桃園市", vendor: "大地農產有限公司", name: "油蔥酥", expiry: "2027.4.17" },
+            { id: 160, county: "桃園市", vendor: "富煒食品有限公司", name: "公司行號-社會餐", expiry: "即食食品(已過食用期限)" },
+            { id: 161, county: "桃園市", vendor: "龍膳坊企業有限公司", name: "冷凍餅皮", expiry: "2026.10.9~2026.11.10" },
+            { id: 162, county: "桃園市", vendor: "聯華食品工業股份有限公司-中壢", name: "荷卡炙燒明太子鮭魚烤飯糰", expiry: "2027.4.15" },
+            { id: 163, county: "桃園市", vendor: "聯華食品工業股份有限公司-中壢", name: "荷卡極上經典飯糰", expiry: "2027.4.9" },
+            { id: 164, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)紅燒獅子頭", expiry: "即食食品(已過食用期限)" },
+            { id: 165, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)糖醋雞丁", expiry: "即食食品(已過食用期限)" },
+            { id: 166, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)海鮮豆腐煲", expiry: "即食食品(已過食用期限)" },
+            { id: 167, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)馬鈴薯燉牛肉", expiry: "即食食品(已過食用期限)" },
+            { id: 168, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)金沙豆腐", expiry: "即食食品(已過食用期限)" },
+            { id: 169, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)(預)馬鈴薯燉牛肉", expiry: "即食食品(已過食用期限)" },
+            { id: 170, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)三杯杏鮑菇", expiry: "即食食品(已過食用期限)" },
+            { id: 171, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)鐵板黑胡椒豆腐", expiry: "即食食品(已過食用期限)" },
+            { id: 172, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "(快煮餐)(預)海鮮豆腐煲", expiry: "即食食品(已過食用期限)" },
+            { id: 173, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "鐵板滑蛋炸豬排丼", expiry: "即食食品(已過食用期限)" },
+            { id: 174, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "美式雞腿堡", expiry: "即食食品(已過食用期限)" },
+            { id: 175, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "黃金魚堡(114年)", expiry: "即食食品(已過食用期限)" },
+            { id: 176, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "魔王愛吃辣雞堡", expiry: "即食食品(已過食用期限)" },
+            { id: 177, county: "新竹縣", vendor: "屏榮食品新豐廠", name: "二配粗飽系雞腿排炒飯(114年)", expiry: "即食食品(已過食用期限)" },
+            { id: 178, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "香甜沙拉醬", expiry: "2026.10.21" },
+            { id: 179, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "美玉白汁", expiry: "2026.10.22" },
+            { id: 180, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "百事福美玉白汁", expiry: "2026.10.23" },
+            { id: 181, county: "新竹縣", vendor: "聯合利華股份有限公司", name: "香蒜風味醬", expiry: "2026.09.29" },
+            { id: 182, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣鍋底醬 3公斤/罐", expiry: "2028.06.04" },
+            { id: 183, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣鍋底醬 0.28公斤/罐", expiry: "2028.06.04" },
+            { id: 184, county: "臺中市", vendor: "富達食品有限公司", name: "蕃茄湯料 1公斤/包", expiry: "2027.06.04" },
+            { id: 185, county: "臺中市", vendor: "富達食品有限公司", name: "古早味油蔥拌醬 1公斤/包", expiry: "2027.05.25" },
+            { id: 186, county: "臺中市", vendor: "富達食品有限公司", name: "古早味油蔥拌醬 0.06公斤/包", expiry: "2027.05.25" },
+            { id: 187, county: "臺中市", vendor: "富達食品有限公司", name: "香辣油包 0.004公斤/包", expiry: "2027.11.30" },
+            { id: 188, county: "臺中市", vendor: "富達食品有限公司", name: "麻醬醬包 0.045公斤/包", expiry: "2027.08.31" },
+            { id: 189, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣臭豆腐金滑菇 0.85公斤/包", expiry: "2027.11.24" },
+            { id: 190, county: "臺中市", vendor: "富達食品有限公司", name: "麻油猴頭菇 0.6公斤/包", expiry: "2027.11.24" },
+            { id: 191, county: "臺中市", vendor: "富達食品有限公司", name: "台閎蘑菇醬 2.9KG/罐", expiry: "2029.05.18" },
+            { id: 192, county: "臺中市", vendor: "富達食品有限公司", name: "麻辣鍋底醬 1公斤/包", expiry: "2027.11.13" },
+            { id: 193, county: "臺中市", vendor: "富達食品有限公司", name: "番茄鍋底醬 1公斤/包", expiry: "2027.11.13" },
+            { id: 194, county: "臺中市", vendor: "富達食品有限公司", name: "美味大師 1公斤/包", expiry: "2027.11.12" },
+            { id: 195, county: "臺中市", vendor: "富達食品有限公司", name: "沙茶醬 2.9公斤/罐", expiry: "2028.05.05" },
+            { id: 196, county: "臺中市", vendor: "味源股份有限公司", name: "椒麻拌醬", expiry: "2027.04.27" },
+            { id: 197, county: "臺中市", vendor: "味源股份有限公司", name: "油蔥拌醬", expiry: "2027.06.24" },
+            { id: 198, county: "臺中市", vendor: "味源股份有限公司", name: "椒麻油", expiry: "2027.06.23" },
+            { id: 199, county: "臺中市", vendor: "味源股份有限公司", name: "ABAO辣油", expiry: "116.04.16、116.05.05、116.05.22、 116.06.04、116.06.25" },
+            { id: 200, county: "臺中市", vendor: "味源股份有限公司", name: "油蔥蒜醬", expiry: "2027.04.23" },
+            { id: 201, county: "臺中市", vendor: "大買家股份有限公司大里國光分公司", name: "麵包", expiry: "即食食品(已過食用期限)" },
+            { id: 202, county: "臺中市", vendor: "大買家股份有限公司大里國光分公司", name: "熟食", expiry: "即食食品(已過食用期限)" },
+            { id: 203, county: "臺中市", vendor: "頂裕食品股份有限公司", name: "素瓜仔肉罐頭", expiry: "2030.04.15" },
+            { id: 204, county: "臺中市", vendor: "金安信食品有限公司", name: "切達芝士餡", expiry: "2026/10/6、2026/10/11" },
+            { id: 205, county: "臺中市", vendor: "金安信食品有限公司", name: "北海道牛奶風味餡", expiry: "2026/10/10" },
+            { id: 206, county: "臺中市", vendor: "金安信食品有限公司", name: "蜜烤地瓜餡", expiry: "2026/10/6、2026/10/11" },
+            { id: 207, county: "臺中市", vendor: "金安信食品有限公司", name: "烤地瓜餡", expiry: "2026/10/6、2026/10/11" },
+            { id: 208, county: "臺中市", vendor: "金安信食品有限公司", name: "蔬果南瓜泥", expiry: "2026/10/6" },
+            { id: 209, county: "臺中市", vendor: "金安信食品有限公司", name: "日式果子皮", expiry: "2027/4/23、2027/4/29" },
+            { id: 210, county: "臺中市", vendor: "金安信食品有限公司", name: "紅豆餡", expiry: "2026/7/12、2026/7/13" },
+            { id: 211, county: "臺中市", vendor: "金安信食品有限公司", name: "蛋糕用芋泥餡", expiry: "2026/5/3" },
+            { id: 212, county: "臺中市", vendor: "金安信食品有限公司", name: "香芋豆餡", expiry: "2026/7/12、2026/7/14" },
+            { id: 213, county: "臺中市", vendor: "金安信食品有限公司", name: "醇芋餡(顆粒)", expiry: "2026/5/28、2026/5/30" },
+            { id: 214, county: "臺中市", vendor: "金安信食品有限公司", name: "F.P芋頭粒餡CL", expiry: "2026/7/13" },
+            { id: 215, county: "臺中市", vendor: "金安信食品有限公司", name: "芋頭餡", expiry: "2026/10/9、2026/10/11、2027/4/14" },
+            { id: 216, county: "臺中市", vendor: "金安信食品有限公司", name: "炭焙烏龍茶餡", expiry: "2027/1/4" },
+            { id: 217, county: "臺中市", vendor: "金安信食品有限公司", name: "白玉QQ麻糬", expiry: "2026/10/6、2026/10/9、2027/4/9" },
+            { id: 218, county: "臺中市", vendor: "金安信食品有限公司", name: "Q心黑糖麻糬", expiry: "2026/12/8" },
+            { id: 219, county: "臺中市", vendor: "金安信食品有限公司", name: "Q心原味麻糬M.T", expiry: "2026/12/10" },
+            { id: 220, county: "臺中市", vendor: "金安信食品有限公司", name: "黑糖麻糬餡片", expiry: "2026/10/9" },
+            { id: 221, county: "臺中市", vendor: "金安信食品有限公司", name: "拔絲麻糬", expiry: "2026/4/13製造" },
+            { id: 222, county: "臺中市", vendor: "金安信食品有限公司", name: "原味麻糬切丁", expiry: "2027/4/12" },
+            { id: 223, county: "臺中市", vendor: "金安信食品有限公司", name: "蜂蜜麻糬切丁", expiry: "2027/4/12" },
+            { id: 224, county: "臺中市", vendor: "金安信食品有限公司", name: "黑糖麻糬切丁", expiry: "2026/10/9" },
+            { id: 225, county: "臺中市", vendor: "金安信食品有限公司", name: "和風黑糖QQ切丁", expiry: "2026/10/11" },
+            { id: 226, county: "臺中市", vendor: "金安信食品有限公司", name: "原味巧達Q心仁", expiry: "2026/10/11" },
+            { id: 227, county: "臺中市", vendor: "金安信食品有限公司", name: "鹹蛋黃Q心仁", expiry: "2026/12/7、2026/12/12、2027/1/28" },
+            { id: 228, county: "彰化縣", vendor: "麥仕佳食品股份有限公司", name: "麵包", expiry: "即食食品(已過食用期限)" },
+            { id: 229, county: "彰化縣", vendor: "源泰昌食品工廠", name: "素食包子", expiry: "即食食品(已過食用期限)" },
+            { id: 230, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾-巧媽媽蔥仔餅", expiry: "2027.04.12" },
+            { id: 231, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香-巧媽媽蔥仔餅", expiry: "2027.04.08、2027.04.09" },
+            { id: 232, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "明軒-巧媽媽牛肉餅", expiry: "2027.04.12" },
+            { id: 233, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香-巧媽媽牛肉餡餅", expiry: "2027.04.12" },
+            { id: 234, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香-巧媽媽高麗菜素食餅", expiry: "2027.04.12" },
+            { id: 235, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "巧媽媽東北高麗菜水餃", expiry: "2027.04.14" },
+            { id: 236, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "巧媽媽東北韭菜水餃", expiry: "2027.04.09" },
+            { id: 237, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "巧媽媽東北泡菜水餃", expiry: "2027.04.14" },
+            { id: 238, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香手工高麗菜水餃", expiry: "2027.04.08、2027.04.09、 2027.04.10、2027.04.12、 2027.04.13、2027.04.14" },
+            { id: 239, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香手工玉米水餃", expiry: "2027.04.13" },
+            { id: 240, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香手工韭菜水餃", expiry: "2027.04.09、2027.04.12、2027.04.13" },
+            { id: 241, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香手工麻辣水餃", expiry: "2027.04.10" },
+            { id: 242, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香手工素食水餃", expiry: "2027.01.12" },
+            { id: 243, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香熟水餃(高麗菜)", expiry: "2027.04.08" },
+            { id: 244, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾熟水餃(高麗菜)(印)", expiry: "2027.04.08、2027.04.13" },
+            { id: 245, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香熟水餃(韭菜)", expiry: "2027.04.08" },
+            { id: 246, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香熟鍋貼", expiry: "2027.04.08" },
+            { id: 247, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "老湘好素食鍋貼", expiry: "2027.04.12" },
+            { id: 248, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香蔥抓餅", expiry: "2027.04.07" },
+            { id: 249, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香蔥抓餅(印)", expiry: "2027.04.08、2027.04.09、 2027.04.11、2027.04.13" },
+            { id: 250, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香蔥抓餅5片", expiry: "2027.04.08" },
+            { id: 251, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香翡翠抓餅", expiry: "2027.04.07" },
+            { id: 252, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香翡翠抓餅(印)", expiry: "2027.04.13" },
+            { id: 253, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "禾家香港式煎包", expiry: "2027.04.13" },
+            { id: 254, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "北京香煎餅", expiry: "2027.04.09" },
+            { id: 255, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "馨口福熟餡餅", expiry: "2027.04.09" },
+            { id: 256, county: "彰化縣", vendor: "禾家香食品股份有限公司", name: "馨口福熟餡餅(印)", expiry: "2027.04.09" },
+            { id: 257, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "A級肉鬆", expiry: "115.10.13、115.10.18、115.10.23、 115.10.24、115.10.30、115.11.06、 115.11.10、115.11.13" },
+            { id: 258, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "A級海苔芝麻肉鬆", expiry: "115.10.16、115.10.19、115.10.31、 115.11.01、115.11.09、115.11.15" },
+            { id: 259, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "B級肉鬆", expiry: "115.10.12、115.10.20、115.11.09" },
+            { id: 260, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "B級海苔芝麻肉鬆", expiry: "115.10.12、115.10.19、115.11.01、 115.11.08、115.11.13" },
+            { id: 261, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "C級肉鬆", expiry: "115.10.11、115.10.18、115.10.26、 115.10.30、115.11.03、115.11.14" },
+            { id: 262, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "C級海苔芝麻肉鬆", expiry: "115.10.11、115.11.03、115.11.14" },
+            { id: 263, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "早餐肉鬆", expiry: "115.10.19、115.10.26" },
+            { id: 264, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "早餐海苔芝麻肉鬆", expiry: "115.11.14" },
+            { id: 265, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "特級肉鬆", expiry: "115.10.23、115.11.13" },
+            { id: 266, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "特級海苔芝麻肉鬆", expiry: "115.10.20、115.10.24、115.11.01、 115.11.09" },
+            { id: 267, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "A級肉鬆(特/軒香)", expiry: "116.04.27、116.05.11" },
+            { id: 268, county: "彰化縣", vendor: "巧福實業股份有限公司", name: "A級海苔芝麻肉鬆(特/軒香)", expiry: "116.04.27、116.05.11、116.04.24、 116.04.29、116.05.05、116.05.06" },
+            { id: 269, county: "南投縣", vendor: "金福華", name: "沙茶醬", expiry: "2029.04.09、2029.04.12、 2029.04.09、2029.04.12" },
+            { id: 270, county: "南投縣", vendor: "金福華", name: "清鍋底醬", expiry: "2027.04.12" },
+            { id: 271, county: "南投縣", vendor: "金福華", name: "香蒜青蔥醬", expiry: "2027.04.14" },
+            { id: 272, county: "南投縣", vendor: "金福華", name: "麻辣醬", expiry: "2029.04.19" },
+            { id: 273, county: "南投縣", vendor: "金福華", name: "豆瓣醬", expiry: "2027.04.12、2027.04.13、2027.04.14" },
+            { id: 274, county: "南投縣", vendor: "金福華", name: "綠咖哩湯底", expiry: "2027.04.15" },
+            { id: 275, county: "南投縣", vendor: "金福華", name: "麻辣鴨血", expiry: "2027.02.27、2027.04.07、 2027.05.20、2027.05.21" },
+            { id: 276, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "番茄肉醬義大利麵225g", expiry: "2027.04.16、2027.04.17、 2027.04.26、2027.04.27、2027.04.16" },
+            { id: 277, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "泰式打拋豬肉炒飯170g", expiry: "2027.04.23、2027.04.30" },
+            { id: 278, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "火腿肉絲黃金蛋炒飯215g", expiry: "2027.04.16、2027.04.19、 2027.04.20、2027.04.21、 2027.04.22、2027.04.24、 2027.04.26、2027.04.27、2027.04.29" },
+            { id: 279, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "奶油培根義大利麵225g", expiry: "2027.04.19、2027.04.20、 2027.04.22、2027.04.23、 2027.04.24、2027.04.30" },
+            { id: 280, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "香Q白米飯160g", expiry: "2027/4/20、2027/4/21、 2027/4/26、2027/4/29" },
+            { id: 281, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "沙茶豬肉蛋炒飯170g", expiry: "2027.04.28" },
+            { id: 282, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "泰式辣炒雞肉拌飯280g", expiry: "2027/4/26" },
+            { id: 283, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "秘製滷雞翅100g", expiry: "2027.04.22、2027.04.24" },
+            { id: 284, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "勁辣泰式打拋豬200g", expiry: "2027.04.26" },
+            { id: 285, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "紅藜燕麥飯120g", expiry: "2027.04.26" },
+            { id: 286, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "番茄紅醬義大利麵220g", expiry: "2027.04.21" },
+            { id: 287, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "蒜香醃漬里肌豬排2200g", expiry: "2027/4/20" },
+            { id: 288, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "111年醃漬清肉排80g 2200g", expiry: "2027.04.19" },
+            { id: 289, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "112年醃漬原味雞胸塊 3000g", expiry: "2027.04.20" },
+            { id: 290, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "113年打拋雞肉醬1000g", expiry: "2027.04.15、2027.04.16" },
+            { id: 291, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "醃漬薄漿清肉排65g CL 1950g", expiry: "2027.04.19" },
+            { id: 292, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "醃漬黃金油雞腿排肉80gCL 2000g", expiry: "2027.04.19、2027.04.20" },
+            { id: 293, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "冷凍醃漬香雞排 2600g", expiry: "2027.04.19" },
+            { id: 294, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "辣雞翅", expiry: "2026.04.25、2026.04.26" },
+            { id: 295, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "檸檬雞柳條1000g", expiry: "2027.04.20" },
+            { id: 296, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "黑胡椒豬肉燴飯 320g", expiry: "2027.04.21" },
+            { id: 297, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "香檸三節翅 2250g", expiry: "2027.04.20" },
+            { id: 298, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "美式燒烤翅腿600g", expiry: "2027.04.20" },
+            { id: 299, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "蟹肉風味炒飯200g", expiry: "2027.04.21" },
+            { id: 300, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "雞肉玉米蛋炒飯230g", expiry: "2027.04.16、2027.04.24" },
+            { id: 301, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "肉絲蛋炒飯230g", expiry: "2027.04.29" },
+            { id: 302, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "培根蛋炒飯230g", expiry: "2027.04.17、2027.04.23、2027.04.30" },
+            { id: 303, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "蕃茄紅醬義大利麵230g", expiry: "2027.04.29" },
+            { id: 304, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "泰式打拋豬肉炒飯190g", expiry: "2027.04.22" },
+            { id: 305, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "培根香蔥蛋炒飯230g", expiry: "2027.04.17" },
+            { id: 306, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "清香羅勒義大利麵230g", expiry: "2027.04.28" },
+            { id: 307, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "泰式打拋豬肉醬(凍)1000g", expiry: "2027.04.17" },
+            { id: 308, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "卜蜂泰式打拋豬肉醬1000g", expiry: "2027.04.28" },
+            { id: 309, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "蝦仁蛋炒飯280g", expiry: "2026.05.31、2026.06.01-17、 2026.06.19、2026.06.21" },
+            { id: 310, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "泰式打拋豬肉飯309g", expiry: "2026.04.23、2026.04.24、 2026.04.26、2026.04.27、 2026.04.29、2026.04.30、 2026.05.01、2026.05.04-07、 2026.05.30、2026.05.31、 2026.06.01、2026.06.02、 2026.06.06、2026.06.09、 2026.06.13、2026.06.16、2026.06.20" },
+            { id: 311, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "肉絲黃金蛋炒飯270g", expiry: "2026.04.23、2026.04.26、 2026.05.03-04、2026.05.06-07、 2026.05.19-21、2026.05.23-25、 2026.05.27-29" },
+            { id: 312, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "爆炒滷雞胗116g", expiry: "2026.05.16-27" },
+            { id: 313, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "義式經典嫩雞胸100g", expiry: "2026.06.06-08、2026.06.10-12" },
+            { id: 314, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "黑胡椒蒜味雞柳條120g", expiry: "2026.04.27-30" },
+            { id: 315, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "義式雞胸肉840g", expiry: "2026.06.12、2026.06.13" },
+            { id: 316, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "瑪莎曼咖哩雞肉840g", expiry: "2026.07.04、2026.07.08、2026.07.11" },
+            { id: 317, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "川味椒麻雞胸肉1000g", expiry: "2026.05.27-31、2026.06.01-06" },
+            { id: 318, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "醬爆雞胗100g", expiry: "2026.05.13-31、2026.06.01-02、 2026.06.04" },
+            { id: 319, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "香滷雞胗90g", expiry: "2026.06.10-11、2026.06.13-18、 2026.06.20-25、2026.06.27" },
+            { id: 320, county: "南投縣", vendor: "台灣卜蜂企業股份有限公司南投肉品加工 廠", name: "香滷鳳爪160g", expiry: "2026.06.01、2026.06.03-04、 2026.06.06" },
+            { id: 321, county: "雲林縣", vendor: "松鼎", name: "黃金調和油", expiry: "2.8L/桶*6：2028.04.13 2L/桶*6：2028.04.10 0.6L/桶*12：2028.04.10 1.8L/桶*6：2028.04.10" },
+            { id: 322, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "健康廚房纖活優格沙拉醬", expiry: "有效日期:1160220：260g/瓶，6瓶/箱" },
+            { id: 323, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "台式香甜沙拉(無扣環)", expiry: "有效日期:1150821：500g/包，12包/ 箱" },
+            { id: 324, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "105沙拉", expiry: "有效日期:1150621：17kg/箱" },
+            { id: 325, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全美食沙拉(205/白玉沙拉)", expiry: "有效日期:1150820：3Kg/包，4包/箱" },
+            { id: 326, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "日式山葵風味沙拉醬(安倖)", expiry: "有效日期:1150820：1kg/包，6包/箱" },
+            { id: 327, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "歐風甜口沙拉醬(歐式沙拉醬)", expiry: "有效日期:1150820：3kg/包，4包/箱" },
+            { id: 328, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "歐風甜口沙拉醬(香純)", expiry: "有效日期:1150820：1kg/包，6包/箱" },
+            { id: 329, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "日式芳醇原味沙拉醬", expiry: "有效日期:1150820：1kg/包，6包/箱" },
+            { id: 330, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "101沙拉", expiry: "有效日期:1150721：17kg/箱" },
+            { id: 331, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "101-日式蛋黃沙拉醬", expiry: "有效日期:1150820：1kg/包，6包/箱" },
+            { id: 332, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "106-歐風酸甜沙拉醬", expiry: "有效日期:1150820：1kg/包，6包/箱" },
+            { id: 333, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "日式芳醇原味沙拉醬", expiry: "有效日期:1150816：1kg/包，6包/箱" },
+            { id: 334, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "F-104歐風鹹式沙拉醬", expiry: "有效日期:1150717：1kg/包，6包/箱" },
+            { id: 335, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "F-101日式蛋黃醬", expiry: "有效日期:1150816：1kg/包，6包/箱" },
+            { id: 336, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "健康廚房-焙煎芝麻", expiry: "有效日期:1160416：600ml/瓶，6瓶/ 箱" },
+            { id: 337, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "屋馬焙煎芝麻醬", expiry: "有效日期:1160416：1070g/瓶，6瓶/ 箱" },
+            { id: 338, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全焙煎芝麻(109版)", expiry: "有效日期:1160416：1000ml/瓶，6瓶/ 箱" },
+            { id: 339, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "經典凱薩沾拌淋醬(新)", expiry: "有效日期:1151014：600ml/瓶，6瓶/ 箱" },
+            { id: 340, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "油醋沙拉醬-經典凱薩(108新版)", expiry: "有效日期:1160213：200ml/瓶，6瓶/ 箱" },
+            { id: 341, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "特級沙拉醬", expiry: "有效日期:1150814：500g/包，12包/ 箱" },
+            { id: 342, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全沙拉醬袋裝", expiry: "有效日期:1150912：500g/包，12包/ 箱" },
+            { id: 343, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "F-台式特級沙拉", expiry: "有效日期:1150714：1kg/包，6包/箱" },
+            { id: 344, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "味全105S沙拉醬", expiry: "有效日期:1150613：17kg/箱" },
+            { id: 345, county: "雲林縣", vendor: "味全食品工業股份有限公司", name: "105沙拉醬袋裝", expiry: "有效日期:1150812：500g/包，12包/ 箱" },
+            { id: 346, county: "雲林縣", vendor: "味王股份有限公司", name: "原汁牛肉湯麵(袋裝)", expiry: "1151201、1151203、1151208、 1151211、1151212、1151216、 1151222、1151223、1151224、 1151226" },
+            { id: 347, county: "雲林縣", vendor: "味王股份有限公司", name: "紅燒牛肉湯麵(袋裝、碗裝)", expiry: "★袋裝:1151205、1151211、 1151212、1151223 ★碗裝:1151216、1151218、1151224" },
+            { id: 348, county: "雲林縣", vendor: "味王股份有限公司", name: "金味王紅燒牛肉麵(碗裝)", expiry: "1151223" },
+            { id: 349, county: "雲林縣", vendor: "味王股份有限公司", name: "十三香麻辣拌麵(袋裝、碗裝)", expiry: "★袋裝:1151114、1151122、 1151201、1151211、1151226 ★碗裝:1151115" },
+            { id: 350, county: "雲林縣", vendor: "味王股份有限公司", name: "辣辣麻辣燙湯麵(袋裝)", expiry: "1151201" },
+            { id: 351, county: "雲林縣", vendor: "味王股份有限公司", name: "辣辣海鮮湯麵(袋裝)", expiry: "1151201、1151226" },
+            { id: 352, county: "雲林縣", vendor: "味王股份有限公司", name: "素食麵(袋裝)", expiry: "1151215" },
+            { id: 353, county: "雲林縣", vendor: "味王股份有限公司", name: "燻香素雞湯麵(桶裝)", expiry: "1151204" },
+            { id: 354, county: "雲林縣", vendor: "張O發", name: "油炸豆包", expiry: "散裝，已逾有效日期" },
+            { id: 355, county: "雲林縣", vendor: "林O隆", name: "油炸豆包", expiry: "散裝，已逾有效日期" },
+            { id: 356, county: "雲林縣", vendor: "峰妙商行", name: "油炸豆包", expiry: "散裝，已逾有效日期" },
+            { id: 357, county: "雲林縣", vendor: "玉品實業有限公司", name: "油炸豆包", expiry: "散裝，已逾有效日期" },
+            { id: 358, county: "雲林縣", vendor: "廖O盛", name: "油炸豆包", expiry: "散裝，已逾有效日期" },
+            { id: 359, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "川味紅油冷麵醬", expiry: "2027.06.28" },
+            { id: 360, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "赤象拔蚌沙拉", expiry: "2027.11.28" },
+            { id: 361, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "水果沙拉", expiry: "2027.05.18、2027.05.19" },
+            { id: 362, county: "臺南市", vendor: "聯瑞食品科技股份有限公司", name: "辣味美乃滋", expiry: "2027.05.10、2027.05.11" },
+            { id: 363, county: "高雄市", vendor: "維義事業股份有限公司", name: "維義大豆沙拉油", expiry: "2027.04.03" },
+            { id: 364, county: "高雄市", vendor: "維義事業股份有限公司", name: "順發興專用油", expiry: "2027.04.03" },
+            { id: 365, county: "高雄市", vendor: "維義事業股份有限公司", name: "鼎冠油炸專用油", expiry: "2027.04.14" },
+            { id: 366, county: "高雄市", vendor: "維義事業股份有限公司", name: "鼎冠大豆沙拉油", expiry: "2027.04.03" },
+            { id: 367, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "里仁調味便當菜155g", expiry: "2028.04.23" },
+            { id: 368, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "紅油辣椒410g", expiry: "2029.04.26" },
+            { id: 369, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "甜麵醬460g", expiry: "2028.04.28" },
+            { id: 370, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "眷村剁椒蒜香", expiry: "2029.04.27" },
+            { id: 371, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "老北京440g", expiry: "2029.04.29" },
+            { id: 372, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "家常辣270g", expiry: "2029.05.04" },
+            { id: 373, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "訂製品_甜麵醬含香油及乳酸20kg", expiry: "2026.09.05" },
+            { id: 374, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "甜麵醬3kg", expiry: "2027.05.06" },
+            { id: 375, county: "高雄市", vendor: "明德食品工業股份有限公司", name: "眷村剁椒蒜香150g", expiry: "2029.05.12" },
+            { id: 376, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黑芝麻醬TA-6320", expiry: "2026.10.23" },
+            { id: 377, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "金豚骨湯TA-6154", expiry: "2027.04.23" },
+            { id: 378, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "多蜜醬TA", expiry: "2027.04.27" },
+            { id: 379, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黃金味噌醬", expiry: "2027.04.29" },
+            { id: 380, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2271", expiry: "2027.05.03" },
+            { id: 381, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "白芝麻醬TA-6298", expiry: "2026.11.05" },
+            { id: 382, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "四川豚骨麻辣TA-2232", expiry: "2027.05.05" },
+            { id: 383, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "九州豚骨", expiry: "2027.05.07" },
+            { id: 384, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "豚骨高湯TA-6630", expiry: "2027.08.07" },
+            { id: 385, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黑咖哩醬TA-1249", expiry: "2027.05.07" },
+            { id: 386, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "甘口黑咖哩TA-1705", expiry: "2027.05.10" },
+            { id: 387, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "麻辣火鍋TA-3683", expiry: "2027.05.10" },
+            { id: 388, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2271", expiry: "2027.05.11" },
+            { id: 389, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "甘口黑咖哩TA-1705", expiry: "2027.05.13" },
+            { id: 390, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2380", expiry: "2027.05.13" },
+            { id: 391, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "豚骨高湯TA-6630", expiry: "2027.08.14" },
+            { id: 392, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "麻辣高湯TA-6899", expiry: "2027.05.14" },
+            { id: 393, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "牛肉湯TA-3899", expiry: "2027.05.14" },
+            { id: 394, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "柴魚昆布TA-2271", expiry: "2027.05.17" },
+            { id: 395, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "日式咖哩醬BFT", expiry: "2027.05.17" },
+            { id: 396, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "黑咖哩醬TA-5495", expiry: "2027.05.17" },
+            { id: 397, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "豚骨高湯TA-6630", expiry: "2027.08.18" },
+            { id: 398, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "海鮮醬油TA-5758", expiry: "2027.05.18" },
+            { id: 399, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "燒肉醬TA", expiry: "2027.05.19" },
+            { id: 400, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "九州豚骨", expiry: "2027.05.20" },
+            { id: 401, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "日式咖哩醬BFT", expiry: "2027.05.21" },
+            { id: 402, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "甘口黑咖哩TA-1705", expiry: "2027.05.24" },
+            { id: 403, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "拌麵醬TA-6805", expiry: "2027.05.25" },
+            { id: 404, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "濃厚豚骨高湯TA-3338", expiry: "2027.05.27" },
+            { id: 405, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "四川豚骨麻辣TA-2232", expiry: "2027.06.02" },
+            { id: 406, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "大蒜激辛拉麵高湯TA-4774", expiry: "2027.06.15" },
+            { id: 407, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "味噌醃醬TA-7152", expiry: "2027.06.17" },
+            { id: 408, county: "屏東縣", vendor: "台灣有明食品股份有限公司", name: "大蒜激辛拉麵高湯TA-4774", expiry: "2027.06.23" },
+            { id: 409, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "普通香油", expiry: "2027.04.13、2027.04.20、 2027.04.27、2027.05.04、2027.05.11" },
+            { id: 410, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "特級香油", expiry: "2027.04.13、2027.04.20、 2027.04.27、2027.05.04、2027.05.11" },
+            { id: 411, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "香油", expiry: "2027.04.13、2027.04.20、 2027.04.27、2027.05.04、2027.05.11" },
+            { id: 412, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "普通麻油", expiry: "2027.04.13、2027.04.20、 2027.04.27、2027.05.04、2027.05.11" },
+            { id: 413, county: "屏東縣", vendor: "崁頂義豐麻油廠", name: "麻醬包", expiry: "2027.04.13、2027.04.20、 2027.04.27、2027.05.04、2027.05.11" },
+            { id: 414, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "SH番茄汁鮪魚腹肉", expiry: "2029.6.10" },
+            { id: 415, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "紅SH油漬鮪魚", expiry: "2029.6.11" },
+            { id: 416, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "綠SH油漬鮪魚", expiry: "2029.6.10" },
+            { id: 417, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "三興特製紅燒鰻", expiry: "2029.6.7、2029.6.8" },
+            { id: 418, county: "宜蘭縣", vendor: "惠眾食品工業股份有限公司", name: "三興辣味燒鰻", expiry: "2029.6.9" },
+            { id: 419, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)豆竹", expiry: "2027.5.12、2027.6.1、2027.6.2" },
+            { id: 420, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)一級棒A", expiry: "2027.5.13、2027.5.14、2027.5.20、 2027.5.21" },
+            { id: 421, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)一級棒", expiry: "2027.5.25、2027.5.28、2027.5.31" },
+            { id: 422, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)北海貝", expiry: "2027.5.19" },
+            { id: 423, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)魚豆腐", expiry: "2027.5.19、2027.5.31、2027.6.2" },
+            { id: 424, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)起司海鲜卷", expiry: "2027.5.20" },
+            { id: 425, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)竹輪", expiry: "2027.5.21、2027.5.24" },
+            { id: 426, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)切片椿花", expiry: "2027.5.21" },
+            { id: 427, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)北海翅", expiry: "2027.5.26、2027.5.27" },
+            { id: 428, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)香檬麻吉燒", expiry: "2027.5.26" },
+            { id: 429, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)魚卵卷", expiry: "2027.5.27" },
+            { id: 430, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)切片魚板", expiry: "2027.5.31、2027.6.1" },
+            { id: 431, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(川島)一口天", expiry: "2027.5.17、2027.6.1" },
+            { id: 432, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)一級棒A", expiry: "2027.5.17" },
+            { id: 433, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)北海翅", expiry: "2027.5.18、2027.5.31" },
+            { id: 434, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)魚豆腐", expiry: "2027.5.18、2027.5.20、2027.5.26、 2027.6.1" },
+            { id: 435, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)豆竹", expiry: "2027.5.19、2027.5.28" },
+            { id: 436, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)魚卵卷", expiry: "2027.5.24" },
+            { id: 437, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)切片魚板", expiry: "2027.5.25" },
+            { id: 438, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)圓蝦味球", expiry: "2027.5.25" },
+            { id: 439, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(丸大)蝦味球", expiry: "2027.5.25" },
+            { id: 440, county: "宜蘭縣", vendor: "隆盛食品冷凍股份有限公司", name: "(小武)魚豆腐", expiry: "2027.5.27" },
             // ==========================================
-            // 泰山、福壽、福懋受影響源頭油品資訊 (18項)
+            // 食藥署 115.7.13 公布之 4至6月油品範圍（50項）
             // ==========================================
-            { id: 402, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山金酥耐炸油 18L", expiry: "2027.04.08 (批號: 20270408)" },
-            { id: 403, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山沙拉油 18L", expiry: "2027.04.09 (批號: 20270409)" },
-            { id: 404, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山環保鐵桶沙拉油 18KG", expiry: "2027.04.09 (批號: 20270409)" },
-            { id: 405, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山不飽和大豆沙拉油 2.6L*6入(新版)", expiry: "2027.07.25 (批號: 20270725d)" },
-            { id: 406, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山精選蔬菜油 3L*6", expiry: "2027.04.09 (批號: 20270409)" },
-            { id: 407, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山好理調合油 2L*6", expiry: "2027.07.25 (批號: 20270725d)" },
-            { id: 408, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山大豆沙拉油 0.6L*12入(新版)", expiry: "2027.04.13 (批號: 20270413E)" },
-            { id: 409, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山歐式果實精華調合油 1.5L*6入", expiry: "2027.10.13 (批號: 20271013)" },
-            { id: 410, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山好理調合油 0.6L*24", expiry: "2027.07.25 (批號: 20270725f)" },
-            { id: 411, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山花生風味調和油 2L*6", expiry: "2027.10.09 (批號: 20271009)" },
-
-            { id: 412, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽大豆沙拉油 3L", expiry: "2027.04.13 / 2027.04.15 (批號: C1140426K / C1160426K)" },
-            { id: 413, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽大豆沙拉油 18L", expiry: "2027.04.13 ~ 2027.04.20" },
-            { id: 414, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽健味香油 3L", expiry: "2028.04.19 (批號: BL240426L)" },
-            { id: 415, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽香油", expiry: "2028.04.05 (批號: BL150426L)" },
-
-            { id: 416, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康大豆沙拉油 18L", expiry: "2027.04.10 / 2027.04.11 / 2027.04.13" },
-            { id: 417, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康大豆沙拉油 18KG", expiry: "2027.04.13 (批號: 20270413000408)" },
-            { id: 418, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康烹調油 18L", expiry: "2027.04.13 / 2027.04.14" },
-            { id: 419, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "一級黃豆油(散裝)", expiry: "2026.10.04 (批號: 202604081315 / 202604101315 / 202604091315)" }
+            { id: 441, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山好理調合油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 442, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山花生風味調合油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 443, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山不飽和調合油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 444, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "油炸專用油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 445, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山金酥耐炸油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 446, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山料理油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 447, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山大豆沙拉油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 448, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "環保鐵桶沙拉油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 449, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山精選蔬菜油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 450, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山低油爆蔬菜油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 451, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山不飽和大豆沙拉油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 452, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山特級歐式蔬菜調合油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 453, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山歐式果實精華調和油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 454, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山吉多陽光種子調合油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 455, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "黃金優選大豆沙拉油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 456, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "泰山優選大豆沙拉油", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 457, county: "彰化縣", vendor: "泰山企業股份有限公司", name: "大豆沙拉油(散裝)", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 458, county: "臺中市", vendor: "福壽實業股份有限公司", name: "不飽和大豆沙拉油-2L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 459, county: "臺中市", vendor: "福壽實業股份有限公司", name: "宏昌香油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 460, county: "臺中市", vendor: "福壽實業股份有限公司", name: "青果多酚精華調合油-1L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 461, county: "臺中市", vendor: "福壽實業股份有限公司", name: "統駿香油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 462, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽大豆沙拉油-18K", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 463, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽大豆沙拉油-18L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 464, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽大豆沙拉油-18L(A)", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 465, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽大豆沙拉油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 466, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽大豆沙拉油-600ML", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 467, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽元氣UP調合油-1.5L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 468, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽元氣UP調合油-1L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 469, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽好味香油(業務用)-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 470, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽好味香油-200g", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 471, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽好味香油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 472, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽好味香油-500g", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 473, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽花生風味精華調合油-2L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 474, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽炸酥油-18L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 475, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽胡麻油-18K", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 476, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽胡麻油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 477, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽胡麻油A-186K", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 478, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽香油-18K", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 479, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽香油-200g", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 480, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽香油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 481, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽真香芝麻香油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 482, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽健味香油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 483, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽頂級香油-500g", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 484, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽辣椒油-18K", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 485, county: "臺中市", vendor: "福壽實業股份有限公司", name: "福壽辣椒油-3L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 486, county: "臺中市", vendor: "福壽實業股份有限公司", name: "一級黃豆油(散裝)", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 487, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康大豆沙拉油 18L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 488, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康大豆沙拉油 18kg", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 489, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康烹調油 18L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 490, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "一級黃豆油(散裝)", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" }
         ];
         // 系統變數初始化
         let filteredDatabase = [...productsDatabase];
+        let filteredBusinesses = [...businessDatabase];
         let dbCurrentPage = 1;
         const dbItemsPerPage = 10;
         window.onload = function() {
             calculateOverallStats();
             initDatabaseFilters();
             renderDatabaseTable();
+            initBusinessFilters();
+            renderBusinessResults();
         }
         // 切換頁籤
         function switchTab(tabId) {
@@ -942,7 +1048,7 @@
                     </div>
                     <div>
                         <h4 class="text-md font-extrabold text-emerald-700">🟢 安全通關：未在受影響與管制清單中檢出！</h4>
-                        <p class="text-xs text-emerald-600 mt-0.5">您搜尋的「${safeQuery}」目前安全。未與公告之中聯油脂案 419 項違規與下架食品匹配。</p>
+                        <p class="text-xs text-emerald-600 mt-0.5">您搜尋的「${safeQuery}」目前未命中公告的 490 項清單；這不代表產品一定安全，仍請核對品牌、批號、有效日期與官方最新公告。</p>
                     </div>
                 `;
                 matchList.innerHTML = `
@@ -1167,6 +1273,96 @@
                 dbCurrentPage = targetPage;
                 renderDatabaseTable();
             }
+        }
+        // ==========================================
+        // 系統 4: 店家與下游業者查詢
+        // ==========================================
+        function initBusinessFilters() {
+            const countySelect = document.getElementById('business-county');
+            const counties = [...new Set(businessDatabase.map(item => item.county).filter(Boolean))].sort();
+            counties.forEach(county => {
+                const option = document.createElement('option');
+                option.value = county;
+                option.textContent = county;
+                countySelect.appendChild(option);
+            });
+        }
+        function normalizeBusinessText(text) {
+            return String(text ?? '').replace(/[\s　]/g, '').replace(/台/g, '臺').toLowerCase();
+        }
+        function applyBusinessFilters() {
+            const query = normalizeBusinessText(document.getElementById('business-search').value);
+            const county = document.getElementById('business-county').value;
+            filteredBusinesses = businessDatabase.filter(item => {
+                if (county && item.county !== county) return false;
+                if (!query) return true;
+                const searchable = [
+                    item.name,
+                    item.address,
+                    item.county,
+                    ...item.tiers,
+                    ...item.statuses,
+                    ...item.products.flatMap(product => [product.name, product.batch, product.expiry]),
+                ].map(normalizeBusinessText).join(' ');
+                return searchable.includes(query);
+            });
+            renderBusinessResults();
+        }
+        function renderBusinessResults() {
+            const container = document.getElementById('business-results');
+            const noData = document.getElementById('business-no-data');
+            const limitMessage = document.getElementById('business-result-limit');
+            const resultCount = document.getElementById('business-result-count');
+            const visibleItems = filteredBusinesses.slice(0, 100);
+            resultCount.textContent = filteredBusinesses.length;
+            container.innerHTML = '';
+            limitMessage.classList.toggle('hidden', filteredBusinesses.length <= 100);
+            noData.classList.toggle('hidden', filteredBusinesses.length !== 0);
+            if (filteredBusinesses.length === 0) return;
+            visibleItems.forEach(item => {
+                const hasNoPurchaseNote = item.statuses.some(status => status.includes('未進貨相關品項'));
+                const statusClass = hasNoPurchaseNote
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                    : 'bg-amber-50 text-amber-800 border-amber-200';
+                const products = item.products.slice(0, 6).map(product => {
+                    const detail = [product.batch && `批號 ${product.batch}`, product.expiry && `效期 ${product.expiry}`].filter(Boolean).join('・');
+                    return `<li><span class="font-semibold text-slate-700">${escapeHtml(product.name)}</span>${detail ? `<span class="text-slate-400">（${escapeHtml(detail)}）</span>` : ''}</li>`;
+                }).join('');
+                const moreProducts = item.products.length > 6
+                    ? `<li class="text-slate-400">另有 ${item.products.length - 6} 項，請查看官方來源</li>`
+                    : '';
+                const sources = item.sources.map(source => `
+                    <a class="text-indigo-600 hover:underline" href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">
+                        ${escapeHtml(source.label)}（${escapeHtml(source.date)}）
+                    </a>
+                `).join('・');
+                const card = document.createElement('article');
+                card.className = 'bg-white rounded-2xl border border-slate-200 shadow-sm p-5 space-y-3';
+                card.innerHTML = `
+                    <div class="flex items-start justify-between gap-3">
+                        <div>
+                            <div class="flex flex-wrap items-center gap-2">
+                                <span class="text-[10px] font-bold bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full">紀錄 ${escapeHtml(item.id)}</span>
+                                <span class="text-[10px] font-bold bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded-full">${escapeHtml(item.county || '縣市未載')}</span>
+                            </div>
+                            <h3 class="text-base font-extrabold text-slate-900 mt-2">${escapeHtml(item.name)}</h3>
+                            <p class="text-xs text-slate-500 mt-1">${item.address ? `📍 ${escapeHtml(item.address)}` : '地址未見於此份官方附件'}</p>
+                        </div>
+                        <button type="button" class="business-copy shrink-0 px-2 py-1 text-xs font-semibold text-indigo-600 border border-indigo-200 hover:bg-indigo-50 rounded-lg">📋 複製</button>
+                    </div>
+                    <div class="border rounded-xl px-3 py-2 text-xs ${statusClass}">
+                        <p class="font-bold">${escapeHtml(item.statuses.join('；'))}</p>
+                        <p class="mt-1 opacity-80">資料層級：${escapeHtml(item.tiers.join('；'))}</p>
+                    </div>
+                    <div>
+                        <p class="text-xs font-bold text-slate-400 uppercase tracking-wider mb-1">公告所列品項</p>
+                        <ul class="text-xs text-slate-600 leading-6 list-disc pl-5">${products || '<li>附件未逐項列出品名</li>'}${moreProducts}</ul>
+                    </div>
+                    <div class="text-[11px] text-slate-500 border-t border-slate-100 pt-3 leading-5">官方來源：${sources}</div>
+                `;
+                card.querySelector('.business-copy').addEventListener('click', () => copyToClipboard(item.name));
+                container.appendChild(card);
+            });
         }
         // ==========================================
         // 實用輔助工具
