@@ -1,0 +1,84 @@
+{
+  "schema_version": 1,
+  "default_keywords": [
+    "中聯油脂",
+    "中聯",
+    "苯駢芘",
+    "問題油品",
+    "油品",
+    "食用油",
+    "下游業者",
+    "流向",
+    "下架",
+    "回收",
+    "稽查"
+  ],
+  "sources": [
+    {
+      "id": "tfda",
+      "agency": "衛生福利部食品藥物管理署",
+      "name": "中聯油脂專區",
+      "url": "https://www.fda.gov.tw/TC/site13712.aspx"
+    },
+    {
+      "id": "taipei",
+      "agency": "臺北市政府衛生局",
+      "name": "食安資訊專區",
+      "url": "https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D"
+    },
+    {
+      "id": "new-taipei",
+      "agency": "新北市政府衛生局",
+      "name": "焦點新聞",
+      "url": "https://www.health.ntpc.gov.tw/"
+    },
+    {
+      "id": "taoyuan",
+      "agency": "桃園市政府衛生局",
+      "name": "桃食安心資訊平台",
+      "url": "https://food-safety.tycg.gov.tw/"
+    },
+    {
+      "id": "hsinchu-city",
+      "agency": "新竹市衛生局",
+      "name": "食品專區",
+      "url": "https://dep.hcchb.gov.tw/ch/home.jsp?id=170&parentpath=0%2C40%2C75"
+    },
+    {
+      "id": "hsinchu-county",
+      "agency": "新竹縣政府衛生局",
+      "name": "最新消息",
+      "url": "https://www.hcshb.gov.tw/"
+    },
+    {
+      "id": "miaoli",
+      "agency": "苗栗縣政府衛生局",
+      "name": "中聯油脂事件專區",
+      "url": "https://www.mlshb.gov.tw/nc/content-list?idNavigations=7&tag=156"
+    },
+    {
+      "id": "taichung",
+      "agency": "臺中市政府衛生局",
+      "name": "中聯油脂事件專區",
+      "url": "https://www.health.taichung.gov.tw/3313372/Lpsimplelist"
+    },
+    {
+      "id": "changhua",
+      "agency": "彰化縣衛生局",
+      "name": "問題油品下架回收公告",
+      "url": "https://www.chshb.gov.tw/node/219119838"
+    },
+    {
+      "id": "changhua-downstream",
+      "agency": "彰化縣政府",
+      "name": "問題油品流向業者清單",
+      "url": "https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874"
+    },
+    {
+      "id": "kaohsiung",
+      "agency": "高雄市政府衛生局",
+      "name": "中聯油脂事件專區",
+      "url": "https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B"
+    }
+  ]
+}

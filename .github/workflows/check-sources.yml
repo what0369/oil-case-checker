@@ -1,0 +1,93 @@
+name: Check official source updates
+
+on:
+  schedule:
+    # GitHub cron uses UTC. These are 08:17 and 20:17 in Taiwan.
+    - cron: "17 0,12 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+concurrency:
+  group: official-source-monitor
+  cancel-in-progress: false
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Check official pages
+        id: monitor
+        run: |
+          python3 scripts/check_sources.py --result "$RUNNER_TEMP/source-monitor-result.json"
+          echo "changed_count=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["changed_count"])' "$RUNNER_TEMP/source-monitor-result.json")" >> "$GITHUB_OUTPUT"
+          echo "error_count=$(python3 -c 'import json,sys; print(json.load(open(sys.argv[1]))["error_count"])' "$RUNNER_TEMP/source-monitor-result.json")" >> "$GITHUB_OUTPUT"
+
+      - name: Open or update fetch failure issue
+        if: steps.monitor.outputs.error_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - "$RUNNER_TEMP/source-monitor-result.json" "$RUNNER_TEMP/source-monitor-errors.md" <<'PY'
+          import json, sys
+          result = json.load(open(sys.argv[1], encoding="utf-8"))
+          lines = ["官方來源監控發生抓取錯誤：", ""]
+          for item in result["errors"]:
+              lines.append(f"- **{item['agency']} / {item['name']}**：{item['error']}")
+              lines.append(f"  - {item['url']}")
+          lines.extend(["", f"執行紀錄：{__import__('os').environ['GITHUB_SERVER_URL']}/{__import__('os').environ['GITHUB_REPOSITORY']}/actions/runs/{__import__('os').environ['GITHUB_RUN_ID']}"])
+          open(sys.argv[2], "w", encoding="utf-8").write("\n".join(lines) + "\n")
+          PY
+          issue_number="$(gh issue list --state open --search '"[來源監控] 官方頁面抓取失敗" in:title' --json number --jq '.[0].number // empty')"
+          if [ -n "$issue_number" ]; then
+            gh issue comment "$issue_number" --body-file "$RUNNER_TEMP/source-monitor-errors.md"
+          else
+            gh issue create --title "[來源監控] 官方頁面抓取失敗" --body-file "$RUNNER_TEMP/source-monitor-errors.md"
+          fi
+
+      - name: Close recovered fetch failure issue
+        if: steps.monitor.outputs.error_count == '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          issue_number="$(gh issue list --state open --search '"[來源監控] 官方頁面抓取失敗" in:title' --json number --jq '.[0].number // empty')"
+          if [ -n "$issue_number" ]; then
+            gh issue close "$issue_number" --comment "所有登錄來源本次皆抓取成功，自動關閉告警。"
+          fi
+
+      - name: Publish monitoring branch
+        if: steps.monitor.outputs.changed_count != '0'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="automation/source-monitor"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$branch"
+          git add data/source-state.json outputs/source-check-report.md
+          git commit -m "Update official source monitor state"
+          git fetch origin "$branch" || true
+          git push --force-with-lease --set-upstream origin "$branch"
+
+          cat > "$RUNNER_TEMP/source-monitor-pr.md" <<'EOF'
+          ## 監控結果
+
+          官方來源頁面或附件出現變化。請先查看 `outputs/source-check-report.md`，再人工核對是否需要更新網站的產品或業者資料。
+
+          此 PR 不會自動合併，也不會直接修改網站資料。
+          EOF
+
+          pr_number="$(gh pr list --state open --head "$branch" --json number --jq '.[0].number // empty')"
+          if [ -n "$pr_number" ]; then
+            gh pr edit "$pr_number" --title "監控：官方來源可能有更新" --body-file "$RUNNER_TEMP/source-monitor-pr.md"
+          else
+            gh pr create --draft --base main --head "$branch" --title "監控：官方來源可能有更新" --body-file "$RUNNER_TEMP/source-monitor-pr.md"
+          fi
