@@ -823,6 +823,18 @@
                        .replace(/區|金馬|離|蔬|金|丸大|川島|小武/g, '') // 排除修飾字干擾
                        .toLowerCase();
         }
+        // 所有插入 HTML 樣板的文字都必須先轉義，避免使用者輸入被當成標記執行。
+        function escapeHtml(text) {
+            return String(text ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#039;');
+        }
+        function escapeRegExp(text) {
+            return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+        }
         // ==========================================
         // 系統 1: 單一商品比對
         // ==========================================
@@ -838,6 +850,12 @@
             idleState.classList.add('hidden');
             resultContent.classList.remove('hidden');
             const cleanedQuery = cleanTextForMatching(query);
+            if (cleanedQuery === '') {
+                idleState.classList.remove('hidden');
+                resultContent.classList.add('hidden');
+                showToast('請輸入至少一個文字或數字！');
+                return;
+            }
 
             // 進行多欄位模糊比對
             const matches = productsDatabase.filter(item => {
@@ -856,6 +874,7 @@
             const banner = document.getElementById('result-status-banner');
             const matchCount = document.getElementById('result-match-count');
             const matchList = document.getElementById('result-match-list');
+            const safeQuery = escapeHtml(query);
             matchList.innerHTML = '';
             matchCount.textContent = `${matches.length} 筆項目`;
             if (matches.length > 0) {
@@ -869,7 +888,7 @@
                     </div>
                     <div>
                         <h4 class="text-md font-extrabold text-red-700">🚨 比對警告：已檢出符合管制/下架名單之產品！</h4>
-                        <p class="text-xs text-red-600 mt-0.5">您搜尋的「${query}」在中聯油脂案最新名單中有符合品項。請即刻比對下方【有效日期】或【批號】欄位。</p>
+                        <p class="text-xs text-red-600 mt-0.5">您搜尋的「${safeQuery}」在中聯油脂案最新名單中有符合品項。請即刻比對下方【有效日期】或【批號】欄位。</p>
                     </div>
                 `;
                 // 渲染所有匹配的項目，但將第 10 筆後的項目加上 hidden 樣式類別
@@ -883,11 +902,11 @@
                     div.innerHTML = `
                         <div class="space-y-1">
                             <div class="flex items-center gap-2">
-                                <span class="bg-red-200 text-red-800 font-extrabold px-2 py-0.5 rounded text-[10px]">序號: ${item.id}</span>
+                                <span class="bg-red-200 text-red-800 font-extrabold px-2 py-0.5 rounded text-[10px]">序號: ${escapeHtml(item.id)}</span>
                                 <span class="font-extrabold text-slate-800 text-sm">${highlightedName}</span>
                             </div>
                             <div class="text-slate-500 font-medium">
-                                縣市: <span class="text-slate-700">${item.county}</span> |
+                                縣市: <span class="text-slate-700">${escapeHtml(item.county)}</span> |
                                 生產商/涉案業者: <span class="text-slate-700 font-semibold">${highlightedVendor}</span>
                             </div>
                             <div class="text-slate-600 font-bold mt-1">
@@ -923,7 +942,7 @@
                     </div>
                     <div>
                         <h4 class="text-md font-extrabold text-emerald-700">🟢 安全通關：未在受影響與管制清單中檢出！</h4>
-                        <p class="text-xs text-emerald-600 mt-0.5">您搜尋的「${query}」目前安全。未與公告之中聯油脂案 419 項違規與下架食品匹配。</p>
+                        <p class="text-xs text-emerald-600 mt-0.5">您搜尋的「${safeQuery}」目前安全。未與公告之中聯油脂案 419 項違規與下架食品匹配。</p>
                     </div>
                 `;
                 matchList.innerHTML = `
@@ -948,16 +967,25 @@
         }
         // 高亮搜尋關鍵字
         function highlightKeyword(text, keyword) {
-            if (!keyword || keyword.trim() === '') return text;
+            if (!keyword || keyword.trim() === '') return escapeHtml(text);
             const normalizedKeyword = cleanTextForMatching(keyword);
-            if (normalizedKeyword.length < 1) return text;
+            if (normalizedKeyword.length < 1) return escapeHtml(text);
 
             try {
-                // 創建寬鬆的正規表達式 (排除繁簡體/括弧等字符進行配對)
-                const regex = new RegExp(`(${keyword.split('').join('.?')})`, 'gi');
-                return text.replace(regex, `<mark class="bg-yellow-200 text-slate-900 font-bold rounded px-0.5">$1</mark>`);
+                // 只以有意義的文字建立正規表示式，並轉義特殊符號。
+                const characters = [...normalizedKeyword].map(escapeRegExp);
+                const regex = new RegExp(characters.join('.?'), 'gi');
+                let result = '';
+                let lastIndex = 0;
+                let match;
+                while ((match = regex.exec(text)) !== null) {
+                    result += escapeHtml(text.slice(lastIndex, match.index));
+                    result += `<mark class="bg-yellow-200 text-slate-900 font-bold rounded px-0.5">${escapeHtml(match[0])}</mark>`;
+                    lastIndex = match.index + match[0].length;
+                }
+                return result + escapeHtml(text.slice(lastIndex));
             } catch (e) {
-                return text;
+                return escapeHtml(text);
             }
         }
         // ==========================================
@@ -988,7 +1016,9 @@
             }
             idleState.classList.add('hidden');
             resultContent.classList.remove('hidden');
-            const lines = text.split('\n').map(line => line.trim()).filter(line => line !== '');
+            const lines = text.split('\n')
+                .map(line => line.trim())
+                .filter(line => line !== '' && cleanTextForMatching(line) !== '');
             const tableBody = document.getElementById('batch-result-table-body');
             tableBody.innerHTML = '';
             let totalCount = lines.length;
@@ -996,7 +1026,7 @@
             let safeCount = 0;
             lines.forEach(line => {
                 const cleanedLine = cleanTextForMatching(line);
-                if (cleanedLine === '') return;
+                const safeLine = escapeHtml(line);
                 // 進行模糊比對
                 const matchedItem = productsDatabase.find(item => {
                     const cleanedName = cleanTextForMatching(item.name);
@@ -1010,18 +1040,18 @@
                 if (matchedItem) {
                     matchCount++;
                     tr.innerHTML = `
-                        <td class="px-4 py-3 font-semibold text-slate-700 max-w-[150px] truncate" title="${line}">${line}</td>
+                        <td class="px-4 py-3 font-semibold text-slate-700 max-w-[150px] truncate" title="${safeLine}">${safeLine}</td>
                         <td class="px-4 py-3"><span class="px-2 py-0.5 bg-red-100 text-red-800 font-extrabold rounded-full text-[10px]">⚠️ 高風險檢出</span></td>
                         <td class="px-4 py-3 space-y-1">
-                            <div class="font-bold text-slate-800">${matchedItem.name}</div>
-                            <div class="text-[10px] text-slate-500">${matchedItem.county} | ${matchedItem.vendor} (序號: ${matchedItem.id})</div>
-                            <div class="text-[11px] text-red-600 font-bold bg-red-50 px-1.5 py-0.5 rounded inline-block">📅 效期: ${matchedItem.expiry}</div>
+                            <div class="font-bold text-slate-800">${escapeHtml(matchedItem.name)}</div>
+                            <div class="text-[10px] text-slate-500">${escapeHtml(matchedItem.county)} | ${escapeHtml(matchedItem.vendor)} (序號: ${escapeHtml(matchedItem.id)})</div>
+                            <div class="text-[11px] text-red-600 font-bold bg-red-50 px-1.5 py-0.5 rounded inline-block">📅 效期: ${escapeHtml(matchedItem.expiry)}</div>
                         </td>
                     `;
                 } else {
                     safeCount++;
                     tr.innerHTML = `
-                        <td class="px-4 py-3 text-slate-600 max-w-[150px] truncate" title="${line}">${line}</td>
+                        <td class="px-4 py-3 text-slate-600 max-w-[150px] truncate" title="${safeLine}">${safeLine}</td>
                         <td class="px-4 py-3"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-full text-[10px]">🟢 安全</span></td>
                         <td class="px-4 py-3 text-slate-400 font-medium">查無管制紀錄</td>
                     `;
@@ -1105,11 +1135,11 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-indigo-50/30 transition text-xs sm:text-sm";
                 tr.innerHTML = `
-                    <td class="px-6 py-4 text-center font-bold text-slate-500">${item.id}</td>
-                    <td class="px-6 py-4 text-slate-600 font-medium">${item.county}</td>
-                    <td class="px-6 py-4 font-bold text-slate-800 max-w-[180px] truncate" title="${item.vendor}">${item.vendor}</td>
-                    <td class="px-6 py-4 text-slate-700 font-semibold">${item.name}</td>
-                    <td class="px-6 py-4 text-red-600 font-semibold text-xs leading-relaxed max-w-[200px] truncate" title="${item.expiry}">${item.expiry}</td>
+                    <td class="px-6 py-4 text-center font-bold text-slate-500">${escapeHtml(item.id)}</td>
+                    <td class="px-6 py-4 text-slate-600 font-medium">${escapeHtml(item.county)}</td>
+                    <td class="px-6 py-4 font-bold text-slate-800 max-w-[180px] truncate" title="${escapeHtml(item.vendor)}">${escapeHtml(item.vendor)}</td>
+                    <td class="px-6 py-4 text-slate-700 font-semibold">${escapeHtml(item.name)}</td>
+                    <td class="px-6 py-4 text-red-600 font-semibold text-xs leading-relaxed max-w-[200px] truncate" title="${escapeHtml(item.expiry)}">${escapeHtml(item.expiry)}</td>
                     <td class="px-6 py-4 text-right">
                         <button onclick="copyToClipboard('${item.name}')" class="inline-flex items-center gap-1 px-2 py-1 text-xs font-semibold text-indigo-600 hover:text-white border border-indigo-200 hover:bg-indigo-600 rounded-lg transition">
                             📋 複製
@@ -1164,10 +1194,11 @@
             const toast = document.createElement('div');
             toast.id = 'custom-toast';
             toast.className = "fixed bottom-5 right-5 z-50 bg-slate-800 text-white px-5 py-3 rounded-xl shadow-xl text-xs font-bold transition-all duration-300 transform translate-y-10 opacity-0 flex items-center gap-2";
-            toast.innerHTML = `
-                <span>ℹ️</span>
-                <span>${message}</span>
-            `;
+            const icon = document.createElement('span');
+            icon.textContent = 'ℹ️';
+            const text = document.createElement('span');
+            text.textContent = message;
+            toast.append(icon, text);
             document.body.appendChild(toast);
             setTimeout(() => {
                 toast.classList.remove('translate-y-10', 'opacity-0');
