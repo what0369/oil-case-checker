@@ -45,16 +45,10 @@
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="switchTab('single')" id="btn-tab-single" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white shadow">
-                    🔍 單一品項比對
-                </button>
-                <button onclick="switchTab('batch')" id="btn-tab-batch" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
-                    📝 批量盤點比對
+                    🔍 產品與業者整合查詢
                 </button>
                 <button onclick="switchTab('database')" id="btn-tab-database" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
                     📋 瀏覽完整資料庫
-                </button>
-                <button onclick="switchTab('businesses')" id="btn-tab-businesses" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
-                    🏪 店家／業者查詢
                 </button>
             </div>
         </div>
@@ -82,7 +76,7 @@
     </section>
     <!-- 主內容區 -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        <!-- TAB 1: 單一商品比對 -->
+        <!-- TAB 1: 產品與業者整合查詢 -->
         <div id="tab-single" class="tab-content space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- 比對輸入區 -->
@@ -90,17 +84,17 @@
                     <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
                         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2 mb-4">
                             <span class="w-1.5 h-5 bg-indigo-600 rounded-full"></span>
-                            快速輸入比對商品
+                            產品與店家／業者整合查詢
                         </h2>
 
                         <div class="space-y-4">
                             <div>
-                                <label for="search-input" class="block text-sm font-medium text-slate-600 mb-1.5">請輸入產品名稱、部分關鍵字、品牌或有效期限</label>
+                                <label for="search-input" class="block text-sm font-medium text-slate-600 mb-1.5">輸入產品、批號、店名、業者或地址</label>
                                 <div class="relative">
-                                    <input type="text" id="search-input"
+                                    <input type="search" id="search-input"
                                            class="w-full pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition text-lg"
-                                           placeholder="例如: 泰山沙拉油、路易莎、卜蜂..."
-                                           onkeyup="handleSingleSearch(this.value)">
+                                           placeholder="例如：泰山大豆沙拉油、胖老爹、C2140426O、臺北市中山區"
+                                           oninput="handleUnifiedSearch(this.value)">
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
@@ -108,13 +102,19 @@
                                     </div>
                                 </div>
                             </div>
+                            <div>
+                                <label for="unified-county" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">店家／業者縣市（選填）</label>
+                                <select id="unified-county" onchange="handleUnifiedSearch(document.getElementById('search-input').value)" class="w-full px-3 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                                    <option value="">-- 全部縣市 --</option>
+                                </select>
+                            </div>
                             <hr class="border-slate-100 my-2">
                             <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4 text-xs text-indigo-800 leading-relaxed space-y-1.5">
                                 <p class="font-semibold flex items-center gap-1">
                                     💡 搜尋小撇步
                                 </p>
                                 <p>1. 本系統採用「強力模糊搜尋技術」，會自動忽略半形、全形括號（如 【】、「」、(金馬) ），不影響比對精準度。</p>
-                                <p>2. 支援繁簡體自動相容以及業者/產品/有效日期雙向搜尋。</p>
+                                <p>2. 同一個搜尋框會同時查找產品名單，以及店家／業者的名稱、地址、品項、批號與有效日期。</p>
                             </div>
                         </div>
                     </div>
@@ -130,8 +130,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path>
                                 </svg>
                             </div>
-                            <h3 class="text-md font-bold text-slate-700">請在左側輸入要查詢的品項名稱</h3>
-                            <p class="text-sm text-slate-400 mt-1 max-w-sm">我們將即時掃描比對公告的 440 項預防性下架產品與 50 項油品範圍（共 490 項）。</p>
+                            <h3 class="text-md font-bold text-slate-700">請在左側輸入查詢內容</h3>
+                            <p class="text-sm text-slate-400 mt-1 max-w-sm">系統會同時掃描 490 項產品資料及 663 筆官方店家／業者紀錄。</p>
                         </div>
                         <!-- 狀態結果顯示 (會透過JS動態抽換) -->
                         <div id="single-result-content" class="hidden space-y-6">
@@ -142,7 +142,7 @@
                             <!-- 詳細比對匹配清單 -->
                             <div class="space-y-3">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">命中名單內產品項目</span>
+                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">產品清單結果</span>
                                     <span id="result-match-count" class="text-xs font-bold px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full">--</span>
                                 </div>
                                 <div id="result-match-list" class="space-y-2 max-h-[450px] overflow-y-auto custom-scrollbar pr-1">
@@ -178,90 +178,23 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <!-- TAB 2: 批量比對系統 -->
-        <div id="tab-batch" class="tab-content hidden space-y-6">
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-100 pb-4 mb-6">
-                    <div>
-                        <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                            <span class="w-1.5 h-5 bg-indigo-600 rounded-full"></span>
-                            大宗食品與油品進貨/發票批量盤點比對
-                        </h2>
-                        <p class="text-sm text-slate-500 mt-1">您可以貼上進貨單明細、發票品項或任意文字，本系統將自動進行逐行智慧過濾，揪出清單中的違規特定商品與有效日期。</p>
-                    </div>
-                    <div class="flex gap-2">
-                        <button onclick="demoBatchText()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition">💡 載入測試範本</button>
-                        <button onclick="clearBatch()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-700 rounded-lg transition">🧹 清除內容</button>
-                    </div>
+            <section id="unified-business-section" class="hidden space-y-4">
+                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-4 text-xs leading-relaxed">
+                    <strong>店家／業者紀錄說明：</strong>出現在名單中通常代表曾有進貨、供應、流向或接受稽查紀錄，不等於該店家違規，也不表示目前仍在使用。請查看每筆公告狀態、日期及官方來源。
                 </div>
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                    <!-- 輸入框 -->
-                    <div class="space-y-3">
-                        <label for="batch-textarea" class="block text-sm font-medium text-slate-600">請貼上您的品項明細 (每行一個品項)</label>
-                        <textarea id="batch-textarea" rows="12"
-                                  class="w-full p-4 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white font-mono text-sm leading-relaxed custom-scrollbar"
-                                  placeholder="範例輸入：&#10;1. 泰山金酥耐炸油 18L&#10;2. 路易莎蜂蜜芥末醬&#10;3. 卜蜂泰式打拋豬肉炒飯170g&#10;4. 益康烹調油 18L&#10;5. 雙蔬鮪魚飯糰"></textarea>
-                        <button onclick="runBatchAnalysis()" class="w-full py-3 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-xl shadow-lg hover:shadow-indigo-200 transition flex items-center justify-center gap-2">
-                            🚀 立即進行批次比對
-                        </button>
-                    </div>
-                    <!-- 分析結果 -->
-                    <div class="flex flex-col justify-between border border-slate-100 bg-slate-50/50 rounded-xl p-5 min-h-[300px]">
-                        <div id="batch-idle-state" class="flex flex-col items-center justify-center text-center py-16 my-auto">
-                            <svg class="w-12 h-12 text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
-                            </svg>
-                            <h3 class="text-sm font-bold text-slate-600">等待輸入資料</h3>
-                            <p class="text-xs text-slate-400 mt-1">請在左方貼上資料後點擊比對按鈕。</p>
-                        </div>
-                        <div id="batch-result-content" class="hidden space-y-4 h-full flex flex-col justify-between">
-                            <div class="space-y-4">
-                                <h3 class="text-sm font-bold text-slate-400 uppercase tracking-wider">批量篩檢分析報告</h3>
-
-                                <!-- 統計圖示卡 -->
-                                <div class="grid grid-cols-3 gap-2">
-                                    <div class="bg-white rounded-xl p-3 border border-slate-100 text-center">
-                                        <span class="text-xs text-slate-400 block">分析總行數</span>
-                                        <span id="batch-stat-total" class="text-xl font-bold text-slate-700">0</span>
-                                    </div>
-                                    <div class="bg-red-50 rounded-xl p-3 border border-red-100 text-center">
-                                        <span class="text-xs text-red-400 block">高風險檢出</span>
-                                        <span id="batch-stat-match" class="text-xl font-bold text-red-600">0</span>
-                                    </div>
-                                    <div class="bg-emerald-50 rounded-xl p-3 border border-emerald-100 text-center">
-                                        <span class="text-xs text-emerald-400 block">安全未檢出</span>
-                                        <span id="batch-stat-safe" class="text-xl font-bold text-emerald-600">0</span>
-                                    </div>
-                                </div>
-                                <!-- 比對清單詳情 -->
-                                <div class="border border-slate-100 rounded-xl bg-white overflow-hidden">
-                                    <div class="max-h-56 overflow-y-auto custom-scrollbar">
-                                        <table class="w-full text-left border-collapse">
-                                            <thead class="bg-slate-50 sticky top-0 border-b border-slate-100">
-                                                <tr>
-                                                    <th class="px-4 py-2 text-xs font-bold text-slate-500">輸入項</th>
-                                                    <th class="px-4 py-2 text-xs font-bold text-slate-500">檢測結果</th>
-                                                    <th class="px-4 py-2 text-xs font-bold text-slate-500">對應違規品項 & 有效期限</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody id="batch-result-table-body" class="divide-y divide-slate-50 text-xs">
-                                                <!-- 動態數據 -->
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="bg-amber-50 border border-amber-100 text-amber-800 rounded-xl p-3 text-xs leading-relaxed flex items-start gap-2 mt-4">
-                                <span class="text-base">⚠️</span>
-                                <p>批次分析結果若呈現「高風險檢出」，代表您輸入的食品名稱與政府公告涉案品項高度吻合，建議立即核對該食品是否為上述涉案廠商所供應之同批號/同有效期限產品，並進行預防性處置。</p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                    <h2 class="text-lg font-bold text-slate-900">🏪 店家／業者官方紀錄</h2>
+                    <p class="text-sm font-semibold text-slate-700">找到 <span id="business-result-count" class="text-amber-700">0</span> 筆紀錄</p>
                 </div>
-            </div>
+                <p id="business-result-limit" class="hidden text-xs text-slate-500">為便於閱讀，目前顯示前 100 筆；請增加關鍵字或選擇縣市縮小範圍。</p>
+                <div id="business-results" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
+                <div id="business-no-data" class="hidden bg-white rounded-2xl border border-slate-200 py-12 text-center">
+                    <p class="text-slate-500 font-semibold">目前公開附件中沒有符合條件的店家／業者紀錄</p>
+                    <p class="text-xs text-slate-400 mt-1">未命中不代表沒有使用，地方衛生局仍可能持續更新流向資料。</p>
+                </div>
+            </section>
         </div>
-        <!-- TAB 3: 完整資料庫瀏覽器 -->
+        <!-- TAB 2: 完整資料庫瀏覽器 -->
         <div id="tab-database" class="tab-content hidden space-y-6">
 
             <!-- 大看板篩選區 -->
@@ -341,49 +274,11 @@
                 </div>
             </div>
         </div>
-        <!-- TAB 4: 店家與下游業者查詢 -->
-        <div id="tab-businesses" class="tab-content hidden space-y-6">
-            <div class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 space-y-5">
-                <div class="border-b border-slate-100 pb-4">
-                    <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-                        <span class="w-1.5 h-5 bg-amber-500 rounded-full"></span>
-                        店家／下游業者官方紀錄查詢
-                    </h2>
-                    <p class="text-sm text-slate-500 mt-1">搜尋官方公開流向或稽查附件中的業者名稱、店名、地址、品項與批號。</p>
-                </div>
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
-                    <div class="md:col-span-3">
-                        <label for="business-search" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">店家、業者、地址或品項</label>
-                        <input type="search" id="business-search" oninput="applyBusinessFilters()"
-                               class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500 focus:bg-white"
-                               placeholder="例如：胖老爹、勝博殿、臺北市中山區、沙茶醬">
-                    </div>
-                    <div>
-                        <label for="business-county" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">縣市</label>
-                        <select id="business-county" onchange="applyBusinessFilters()" class="w-full px-3 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:outline-none focus:ring-2 focus:ring-amber-500">
-                            <option value="">-- 全部縣市 --</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-4 text-xs leading-relaxed">
-                    <strong>重要說明：</strong>出現在名單中通常代表曾有進貨、供應、流向或接受稽查紀錄，不等於該店家違規，也不表示目前仍在使用。請查看每筆公告狀態、日期及官方來源。
-                </div>
-            </div>
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                <p class="text-sm font-semibold text-slate-700">找到 <span id="business-result-count" class="text-amber-700">0</span> 筆業者／店家紀錄</p>
-                <p id="business-result-limit" class="hidden text-xs text-slate-500">為便於閱讀，目前顯示前 100 筆；請增加關鍵字或縣市縮小範圍。</p>
-            </div>
-            <div id="business-results" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
-            <div id="business-no-data" class="hidden bg-white rounded-2xl border border-slate-200 py-16 text-center">
-                <p class="text-slate-500 font-semibold">目前公開附件中沒有符合條件的紀錄</p>
-                <p class="text-xs text-slate-400 mt-1">未命中不代表沒有使用，地方衛生局仍可能持續更新流向資料。</p>
-            </div>
-        </div>
     </main>
     <!-- 頁腳 -->
     <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 text-center py-6 text-xs mt-12 space-y-1">
         <p>© 115 中聯油脂案-查詢比對系統 版權所有</p>
-        <p>本工具採用在地化前端架構，保護您的機密盤點資料不會被傳輸至伺服器外洩，請安心使用。</p>
+        <p>本工具採用在地化前端架構，您的搜尋內容不會傳輸至伺服器。</p>
     </footer>
     <script src="business-data.js"></script>
     <!-- JS 邏輯代碼 -->
@@ -886,7 +781,7 @@
         ];
         // 系統變數初始化
         let filteredDatabase = [...productsDatabase];
-        let filteredBusinesses = [...businessDatabase];
+        let filteredBusinesses = [];
         let dbCurrentPage = 1;
         const dbItemsPerPage = 10;
         window.onload = function() {
@@ -894,7 +789,6 @@
             initDatabaseFilters();
             renderDatabaseTable();
             initBusinessFilters();
-            renderBusinessResults();
         }
         // 切換頁籤
         function switchTab(tabId) {
@@ -942,15 +836,18 @@
             return text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
         }
         // ==========================================
-        // 系統 1: 單一商品比對
+        // 系統 1: 產品與店家／業者整合查詢
         // ==========================================
-        function handleSingleSearch(query) {
+        function handleUnifiedSearch(query) {
             const idleState = document.getElementById('single-idle-state');
             const resultContent = document.getElementById('single-result-content');
+            const businessSection = document.getElementById('unified-business-section');
 
             if (!query || query.trim() === '') {
                 idleState.classList.remove('hidden');
                 resultContent.classList.add('hidden');
+                businessSection.classList.add('hidden');
+                filteredBusinesses = [];
                 return;
             }
             idleState.classList.add('hidden');
@@ -959,6 +856,7 @@
             if (cleanedQuery === '') {
                 idleState.classList.remove('hidden');
                 resultContent.classList.add('hidden');
+                businessSection.classList.add('hidden');
                 showToast('請輸入至少一個文字或數字！');
                 return;
             }
@@ -974,9 +872,12 @@
                        cleanedVendor.includes(cleanedQuery) ||
                        cleanedExpiry.includes(cleanedQuery);
             });
-            renderSingleResult(query, matches);
+            filteredBusinesses = findBusinessMatches(query);
+            businessSection.classList.remove('hidden');
+            renderSingleResult(query, matches, filteredBusinesses.length);
+            renderBusinessResults();
         }
-        function renderSingleResult(query, matches) {
+        function renderSingleResult(query, matches, businessMatchCount) {
             const banner = document.getElementById('result-status-banner');
             const matchCount = document.getElementById('result-match-count');
             const matchList = document.getElementById('result-match-list');
@@ -1038,24 +939,24 @@
                     matchList.appendChild(expandContainer);
                 }
             } else {
-                // 安全，未檢出
-                banner.className = "rounded-xl p-4 flex items-center gap-4 border border-emerald-200 bg-emerald-50 text-emerald-900";
+                // 產品清單未命中；仍須查看業者紀錄與官方公告。
+                banner.className = "rounded-xl p-4 flex items-center gap-4 border border-slate-200 bg-slate-50 text-slate-900";
                 banner.innerHTML = `
-                    <div class="p-2 bg-emerald-600 text-white rounded-full">
+                    <div class="p-2 bg-slate-600 text-white rounded-full">
                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-3-3v6m9-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                     <div>
-                        <h4 class="text-md font-extrabold text-emerald-700">🟢 安全通關：未在受影響與管制清單中檢出！</h4>
-                        <p class="text-xs text-emerald-600 mt-0.5">您搜尋的「${safeQuery}」目前未命中公告的 490 項清單；這不代表產品一定安全，仍請核對品牌、批號、有效日期與官方最新公告。</p>
+                        <h4 class="text-md font-extrabold text-slate-700">產品清單未命中</h4>
+                        <p class="text-xs text-slate-600 mt-0.5">您搜尋的「${safeQuery}」目前未命中 490 項產品清單${businessMatchCount > 0 ? `，但另找到 ${businessMatchCount} 筆店家／業者紀錄，請往下查看` : ''}。未命中不代表產品一定安全，仍請核對品牌、批號、有效日期與官方最新公告。</p>
                     </div>
                 `;
                 matchList.innerHTML = `
                     <div class="text-center py-10">
-                        <span class="text-4xl">🛡️</span>
-                        <p class="text-sm font-bold text-slate-600 mt-2">檢索完全正常</p>
-                        <p class="text-xs text-slate-400 mt-1">若此品項屬於「泰山、福壽、福懋、南僑、桂冠、味全、金色三麥、路易莎、卜蜂」等可能受影響之相關食品與油品，建議您手動至第三個標籤頁，點選縣市與業者下拉快篩核對細項。</p>
+                        <span class="text-4xl">🔎</span>
+                        <p class="text-sm font-bold text-slate-600 mt-2">產品清單查無符合項目</p>
+                        <p class="text-xs text-slate-400 mt-1">${businessMatchCount > 0 ? '下方仍有符合的店家／業者官方紀錄。' : '產品與店家／業者紀錄目前皆未命中；地方衛生局仍可能持續更新資料。'}</p>
                     </div>
                 `;
             }
@@ -1095,82 +996,7 @@
             }
         }
         // ==========================================
-        // 系統 2: 批量比對
-        // ==========================================
-        function demoBatchText() {
-            const demoText = `泰山環保鐵桶沙拉油 18KG
-路易莎蜂蜜芥末醬
-卜蜂火腿肉絲黃金蛋炒飯215g
-金色三麥巧達濃湯
-福壽大豆沙拉油 3L
-老協珍TOMMI米漢堡
-測試安全沙拉油`;
-            document.getElementById('batch-textarea').value = demoText;
-        }
-        function clearBatch() {
-            document.getElementById('batch-textarea').value = '';
-            document.getElementById('batch-idle-state').classList.remove('hidden');
-            document.getElementById('batch-result-content').classList.add('hidden');
-        }
-        function runBatchAnalysis() {
-            const text = document.getElementById('batch-textarea').value;
-            const idleState = document.getElementById('batch-idle-state');
-            const resultContent = document.getElementById('batch-result-content');
-            if (!text || text.trim() === '') {
-                showToast('請先貼上或輸入產品品項！');
-                return;
-            }
-            idleState.classList.add('hidden');
-            resultContent.classList.remove('hidden');
-            const lines = text.split('\n')
-                .map(line => line.trim())
-                .filter(line => line !== '' && cleanTextForMatching(line) !== '');
-            const tableBody = document.getElementById('batch-result-table-body');
-            tableBody.innerHTML = '';
-            let totalCount = lines.length;
-            let matchCount = 0;
-            let safeCount = 0;
-            lines.forEach(line => {
-                const cleanedLine = cleanTextForMatching(line);
-                const safeLine = escapeHtml(line);
-                // 進行模糊比對
-                const matchedItem = productsDatabase.find(item => {
-                    const cleanedName = cleanTextForMatching(item.name);
-                    const cleanedVendor = cleanTextForMatching(item.vendor);
-                    return cleanedName.includes(cleanedLine) ||
-                           cleanedLine.includes(cleanedName) ||
-                           cleanedVendor.includes(cleanedLine);
-                });
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-100 transition";
-                if (matchedItem) {
-                    matchCount++;
-                    tr.innerHTML = `
-                        <td class="px-4 py-3 font-semibold text-slate-700 max-w-[150px] truncate" title="${safeLine}">${safeLine}</td>
-                        <td class="px-4 py-3"><span class="px-2 py-0.5 bg-red-100 text-red-800 font-extrabold rounded-full text-[10px]">⚠️ 高風險檢出</span></td>
-                        <td class="px-4 py-3 space-y-1">
-                            <div class="font-bold text-slate-800">${escapeHtml(matchedItem.name)}</div>
-                            <div class="text-[10px] text-slate-500">${escapeHtml(matchedItem.county)} | ${escapeHtml(matchedItem.vendor)} (序號: ${escapeHtml(matchedItem.id)})</div>
-                            <div class="text-[11px] text-red-600 font-bold bg-red-50 px-1.5 py-0.5 rounded inline-block">📅 效期: ${escapeHtml(matchedItem.expiry)}</div>
-                        </td>
-                    `;
-                } else {
-                    safeCount++;
-                    tr.innerHTML = `
-                        <td class="px-4 py-3 text-slate-600 max-w-[150px] truncate" title="${safeLine}">${safeLine}</td>
-                        <td class="px-4 py-3"><span class="px-2 py-0.5 bg-emerald-100 text-emerald-800 font-bold rounded-full text-[10px]">🟢 安全</span></td>
-                        <td class="px-4 py-3 text-slate-400 font-medium">查無管制紀錄</td>
-                    `;
-                }
-                tableBody.appendChild(tr);
-            });
-            // 更新批量統計
-            document.getElementById('batch-stat-total').textContent = totalCount;
-            document.getElementById('batch-stat-match').textContent = matchCount;
-            document.getElementById('batch-stat-safe').textContent = safeCount;
-        }
-        // ==========================================
-        // 系統 3: 完整資料庫瀏覽器
+        // 系統 2: 完整資料庫瀏覽器
         // ==========================================
         function initDatabaseFilters() {
             const countySelect = document.getElementById('filter-county');
@@ -1275,10 +1101,10 @@
             }
         }
         // ==========================================
-        // 系統 4: 店家與下游業者查詢
+        // 系統 3: 店家與下游業者查詢
         // ==========================================
         function initBusinessFilters() {
-            const countySelect = document.getElementById('business-county');
+            const countySelect = document.getElementById('unified-county');
             const counties = [...new Set(businessDatabase.map(item => item.county).filter(Boolean))].sort();
             counties.forEach(county => {
                 const option = document.createElement('option');
@@ -1290,12 +1116,11 @@
         function normalizeBusinessText(text) {
             return String(text ?? '').replace(/[\s　]/g, '').replace(/台/g, '臺').toLowerCase();
         }
-        function applyBusinessFilters() {
-            const query = normalizeBusinessText(document.getElementById('business-search').value);
-            const county = document.getElementById('business-county').value;
-            filteredBusinesses = businessDatabase.filter(item => {
+        function findBusinessMatches(searchText) {
+            const query = normalizeBusinessText(searchText);
+            const county = document.getElementById('unified-county').value;
+            return businessDatabase.filter(item => {
                 if (county && item.county !== county) return false;
-                if (!query) return true;
                 const searchable = [
                     item.name,
                     item.address,
@@ -1306,7 +1131,6 @@
                 ].map(normalizeBusinessText).join(' ');
                 return searchable.includes(query);
             });
-            renderBusinessResults();
         }
         function renderBusinessResults() {
             const container = document.getElementById('business-results');
