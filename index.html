@@ -61,8 +61,8 @@
                 <span class="text-2xl font-black text-indigo-700" id="stat-total-products">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">項</span>
             </div>
             <div class="p-2 border-r border-indigo-100 last:border-none">
-                <span class="text-xs text-slate-500 block">產品名單業者數</span>
-                <span class="text-2xl font-black text-indigo-700" id="stat-total-vendors">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">家</span>
+                <span class="text-xs text-slate-500 block">店家／業者總數</span>
+                <span class="text-2xl font-black text-indigo-700" id="stat-total-businesses" title="依店家／業者名稱與地址去重計算">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">家</span>
             </div>
             <div class="p-2 border-r border-indigo-100 last:border-none">
                 <span class="text-xs text-slate-500 block">涉及縣市數</span>
@@ -108,14 +108,6 @@
                                     <option value="">-- 全部縣市 --</option>
                                 </select>
                             </div>
-                            <hr class="border-slate-100 my-2">
-                            <div class="bg-indigo-50 border border-indigo-100 rounded-xl p-4 text-xs text-indigo-800 leading-relaxed space-y-1.5">
-                                <p class="font-semibold flex items-center gap-1">
-                                    💡 搜尋小撇步
-                                </p>
-                                <p>1. 本系統採用「強力模糊搜尋技術」，會自動忽略半形、全形括號（如 【】、「」、(金馬) ），不影響比對精準度。</p>
-                                <p>2. 同一個搜尋框會同時查找產品名單，以及店家／業者的名稱、地址、品項、批號與有效日期。</p>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -149,31 +141,6 @@
                                     <!-- 動態生成項目 -->
                                 </div>
                             </div>
-                        </div>
-                        <!-- 宣導警語 -->
-                        <div class="text-center text-xs text-slate-400 border-t border-slate-100 pt-4 mt-4 space-y-1">
-                            <p>*本清單以主管機關公告為資料來源。油品範圍涵蓋中聯 115 年 4 至 6 月生產之 29 批油品及其製成品；精確批號與有效日期請以官方或業者最新公告為準。</p>
-                            <p>
-                                官方來源：
-                                <a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/site13712.aspx" target="_blank" rel="noopener noreferrer">食藥署中聯油脂案專區</a>
-                                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639192111390612445&amp;iid=13719&amp;type=3" target="_blank" rel="noopener noreferrer">440 項預防性下架清單（115.7.9）</a>
-                                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639195480017506674&amp;iid=13717&amp;type=3" target="_blank" rel="noopener noreferrer">最新下游流向圖（115.7.13）</a>
-                            </p>
-                            <details class="mt-2 text-left rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                                <summary class="cursor-pointer font-semibold text-slate-600">各地衛生局追蹤入口（同步核對至 115.7.13）</summary>
-                                <p class="mt-2 leading-6">
-                                    <a class="text-indigo-600 hover:underline" href="https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D" target="_blank" rel="noopener noreferrer">臺北市</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/oil" target="_blank" rel="noopener noreferrer">新北市</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://food-safety.tycg.gov.tw/News_Content.aspx?n=1268&amp;s=6264&amp;sms=11293" target="_blank" rel="noopener noreferrer">桃園市</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://dep.hcchb.gov.tw/ch/home.jsp?dataserno=202607090001&amp;id=43&amp;mcustomize=onemessages_view.jsp&amp;mserno=202310020002&amp;parentpath=0%2C40%2C42&amp;t=HcchbOnes&amp;toolsflag=Y" target="_blank" rel="noopener noreferrer">新竹市</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://www.hcshb.gov.tw/News_Content.aspx?n=24&amp;s=109802" target="_blank" rel="noopener noreferrer">新竹縣</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://www.mlshb.gov.tw/nc/article?id=64766940-e130-48d1-9736-acabed4454b5" target="_blank" rel="noopener noreferrer">苗栗縣</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://www.taichung.gov.tw/3320502/post" target="_blank" rel="noopener noreferrer">臺中市</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874" target="_blank" rel="noopener noreferrer">彰化縣</a>
-                                    ・<a class="text-indigo-600 hover:underline" href="https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B" target="_blank" rel="noopener noreferrer">高雄市</a>
-                                </p>
-                                <p class="mt-1 text-slate-500">地方資料多為下游業者、通路、稽查與下架進度；產品查詢仍以食藥署清單為主，避免把業者名單重複計為產品。</p>
-                            </details>
                         </div>
                     </div>
                 </div>
@@ -274,6 +241,33 @@
                 </div>
             </div>
         </div>
+
+        <!-- 全站資料來源與備註：固定置於主要內容最下方，避免打斷查詢結果 -->
+        <section id="source-notes" class="mt-10 bg-white rounded-2xl border border-slate-200 p-5 text-xs text-slate-500 leading-relaxed space-y-2">
+            <h2 class="text-sm font-bold text-slate-700">資料來源與備註</h2>
+            <p>*本清單以主管機關公告為資料來源。油品範圍涵蓋中聯 115 年 4 至 6 月生產之 29 批油品及其製成品；精確批號與有效日期請以官方或業者最新公告為準。</p>
+            <p>
+                官方來源：
+                <a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/site13712.aspx" target="_blank" rel="noopener noreferrer">食藥署中聯油脂案專區</a>
+                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639192111390612445&amp;iid=13719&amp;type=3" target="_blank" rel="noopener noreferrer">440 項預防性下架清單（115.7.9）</a>
+                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639195480017506674&amp;iid=13717&amp;type=3" target="_blank" rel="noopener noreferrer">最新下游流向圖（115.7.13）</a>
+            </p>
+            <details class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
+                <summary class="cursor-pointer font-semibold text-slate-600">各地衛生局追蹤入口（同步核對至 115.7.13）</summary>
+                <p class="mt-2 leading-6">
+                    <a class="text-indigo-600 hover:underline" href="https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D" target="_blank" rel="noopener noreferrer">臺北市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/oil" target="_blank" rel="noopener noreferrer">新北市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://food-safety.tycg.gov.tw/News_Content.aspx?n=1268&amp;s=6264&amp;sms=11293" target="_blank" rel="noopener noreferrer">桃園市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://dep.hcchb.gov.tw/ch/home.jsp?dataserno=202607090001&amp;id=43&amp;mcustomize=onemessages_view.jsp&amp;mserno=202310020002&amp;parentpath=0%2C40%2C42&amp;t=HcchbOnes&amp;toolsflag=Y" target="_blank" rel="noopener noreferrer">新竹市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.hcshb.gov.tw/News_Content.aspx?n=24&amp;s=109802" target="_blank" rel="noopener noreferrer">新竹縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.mlshb.gov.tw/nc/article?id=64766940-e130-48d1-9736-acabed4454b5" target="_blank" rel="noopener noreferrer">苗栗縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.taichung.gov.tw/3320502/post" target="_blank" rel="noopener noreferrer">臺中市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874" target="_blank" rel="noopener noreferrer">彰化縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B" target="_blank" rel="noopener noreferrer">高雄市</a>
+                </p>
+                <p class="mt-1 text-slate-500">地方資料多為下游業者、通路、稽查與下架進度；產品查詢仍以食藥署清單為主，避免把業者名單重複計為產品。</p>
+            </details>
+        </section>
     </main>
     <!-- 頁腳 -->
     <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 text-center py-6 text-xs mt-12 space-y-1">
@@ -810,10 +804,17 @@
         }
         // 統計頂部數據
         function calculateOverallStats() {
-            const uniqueVendors = new Set(productsDatabase.map(p => p.vendor)).size;
-            const uniqueCounties = new Set(productsDatabase.map(p => p.county)).size;
+            const uniqueBusinesses = new Set(
+                businessDatabase
+                    .map(item => `${String(item.name || '').trim()}|${String(item.address || '').trim()}`)
+                    .filter(key => key !== '|')
+            ).size;
+            const uniqueCounties = new Set([
+                ...productsDatabase.map(item => item.county),
+                ...businessDatabase.map(item => item.county)
+            ].filter(Boolean)).size;
             document.getElementById('stat-total-products').textContent = productsDatabase.length;
-            document.getElementById('stat-total-vendors').textContent = uniqueVendors;
+            document.getElementById('stat-total-businesses').textContent = uniqueBusinesses;
             document.getElementById('stat-total-counties').textContent = uniqueCounties;
         }
         // 強力模糊文本清理程序 (移除標點符號、括弧、空格，提升配對成功率)
