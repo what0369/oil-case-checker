@@ -40,7 +40,7 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">中聯油脂案-查詢比對系統</h1>
-                    <p class="text-xs text-slate-400 mt-0.5">最後更新版本: 115.7.13 預防性下架與油品比對工具</p>
+                    <p class="text-xs text-slate-400 mt-0.5">最後更新版本: 115.7.14 預防性下架與油品比對工具</p>
                 </div>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
@@ -70,7 +70,7 @@
             </div>
             <div class="p-2 last:border-none">
                 <span class="text-xs text-slate-500 block">最後更新日期</span>
-                <span class="text-md font-bold text-slate-700 leading-8">民國115年7月13日</span>
+                <span class="text-md font-bold text-slate-700 leading-8">民國115年7月14日</span>
             </div>
         </div>
     </section>
@@ -123,7 +123,7 @@
                                 </svg>
                             </div>
                             <h3 class="text-md font-bold text-slate-700">請在左側輸入查詢內容</h3>
-                            <p class="text-sm text-slate-400 mt-1 max-w-sm">系統會同時掃描 490 項產品資料及 663 筆官方店家／業者紀錄。</p>
+                            <p class="text-sm text-slate-400 mt-1 max-w-sm">系統會同時掃描 490 項產品資料及 <span id="business-record-total">--</span> 筆官方店家／業者紀錄。</p>
                         </div>
                         <!-- 狀態結果顯示 (會透過JS動態抽換) -->
                         <div id="single-result-content" class="hidden space-y-6">
@@ -250,18 +250,18 @@
                 官方來源：
                 <a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/site13712.aspx" target="_blank" rel="noopener noreferrer">食藥署中聯油脂案專區</a>
                 ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639192111390612445&amp;iid=13719&amp;type=3" target="_blank" rel="noopener noreferrer">440 項預防性下架清單（115.7.9）</a>
-                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/includes/GetFile.ashx?id=f639195480017506674&amp;iid=13717&amp;type=3" target="_blank" rel="noopener noreferrer">最新下游流向圖（115.7.13）</a>
+                ・<a class="text-indigo-600 hover:underline" href="https://dep.hcchb.gov.tw/uploaddowndoc?file=Publicadvocacyzone/202607141718450.pdf&amp;filedisplay=%E4%B8%8B%E6%B8%B8%E6%B5%81%E5%90%91%E5%9C%96_0714.pdf&amp;flag=doc" target="_blank" rel="noopener noreferrer">最新下游流向圖（115.7.14）</a>
             </p>
             <details class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
-                <summary class="cursor-pointer font-semibold text-slate-600">各地衛生局追蹤入口（同步核對至 115.7.13）</summary>
+                <summary class="cursor-pointer font-semibold text-slate-600">各地衛生局追蹤入口（同步核對至 115.7.14）</summary>
                 <p class="mt-2 leading-6">
                     <a class="text-indigo-600 hover:underline" href="https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D" target="_blank" rel="noopener noreferrer">臺北市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/oil" target="_blank" rel="noopener noreferrer">新北市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://food-safety.tycg.gov.tw/News_Content.aspx?n=1268&amp;s=6264&amp;sms=11293" target="_blank" rel="noopener noreferrer">桃園市</a>
-                    ・<a class="text-indigo-600 hover:underline" href="https://dep.hcchb.gov.tw/ch/home.jsp?dataserno=202607090001&amp;id=43&amp;mcustomize=onemessages_view.jsp&amp;mserno=202310020002&amp;parentpath=0%2C40%2C42&amp;t=HcchbOnes&amp;toolsflag=Y" target="_blank" rel="noopener noreferrer">新竹市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://dep.hcchb.gov.tw/ch/home.jsp?id=170&amp;parentpath=0,40,75&amp;mcustomize=onemessages_view.jsp&amp;toolsflag=Y&amp;dataserno=202607140003&amp;t=HcchbOnes&amp;mserno=201604100001" target="_blank" rel="noopener noreferrer">新竹市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://www.hcshb.gov.tw/News_Content.aspx?n=24&amp;s=109802" target="_blank" rel="noopener noreferrer">新竹縣</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://www.mlshb.gov.tw/nc/article?id=64766940-e130-48d1-9736-acabed4454b5" target="_blank" rel="noopener noreferrer">苗栗縣</a>
-                    ・<a class="text-indigo-600 hover:underline" href="https://www.taichung.gov.tw/3320502/post" target="_blank" rel="noopener noreferrer">臺中市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.health.taichung.gov.tw/1630364/3313371/3313372/nodeCp?nodeId=3321723" target="_blank" rel="noopener noreferrer">臺中市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874" target="_blank" rel="noopener noreferrer">彰化縣</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B" target="_blank" rel="noopener noreferrer">高雄市</a>
                 </p>
@@ -816,6 +816,7 @@
             document.getElementById('stat-total-products').textContent = productsDatabase.length;
             document.getElementById('stat-total-businesses').textContent = uniqueBusinesses;
             document.getElementById('stat-total-counties').textContent = uniqueCounties;
+            document.getElementById('business-record-total').textContent = businessDatabase.length;
         }
         // 強力模糊文本清理程序 (移除標點符號、括弧、空格，提升配對成功率)
         function cleanTextForMatching(text) {
