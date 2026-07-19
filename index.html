@@ -80,6 +80,7 @@
                                         </svg>
                                     </div>
                                 </div>
+                                <p class="mt-2 text-xs text-slate-400">多個關鍵字請用空格分隔，結果需同時符合；例如：新北市 食品</p>
                             </div>
                             <div>
                                 <label for="unified-county" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">店家／業者縣市（選填）</label>
@@ -806,6 +807,19 @@
                        .replace(/區|金馬|離|蔬|金|丸大|川島|小武/g, '') // 排除修飾字干擾
                        .toLowerCase();
         }
+        function splitSearchTerms(text, normalizer) {
+            return String(text ?? '')
+                .trim()
+                .split(/[\s　]+/)
+                .map(normalizer)
+                .filter(Boolean);
+        }
+        function matchesEverySearchTerm(values, terms, normalizer, allowReverseMatch = false) {
+            const normalizedValues = values.map(normalizer).filter(Boolean);
+            return terms.every(term => normalizedValues.some(value =>
+                value.includes(term) || (allowReverseMatch && term.includes(value))
+            ));
+        }
         // 所有插入 HTML 樣板的文字都必須先轉義，避免使用者輸入被當成標記執行。
         function escapeHtml(text) {
             return String(text ?? '')
@@ -835,8 +849,8 @@
             }
             idleState.classList.add('hidden');
             resultContent.classList.remove('hidden');
-            const cleanedQuery = cleanTextForMatching(query);
-            if (cleanedQuery === '') {
+            const queryTerms = splitSearchTerms(query, cleanTextForMatching);
+            if (queryTerms.length === 0) {
                 idleState.classList.remove('hidden');
                 resultContent.classList.add('hidden');
                 businessSection.classList.add('hidden');
@@ -845,16 +859,12 @@
             }
 
             // 進行多欄位模糊比對
-            const matches = productsDatabase.filter(item => {
-                const cleanedName = cleanTextForMatching(item.name);
-                const cleanedVendor = cleanTextForMatching(item.vendor);
-                const cleanedExpiry = cleanTextForMatching(item.expiry);
-
-                return cleanedName.includes(cleanedQuery) ||
-                       cleanedQuery.includes(cleanedName) ||
-                       cleanedVendor.includes(cleanedQuery) ||
-                       cleanedExpiry.includes(cleanedQuery);
-            });
+            const matches = productsDatabase.filter(item => matchesEverySearchTerm(
+                [item.name, item.vendor, item.expiry, item.county],
+                queryTerms,
+                cleanTextForMatching,
+                true
+            ));
             filteredBusinesses = findBusinessMatches(query);
             businessSection.classList.remove('hidden');
             renderSingleResult(query, matches, filteredBusinesses.length);
@@ -1100,7 +1110,7 @@
             return String(text ?? '').replace(/[\s　]/g, '').replace(/台/g, '臺').toLowerCase();
         }
         function findBusinessMatches(searchText) {
-            const query = normalizeBusinessText(searchText);
+            const terms = splitSearchTerms(searchText, normalizeBusinessText);
             const county = document.getElementById('unified-county').value;
             return businessDatabase.filter(item => {
                 if (county && item.county !== county) return false;
@@ -1111,8 +1121,8 @@
                     ...item.tiers,
                     ...item.statuses,
                     ...item.products.flatMap(product => [product.name, product.batch, product.expiry]),
-                ].map(normalizeBusinessText).join(' ');
-                return searchable.includes(query);
+                ].map(normalizeBusinessText).filter(Boolean);
+                return terms.every(term => searchable.some(value => value.includes(term)));
             });
         }
         function renderBusinessResults() {

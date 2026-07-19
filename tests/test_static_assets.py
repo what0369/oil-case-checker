@@ -19,6 +19,14 @@ class StaticAssetsTests(unittest.TestCase):
         self.assertEqual(package["devDependencies"]["tailwindcss"], "4.3.3")
         self.assertEqual(package["devDependencies"]["@tailwindcss/cli"], "4.3.3")
 
+    def test_multi_keyword_and_search_is_present(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn("多個關鍵字請用空格分隔，結果需同時符合", html)
+        self.assertIn("function splitSearchTerms", html)
+        self.assertIn("function matchesEverySearchTerm", html)
+        self.assertIn("terms.every(term =>", html)
+
 
 if __name__ == "__main__":
     unittest.main()
