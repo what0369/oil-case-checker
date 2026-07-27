@@ -1,4 +1,5 @@
 import json
+import re
 import unittest
 from pathlib import Path
 
@@ -26,6 +27,22 @@ class StaticAssetsTests(unittest.TestCase):
         self.assertIn("function splitSearchTerms", html)
         self.assertIn("function matchesEverySearchTerm", html)
         self.assertIn("terms.every(term =>", html)
+
+    def test_current_batch_statuses_are_complete_and_separated(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        data = (ROOT / "batch-status-data.js").read_text(encoding="utf-8")
+
+        self.assertEqual(7, data.count('status: "blocked"'))
+        self.assertEqual(19, data.count('status: "relisted"'))
+        self.assertEqual(3, data.count('status: "held"'))
+        self.assertEqual(1, data.count('status: "no-specimen"'))
+        self.assertEqual(30, data.count('batch: "'))
+        batches = re.findall(r'batch: "([^"]+)"', data)
+        self.assertEqual(30, len(set(batches)))
+        self.assertIn("2026/07/22 13:34", data)
+        self.assertIn("forcedOperatorRows: 5139", data)
+        self.assertIn("function findBatchStatus", html)
+        self.assertIn("產品或店家名稱命中舊流向資料時，不再自動判定為目前仍下架", html)
 
 
 if __name__ == "__main__":
