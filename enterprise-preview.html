@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex,nofollow">
+    <title>企業自主公告｜本機預覽</title>
+    <link rel="stylesheet" href="./enterprise-preview.css">
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="./index.html" aria-label="回到查詢系統首頁">
+                <span class="brand-mark" aria-hidden="true">油</span>
+                <span>
+                    <strong>中聯油脂案查詢系統</strong>
+                    <small>企業自主公告專區</small>
+                </span>
+            </a>
+            <span class="preview-badge">本機預覽・尚未發布</span>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow">企業公開資訊交叉查證</p>
+                <h1>企業自主公告</h1>
+                <p class="hero-text">僅收錄能由企業官網或官方社群確認處置，且產品與批號／有效日期可由官方資料交叉核對的紀錄。</p>
+            </div>
+            <div class="review-summary" aria-label="核對進度">
+                <div>
+                    <strong id="ready-count">3</strong>
+                    <span>可預覽</span>
+                </div>
+                <div>
+                    <strong>1</strong>
+                    <span>待補批號</span>
+                </div>
+                <div>
+                    <strong>8</strong>
+                    <span>待補原始連結</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="notice" aria-label="資料使用提醒">
+            <span class="notice-icon" aria-hidden="true">查</span>
+            <div>
+                <strong>自主公告不等於主管機關裁定違規</strong>
+                <p>本區呈現企業對外公布的下架、回收、封存或退款措施。產品狀態仍應與食藥署最新清單交叉確認。</p>
+            </div>
+        </section>
+
+        <section class="toolbar" aria-label="公告篩選">
+            <label for="company-search">搜尋已確認公告</label>
+            <div class="search-row">
+                <input id="company-search" type="search" placeholder="輸入企業或產品，例如：鼎泰豐、咖哩醬" autocomplete="off">
+                <span id="result-count" aria-live="polite"></span>
+            </div>
+        </section>
+
+        <section>
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">已通過收錄標準</p>
+                    <h2>企業公告紀錄</h2>
+                </div>
+                <p>核對日期：2026.07.27</p>
+            </div>
+            <div id="announcement-list" class="announcement-list"></div>
+            <div id="empty-state" class="empty-state" hidden>找不到同時符合的企業或產品，請更換關鍵字。</div>
+        </section>
+
+        <section class="pending-section">
+            <div class="section-heading">
+                <div>
+                    <p class="eyebrow">尚不進入正式資料庫</p>
+                    <h2>待補證據</h2>
+                </div>
+            </div>
+            <div class="pending-grid">
+                <article class="pending-card pending-important">
+                    <span class="pending-status">已有企業聲明</span>
+                    <h3>饗賓集團</h3>
+                    <p>官網確認已自主停用、下架與封存健味香油，但只寫「部分批號」，尚缺實際批號、效期及使用餐點。</p>
+                </article>
+                <article class="pending-card">
+                    <span class="pending-status">待補企業原始連結</span>
+                    <h3>其他 8 家</h3>
+                    <p>雙月、王品、瓦城、爭鮮、桂冠、統一超商／聯華、萊爾富、好市多。已有產品或新聞線索，但尚未取得可直接核讀的企業原始固定網址。</p>
+                </article>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>本頁為資料核對預覽，不代表正式發布版本。</p>
+        <a href="./outputs/enterprise-announcement-audit.md">查看完整核對報告</a>
+    </footer>
+
+    <script src="./data/enterprise-announcements-draft.js"></script>
+    <script src="./enterprise-preview.js"></script>
+</body>
+</html>
