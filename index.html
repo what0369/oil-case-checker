@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>中聯油脂案-查詢比對系統</title>
+    <title>油品食安事件查詢系統</title>
     <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="./enterprise-tab.css?v=1150728-labels">
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
     <!-- 頂部導覽列 -->
@@ -18,8 +19,8 @@
                     </svg>
                 </div>
                 <div>
-                    <h1 class="text-xl font-bold tracking-tight">中聯油脂案-查詢比對系統</h1>
-                    <p class="text-xs text-slate-400 mt-0.5">最後更新版本: 115.7.24 批號狀態與 115.7.22 官方業者清單</p>
+                    <h1 class="text-xl font-bold tracking-tight">油品食安事件查詢系統</h1>
+                    <p class="text-xs text-slate-400 mt-0.5">本機更新草稿：中聯油脂案＋連淨苦茶油案（115.7.28）</p>
                 </div>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
@@ -29,11 +30,14 @@
                 <button onclick="switchTab('database')" id="btn-tab-database" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
                     📋 瀏覽完整資料庫
                 </button>
+                <button onclick="switchTab('enterprise')" id="btn-tab-enterprise" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+                    🏢 企業自主公告
+                </button>
             </div>
         </div>
     </header>
     <!-- 統計快報列 -->
-    <section class="bg-indigo-50 border-b border-indigo-100 py-3">
+    <section id="case-stats" class="bg-indigo-50 border-b border-indigo-100 py-3">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div class="p-2 border-r border-indigo-100 last:border-none">
                 <span class="text-xs text-slate-500 block">不得上架／銷毀</span>
@@ -60,26 +64,88 @@
             <section class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                     <div>
-                        <h2 class="text-lg font-bold text-slate-900">115 年 4–6 月 30 批油品最新狀態</h2>
-                        <p class="text-xs text-slate-500 mt-1">依食藥署 7 月 21 日評估結果整理；7 月 22 日官方下游業者清單共 257 頁、5,139 列。</p>
+                        <h2 class="text-lg font-bold text-slate-900">近期油品食安事件總覽</h2>
+                        <p class="text-xs text-slate-500 mt-1">兩案原料與調查範圍不同，網站分開呈現，不合併計算批號。</p>
                     </div>
-                    <a class="text-xs font-bold text-indigo-600 hover:underline" href="https://www.fda.gov.tw/EdibleOilOperator/index.aspx" target="_blank" rel="noopener noreferrer">開啟官方即時業者查詢 ↗</a>
+                    <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-3 py-1">2 起事件</span>
                 </div>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-3 items-start">
-                    <details class="rounded-xl border border-red-200 bg-red-50 p-3" open>
-                        <summary class="cursor-pointer text-sm font-extrabold text-red-700">7 批不得上架／啟動銷毀</summary>
-                        <div id="blocked-batch-list" class="mt-2 flex flex-wrap gap-1"></div>
-                    </details>
-                    <details class="rounded-xl border border-emerald-200 bg-emerald-50 p-3">
-                        <summary class="cursor-pointer text-sm font-extrabold text-emerald-700">19 批符合規定／可重新上架</summary>
-                        <div id="relisted-batch-list" class="mt-2 flex flex-wrap gap-1"></div>
-                    </details>
-                    <details class="rounded-xl border border-amber-200 bg-amber-50 p-3">
-                        <summary class="cursor-pointer text-sm font-extrabold text-amber-700">3 批留置、1 批外銷無檢體</summary>
-                        <div id="other-batch-list" class="mt-2 flex flex-wrap gap-1"></div>
-                    </details>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <article class="event-overview-card-wide rounded-xl border border-indigo-200 bg-indigo-50 p-4 space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-extrabold text-indigo-700">事件一</span>
+                            <span class="text-xs font-bold text-slate-600 bg-white rounded-full px-2 py-1">中聯油脂案</span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900">大豆沙拉油及下游產品</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">30 批已有食藥署評估結果：7 批不得上架、19 批可重新上架、3 批留置、1 批外銷無檢體。</p>
+                        <div class="official-update-note">
+                            <strong>7 月 27 日第三方獨立調查</strong>
+                            <p>食藥署調查認為本案並非單一因素造成，而是高風險原料管理、製程監控及檢驗監測等多項管理缺失交互影響；30 批分類沒有改變。</p>
+                            <a href="https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=t634544" target="_blank" rel="noopener noreferrer">查看食藥署調查結果 ↗</a>
+                        </div>
+                        <details class="event-batch-details">
+                            <summary>
+                                <span>
+                                    <strong>115 年 4–6 月 30 批油品最新狀態</strong>
+                                    <small>點選展開全部批號</small>
+                                </span>
+                                <span class="event-batch-toggle" aria-hidden="true">＋</span>
+                            </summary>
+                            <div class="event-batch-groups">
+                                <section class="event-batch-group event-batch-group-danger">
+                                    <h4>7 批不得上架／啟動銷毀</h4>
+                                    <div id="blocked-batch-list" class="flex flex-wrap gap-1"></div>
+                                </section>
+                                <section class="event-batch-group event-batch-group-safe">
+                                    <h4>19 批符合規定／可重新上架</h4>
+                                    <div id="relisted-batch-list" class="flex flex-wrap gap-1"></div>
+                                </section>
+                                <section class="event-batch-group event-batch-group-pending">
+                                    <h4>3 批留置、1 批外銷無檢體</h4>
+                                    <div id="other-batch-list" class="flex flex-wrap gap-1"></div>
+                                </section>
+                            </div>
+                            <div class="event-batch-footer">
+                                <p>點選任一批號，可直接帶入下方搜尋框查看明確狀態。產品或店家名稱命中舊流向資料時，不再自動判定為目前仍下架。</p>
+                                <a href="https://www.fda.gov.tw/EdibleOilOperator/index.aspx" target="_blank" rel="noopener noreferrer">開啟官方即時業者查詢 ↗</a>
+                            </div>
+                        </details>
+                    </article>
+                    <article class="event-overview-card-wide rounded-xl border border-red-200 bg-red-50 p-4 space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-extrabold text-red-700">事件二・獨立事件</span>
+                            <span class="text-xs font-bold text-red-700 bg-white rounded-full px-2 py-1">下架回收中</span>
+                            <span class="text-xs font-bold text-amber-700 bg-white rounded-full px-2 py-1">後續抽驗進行中</span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900">連淨苦茶油苯駢芘超標</h3>
+                        <p class="text-xs text-slate-700 leading-relaxed">業者於 115 年 7 月 21 日自主通報；「連淨苦茶油」檢出苯駢芘 2.9 μg/kg，超過限量 2.0 μg/kg。主管機關已要求停工、停止販售及回收。</p>
+                        <div class="text-xs text-slate-700 leading-relaxed">
+                            <p><strong>有機苦茶油 250mL</strong>：批號 <strong>26V224XW01</strong>（棉花田生機園地）</p>
+                            <p><strong>統一生機初榨苦茶油 250mL</strong>：批號 <strong>26S624XW01</strong>（統一生機健康有機超市）</p>
+                        </div>
+                        <div class="recall-progress-grid">
+                            <div>
+                                <strong>939 瓶</strong>
+                                <span>兩項問題批號曾售出</span>
+                            </div>
+                            <div>
+                                <strong>33 瓶</strong>
+                                <span>截至 7/23 自消費者端回收</span>
+                            </div>
+                            <div>
+                                <strong>架上 0 瓶</strong>
+                                <span>通路已無問題批號商品</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-600">新北市衛生局表示苦茶籽原料由中國輸入，驗收時曾取得苯駢芘檢驗合格證明，污染原因仍須從原料與製程檢討。臺北市另公布棉花田通路 720 瓶中售出 710 瓶，截至 7/24 已回收 10 瓶。</p>
+                        <p class="text-xs text-red-700 font-bold">另抽驗 5 件苦茶油產品，截至 115 年 7 月 28 日尚未公布結果，維持「後續抽驗進行中」。</p>
+                        <div class="flex flex-wrap gap-3 text-xs font-bold">
+                            <a class="text-red-700 hover:underline" href="https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=31669" target="_blank" rel="noopener noreferrer">食藥署公告 ↗</a>
+                            <a class="text-red-700 hover:underline" href="https://www.ntpc.gov.tw/ch/home.jsp?dataserno=28a41cc9a42dd5fd5330fc67de48db17&amp;id=e8ca970cde5c00e1" target="_blank" rel="noopener noreferrer">新北市批號與流向 ↗</a>
+                            <a class="text-red-700 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/teaoil" target="_blank" rel="noopener noreferrer">新北市苦茶油食安專區 ↗</a>
+                            <a class="text-red-700 hover:underline" href="https://www.dthc.gov.taipei/News_Content.aspx?n=3D25BEC250DA19B5&amp;s=C2BBB560843353E5&amp;sms=72544237BBE4C5F6" target="_blank" rel="noopener noreferrer">臺北市回收進度 ↗</a>
+                        </div>
+                    </article>
                 </div>
-                <p class="text-xs text-slate-500">可直接在下方輸入中聯批號（例如 <strong>313-1150408</strong> 或 <strong>314-1150401</strong>）查看明確狀態。產品或店家名稱命中舊流向資料時，不再自動判定為目前仍下架。</p>
             </section>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- 比對輸入區 -->
@@ -96,7 +162,7 @@
                                 <div class="relative">
                                     <input type="search" id="search-input"
                                            class="w-full pl-4 pr-10 py-3 bg-slate-50 border border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:bg-white transition text-lg"
-                                           placeholder="例如：泰山大豆沙拉油、胖老爹、C2140426O、臺北市中山區"
+                                           placeholder="例如：苦茶油、26V224XW01、胖老爹、新北市 食品"
                                            oninput="handleUnifiedSearch(this.value)">
                                     <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
                                         <svg class="h-5 w-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -104,7 +170,7 @@
                                         </svg>
                                     </div>
                                 </div>
-                                <p class="mt-2 text-xs text-slate-400">多個關鍵字請用空格分隔，結果需同時符合；例如：新北市 食品</p>
+                                <p class="mt-2 text-xs text-slate-400">同一欄可搜尋官方產品、批號、店家及企業自主公告；多個關鍵字請用空格分隔，結果需同時符合。</p>
                             </div>
                             <div>
                                 <label for="unified-county" class="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-1.5">店家／業者縣市（選填）</label>
@@ -118,6 +184,7 @@
                 <!-- 比對結果顯影區 -->
                 <div class="lg:col-span-7 space-y-4">
                     <div id="single-result-card" class="bg-white rounded-2xl p-6 shadow-sm border border-slate-200 min-h-[350px] flex flex-col justify-between">
+                        <div class="result-zone-label">🔎 搜尋結果區</div>
 
                         <!-- 預設待命狀態 -->
                         <div id="single-idle-state" class="flex flex-col items-center justify-center text-center py-12 my-auto">
@@ -127,7 +194,7 @@
                                 </svg>
                             </div>
                             <h3 class="text-md font-bold text-slate-700">請在左側輸入查詢內容</h3>
-                            <p class="text-sm text-slate-400 mt-1 max-w-sm">系統會比對 30 批最新狀態、490 項歷史產品資料及 <span id="business-record-total">--</span> 筆彙整店家／業者紀錄。</p>
+                            <p class="text-sm text-slate-400 mt-1 max-w-sm">系統會比對中聯 30 批最新狀態、連淨苦茶油 2 個問題批號、共 492 項產品資料及 <span id="business-record-total">--</span> 筆彙整店家／業者紀錄。</p>
                         </div>
                         <!-- 狀態結果顯示 (會透過JS動態抽換) -->
                         <div id="single-result-content" class="hidden space-y-6">
@@ -138,7 +205,7 @@
                             <!-- 詳細比對匹配清單 -->
                             <div class="space-y-3">
                                 <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">歷史產品資料結果</span>
+                                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">全部來源搜尋結果</span>
                                     <span id="result-match-count" class="text-xs font-bold px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full">--</span>
                                 </div>
                                 <div id="result-match-list" class="space-y-2 max-h-[450px] overflow-y-auto custom-scrollbar pr-1">
@@ -149,21 +216,6 @@
                     </div>
                 </div>
             </div>
-            <section id="unified-business-section" class="hidden space-y-4">
-                <div class="bg-amber-50 border border-amber-200 text-amber-900 rounded-xl p-4 text-xs leading-relaxed">
-                    <strong>店家／業者紀錄說明：</strong>下方為 7 月 18 日以前各級流向附件的彙整紀錄，供名稱與批號交叉比對；出現不等於業者違規，也不等於目前仍使用或仍下架。7 月 22 日強制下架清單請再以食藥署即時查詢確認。
-                </div>
-                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
-                    <h2 class="text-lg font-bold text-slate-900">🏪 店家／業者官方紀錄</h2>
-                    <p class="text-sm font-semibold text-slate-700">找到 <span id="business-result-count" class="text-amber-700">0</span> 筆紀錄</p>
-                </div>
-                <p id="business-result-limit" class="hidden text-xs text-slate-500">為便於閱讀，目前顯示前 100 筆；請增加關鍵字或選擇縣市縮小範圍。</p>
-                <div id="business-results" class="grid grid-cols-1 lg:grid-cols-2 gap-4"></div>
-                <div id="business-no-data" class="hidden bg-white rounded-2xl border border-slate-200 py-12 text-center">
-                    <p class="text-slate-500 font-semibold">目前公開附件中沒有符合條件的店家／業者紀錄</p>
-                    <p class="text-xs text-slate-400 mt-1">未命中不代表沒有使用，地方衛生局仍可能持續更新流向資料。</p>
-                </div>
-            </section>
         </div>
         <!-- TAB 2: 完整資料庫瀏覽器 -->
         <div id="tab-database" class="tab-content hidden space-y-6">
@@ -174,9 +226,9 @@
                     <div>
                         <h2 class="text-lg font-bold text-slate-900 flex items-center gap-2">
                             <span class="w-1.5 h-5 bg-indigo-600 rounded-full"></span>
-                            中聯油脂案 歷史產品與流向資料庫
+                            油品食安事件產品與流向資料庫
                         </h2>
-                        <p class="text-sm text-slate-500 mt-1">保留 7 月 9 日預防性下架時的產品範圍供追溯；目前狀態應以中聯批號與食藥署 7 月 21 日評估結果判定。</p>
+                        <p class="text-sm text-slate-500 mt-1">保留中聯案 7 月 9 日預防性下架範圍，並新增連淨苦茶油案兩個問題批號；兩案請依各自官方公告判定。</p>
                     </div>
                     <div class="flex items-center gap-2">
                         <button onclick="resetFilters()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition">
@@ -246,10 +298,73 @@
             </div>
         </div>
 
+        <!-- TAB 3: 企業自主公告 -->
+        <div id="tab-enterprise" class="tab-content hidden">
+            <section class="enterprise-hero">
+                <div>
+                    <p class="enterprise-eyebrow">企業公開資訊交叉查證</p>
+                    <h2>企業自主公告</h2>
+                    <p>僅收錄能由企業官網或官方社群確認處置，且產品與批號／有效日期可由官方資料交叉核對的紀錄。</p>
+                </div>
+                <div class="enterprise-summary" aria-label="核對進度">
+                    <div><strong id="enterprise-ready-count">3</strong><span>可預覽</span></div>
+                    <div><strong>1</strong><span>待補批號</span></div>
+                    <div><strong>8</strong><span>待補原始連結</span></div>
+                </div>
+            </section>
+
+            <section class="enterprise-notice">
+                <span aria-hidden="true">查</span>
+                <div>
+                    <strong>自主公告不等於主管機關裁定違規</strong>
+                    <p>本區呈現企業對外公布的下架、回收、封存或退款措施。產品狀態仍應與食藥署最新清單交叉確認。</p>
+                </div>
+            </section>
+
+            <section class="enterprise-toolbar">
+                <label for="enterprise-company-search">搜尋已確認公告</label>
+                <div>
+                    <input id="enterprise-company-search" type="search" placeholder="輸入企業或產品，例如：鼎泰豐、咖哩醬" autocomplete="off">
+                    <span id="enterprise-result-count" aria-live="polite"></span>
+                </div>
+            </section>
+
+            <div class="enterprise-section-heading">
+                <div>
+                    <p class="enterprise-eyebrow">已通過收錄標準</p>
+                    <h2>企業公告紀錄</h2>
+                </div>
+                <p>核對日期：2026.07.28</p>
+            </div>
+            <section id="enterprise-announcement-list" class="enterprise-list"></section>
+            <div id="enterprise-empty-state" class="enterprise-empty" hidden>找不到符合的企業或產品，請更換關鍵字。</div>
+
+            <section class="enterprise-pending">
+                <div class="enterprise-section-heading">
+                    <div>
+                        <p class="enterprise-eyebrow">尚不進入正式資料庫</p>
+                        <h2>待補證據</h2>
+                    </div>
+                </div>
+                <div class="enterprise-pending-grid">
+                    <article>
+                        <span>已有企業聲明</span>
+                        <h3>饗賓集團</h3>
+                        <p>官網確認已自主停用、下架與封存健味香油，但只寫「部分批號」，尚缺實際批號、效期及使用餐點。</p>
+                    </article>
+                    <article>
+                        <span>待補企業原始連結</span>
+                        <h3>其他 8 家</h3>
+                        <p>雙月、王品、瓦城、爭鮮、桂冠、統一超商／聯華、萊爾富、好市多。已有產品或新聞線索，但尚未取得可直接核讀的企業原始固定網址。</p>
+                    </article>
+                </div>
+            </section>
+        </div>
+
         <!-- 全站資料來源與備註：固定置於主要內容最下方，避免打斷查詢結果 -->
         <section id="source-notes" class="mt-10 bg-white rounded-2xl border border-slate-200 p-5 text-xs text-slate-500 leading-relaxed space-y-2">
-            <h2 class="text-sm font-bold text-slate-700">資料來源與備註</h2>
-            <p>*批號狀態以食藥署 115.7.21 評估結果整理：7 批不得上架、19 批可重新上架、3 批未出貨留置、1 批外銷無檢體。歷史產品與業者流向資料保留作為查詢線索，不應單獨解讀為目前仍受下架管制。</p>
+            <h2 class="text-sm font-bold text-slate-700">📚 資料來源與備註（參考區）</h2>
+            <p>*中聯案批號狀態以食藥署 115.7.21 評估結果整理：7 批不得上架、19 批可重新上架、3 批未出貨留置、1 批外銷無檢體；另補充 115.7.27 第三方獨立調查結論。連淨苦茶油案依中央及地方政府截至 115.7.28 公開資訊整理，為不同原料、不同調查範圍的獨立事件。</p>
             <p>
                 官方來源：
                 <a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/site13712.aspx" target="_blank" rel="noopener noreferrer">食藥署中聯油脂案專區</a>
@@ -258,7 +373,13 @@
                 ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/RelistedList/index.aspx" target="_blank" rel="noopener noreferrer">可重新上架產品即時查詢（更新至 115.7.24 08:19）</a>
                 ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/siteList.aspx?sid=13708" target="_blank" rel="noopener noreferrer">7 批不得上架產品附件（115.7.23）</a>
                 ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=t634541" target="_blank" rel="noopener noreferrer">銷毀及重新上架執行原則（115.7.24）</a>
+                ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=t634544" target="_blank" rel="noopener noreferrer">第三方獨立調查結果（115.7.27）</a>
+                ・<a class="text-red-700 hover:underline" href="https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=31669" target="_blank" rel="noopener noreferrer">連淨苦茶油食藥署公告（115.7.22）</a>
+                ・<a class="text-red-700 hover:underline" href="https://www.ntpc.gov.tw/ch/home.jsp?dataserno=28a41cc9a42dd5fd5330fc67de48db17&amp;id=e8ca970cde5c00e1" target="_blank" rel="noopener noreferrer">新北市問題批號與流向（115.7.22）</a>
+                ・<a class="text-red-700 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/teaoil" target="_blank" rel="noopener noreferrer">新北市苦茶油食安專區</a>
+                ・<a class="text-red-700 hover:underline" href="https://www.dthc.gov.taipei/News_Content.aspx?n=3D25BEC250DA19B5&amp;s=C2BBB560843353E5&amp;sms=72544237BBE4C5F6" target="_blank" rel="noopener noreferrer">臺北市回收進度（115.7.24）</a>
             </p>
+            <p class="text-red-700">*連淨苦茶油案另抽驗 5 件產品；截至 115.7.28，官方尚未公布後續檢驗結果。本草稿不推測未公布結果，也不把新聞報導中的效期當作官方確定資料。</p>
             <details class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
                 <summary class="cursor-pointer font-semibold text-slate-600">各地衛生局追蹤入口（歷史流向輔助資料）</summary>
                 <p class="mt-2 leading-6">
@@ -278,14 +399,16 @@
     </main>
     <!-- 頁腳 -->
     <footer class="bg-slate-900 text-slate-400 border-t border-slate-800 text-center py-6 text-xs mt-12 space-y-1">
-        <p>© 115 中聯油脂案-查詢比對系統 版權所有</p>
+        <p>© 115 油品食安事件查詢系統 版權所有</p>
         <p>本工具採用在地化前端架構，您的搜尋內容不會傳輸至伺服器。</p>
     </footer>
     <script src="batch-status-data.js"></script>
     <script src="business-data.js"></script>
+    <script src="./data/enterprise-announcements-draft.js"></script>
+    <script src="./enterprise-tab.js?v=20260728-1"></script>
     <!-- JS 邏輯代碼 -->
     <script>
-        // 440項預防性下架產品與50項泰山/福壽/福懋油品範圍，共490項
+        // 中聯案 490 項歷史產品，加上連淨苦茶油案 2 個問題批號，共 492 項
         const productsDatabase = [
             { id: 1, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "雙蔬鮪魚飯糰", expiry: "已逾有效日期" },
             { id: 2, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "林聰明-雞肉飯飯糰", expiry: "已逾有效日期" },
@@ -779,7 +902,9 @@
             { id: 487, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康大豆沙拉油 18L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
             { id: 488, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康大豆沙拉油 18kg", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
             { id: 489, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康烹調油 18L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
-            { id: 490, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "一級黃豆油(散裝)", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" }
+            { id: 490, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "一級黃豆油(散裝)", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
+            { id: 491, county: "新北市", vendor: "連淨綠色科技股份有限公司", name: "有機苦茶油 250mL", expiry: "批號 26V224XW01・苯駢芘不合格・下架回收中" },
+            { id: 492, county: "新北市", vendor: "連淨綠色科技股份有限公司", name: "統一生機初榨苦茶油 250mL", expiry: "批號 26S624XW01・苯駢芘不合格・下架回收中" }
         ];
         // 系統變數初始化
         let filteredDatabase = [...productsDatabase];
@@ -810,6 +935,8 @@
                 content.classList.add('hidden');
             });
             document.getElementById(`tab-${tabId}`).classList.remove('hidden');
+            document.getElementById('case-stats').classList.toggle('hidden', tabId === 'enterprise');
+            document.getElementById('source-notes').classList.toggle('hidden', tabId === 'enterprise');
         }
         // 統計頂部數據
         function calculateOverallStats() {
@@ -884,12 +1011,10 @@
         function handleUnifiedSearch(query) {
             const idleState = document.getElementById('single-idle-state');
             const resultContent = document.getElementById('single-result-content');
-            const businessSection = document.getElementById('unified-business-section');
 
             if (!query || query.trim() === '') {
                 idleState.classList.remove('hidden');
                 resultContent.classList.add('hidden');
-                businessSection.classList.add('hidden');
                 filteredBusinesses = [];
                 return;
             }
@@ -899,7 +1024,6 @@
             if (queryTerms.length === 0) {
                 idleState.classList.remove('hidden');
                 resultContent.classList.add('hidden');
-                businessSection.classList.add('hidden');
                 showToast('請輸入至少一個文字或數字！');
                 return;
             }
@@ -912,18 +1036,33 @@
                 true
             ));
             filteredBusinesses = findBusinessMatches(query);
-            businessSection.classList.remove('hidden');
-            renderSingleResult(query, matches, filteredBusinesses.length, findBatchStatus(query));
-            renderBusinessResults();
+            const enterpriseMatches = findEnterpriseAnnouncementMatches(query);
+            renderSingleResult(query, matches, filteredBusinesses.length, findBatchStatus(query), enterpriseMatches.length);
+            renderUnifiedMixedResults(query, matches, enterpriseMatches, filteredBusinesses);
         }
-        function renderSingleResult(query, matches, businessMatchCount, batchStatus) {
+        function renderSingleResult(query, matches, businessMatchCount, batchStatus, enterpriseMatchCount) {
             const banner = document.getElementById('result-status-banner');
             const matchCount = document.getElementById('result-match-count');
             const matchList = document.getElementById('result-match-list');
             const safeQuery = escapeHtml(query);
+            const camelliaMatches = matches.filter(item => item.id === 491 || item.id === 492);
             matchList.innerHTML = '';
             matchCount.textContent = `${matches.length} 筆項目`;
-            if (batchStatus && batchStatus.status === 'blocked') {
+            if (camelliaMatches.length > 0) {
+                const matchedBatches = camelliaMatches
+                    .map(item => item.expiry.match(/26[A-Z0-9]+/)?.[0])
+                    .filter(Boolean)
+                    .join('、');
+                banner.className = "rounded-xl p-4 flex items-center gap-4 border border-red-200 bg-red-50 text-red-900";
+                banner.innerHTML = `
+                    <div class="p-2 bg-red-600 text-white rounded-full">!</div>
+                    <div>
+                        <h4 class="text-md font-extrabold text-red-700">🚨 連淨苦茶油問題批號：${escapeHtml(matchedBatches)}</h4>
+                        <p class="text-xs text-red-600 mt-0.5">本案檢出苯駢芘超標，產品已下架回收；請停止食用並向原購買通路洽詢退換貨。這是獨立事件，不屬於中聯油脂案批號。</p>
+                    </div>
+                `;
+                renderProductMatches(matches, matchList, query);
+            } else if (batchStatus && batchStatus.status === 'blocked') {
                 banner.className = "rounded-xl p-4 flex items-center gap-4 border border-red-200 bg-red-50 text-red-900";
                 banner.innerHTML = `
                     <div class="p-2 bg-red-600 text-white rounded-full">
@@ -967,6 +1106,22 @@
                     </div>
                 `;
                 renderProductMatches(matches, matchList, query);
+            } else if (enterpriseMatchCount > 0) {
+                banner.className = "rounded-xl p-4 flex items-center gap-4 border border-indigo-200 bg-indigo-50 text-indigo-900";
+                banner.innerHTML = `
+                    <div class="p-2 bg-indigo-600 text-white rounded-full">🏢</div>
+                    <div>
+                        <h4 class="text-md font-extrabold text-indigo-700">找到 ${enterpriseMatchCount} 家企業自主公告</h4>
+                        <p class="text-xs text-indigo-700 mt-0.5">「${safeQuery}」未命中官方產品／批號資料，但命中企業自行公布的下架、回收、封存或退款資訊；結果與其他來源一起列在同一清單。</p>
+                    </div>
+                `;
+                matchList.innerHTML = `
+                    <div class="text-center py-8">
+                        <span class="text-4xl">🏢</span>
+                        <p class="text-sm font-bold text-slate-600 mt-2">官方產品清單未命中，已找到企業公告</p>
+                        <p class="text-xs text-slate-400 mt-1">每筆結果會標示資料來源類型，避免混為同一判定。</p>
+                    </div>
+                `;
             } else {
                 // 產品清單未命中；仍須查看業者紀錄與官方公告。
                 banner.className = "rounded-xl p-4 flex items-center gap-4 border border-slate-200 bg-slate-50 text-slate-900";
@@ -978,16 +1133,121 @@
                     </div>
                     <div>
                         <h4 class="text-md font-extrabold text-slate-700">目前資料未命中</h4>
-                        <p class="text-xs text-slate-600 mt-0.5">您搜尋的「${safeQuery}」未命中 30 批狀態或 490 項歷史產品資料${businessMatchCount > 0 ? `，但另找到 ${businessMatchCount} 筆店家／業者紀錄，請往下查看` : ''}。未命中不代表產品一定安全，仍請核對品牌、批號、有效日期與官方最新公告。</p>
+                        <p class="text-xs text-slate-600 mt-0.5">您搜尋的「${safeQuery}」未命中中聯 30 批狀態、連淨苦茶油 2 個問題批號、492 項產品資料或企業自主公告${businessMatchCount > 0 ? `，但同一清單另有 ${businessMatchCount} 筆店家／業者紀錄` : ''}。未命中不代表產品一定安全，仍請核對品牌、批號、有效日期與官方最新公告。</p>
                     </div>
                 `;
                 matchList.innerHTML = `
                     <div class="text-center py-10">
                         <span class="text-4xl">🔎</span>
                         <p class="text-sm font-bold text-slate-600 mt-2">產品清單查無符合項目</p>
-                        <p class="text-xs text-slate-400 mt-1">${businessMatchCount > 0 ? '下方仍有符合的店家／業者彙整紀錄。' : '產品與店家／業者紀錄目前皆未命中；食藥署清單仍可能持續更新。'}</p>
+                        <p class="text-xs text-slate-400 mt-1">${businessMatchCount > 0 ? '同一清單內仍有符合的店家／業者彙整紀錄。' : '產品與店家／業者紀錄目前皆未命中；食藥署清單仍可能持續更新。'}</p>
                     </div>
                 `;
+            }
+        }
+        function renderUnifiedMixedResults(query, productMatches, enterpriseMatches, businessMatches) {
+            const matchList = document.getElementById('result-match-list');
+            const matchCount = document.getElementById('result-match-count');
+            const total = productMatches.length + enterpriseMatches.length + businessMatches.length;
+            matchCount.textContent = `共 ${total} 筆｜產品 ${productMatches.length}・企業 ${enterpriseMatches.length}・業者 ${businessMatches.length}`;
+            if (total === 0) return;
+
+            const mixedResults = [
+                ...productMatches.map(item => ({ type: 'product', label: item.name, item })),
+                ...enterpriseMatches.map(item => ({ type: 'enterprise', label: item.company, item })),
+                ...businessMatches.map(item => ({ type: 'business', label: item.name, item }))
+            ].sort((a, b) => a.label.localeCompare(b.label, 'zh-TW'));
+            const visibleResults = mixedResults.slice(0, 60);
+            matchList.innerHTML = '';
+
+            visibleResults.forEach(result => {
+                const card = document.createElement('article');
+                if (result.type === 'product') {
+                    const item = result.item;
+                    card.className = 'mixed-result-card mixed-result-product';
+                    card.innerHTML = `
+                        <div class="mixed-result-heading">
+                            <span class="mixed-source-badge mixed-source-official" aria-label="來源：官方產品／批號資料">
+                                <span class="mixed-source-icon" aria-hidden="true">公</span>
+                                <span class="mixed-source-copy">
+                                    <small>官方資料</small>
+                                    <strong>產品／批號</strong>
+                                </span>
+                            </span>
+                            <span class="mixed-result-id">序號 ${escapeHtml(item.id)}</span>
+                        </div>
+                        <h3>${highlightKeyword(item.name, query)}</h3>
+                        <p>${escapeHtml(item.county)}・${highlightKeyword(item.vendor, query)}</p>
+                        <div class="mixed-result-detail">${highlightKeyword(item.expiry, query)}</div>
+                        <p class="mixed-result-source">來源：食藥署與地方政府公開產品資料彙整</p>
+                    `;
+                } else if (result.type === 'enterprise') {
+                    const item = result.item;
+                    const products = item.products.slice(0, 4).map(product => `
+                        <li><strong>${escapeHtml(product.name)}</strong>${product.batchOrExpiry ? `｜${escapeHtml(product.batchOrExpiry)}` : ''}</li>
+                    `).join('');
+                    const moreProducts = item.products.length > 4
+                        ? `<li>另有 ${item.products.length - 4} 項，請查看原始公告</li>`
+                        : '';
+                    const sources = item.sources.map(source => `
+                        <a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)} ↗</a>
+                    `).join('・');
+                    card.className = 'mixed-result-card mixed-result-enterprise';
+                    card.innerHTML = `
+                        <div class="mixed-result-heading">
+                            <span class="mixed-source-badge mixed-source-enterprise" aria-label="來源：企業自主公告">
+                                <span class="mixed-source-icon" aria-hidden="true">企</span>
+                                <span class="mixed-source-copy">
+                                    <small>企業資料</small>
+                                    <strong>自主公告</strong>
+                                </span>
+                            </span>
+                            <span class="mixed-result-id">公告 ${escapeHtml(item.announcementDate)}</span>
+                        </div>
+                        <h3>${escapeHtml(item.company)}</h3>
+                        <p>${escapeHtml(item.action)}</p>
+                        <ul class="mixed-result-products">${products}${moreProducts}</ul>
+                        <p class="mixed-result-source">${sources}</p>
+                    `;
+                } else {
+                    const item = result.item;
+                    const products = item.products.slice(0, 3).map(product => {
+                        const detail = [
+                            product.batch ? `批號 ${product.batch}` : '',
+                            product.expiry ? `效期 ${product.expiry}` : ''
+                        ].filter(Boolean).join('・');
+                        return `<li><strong>${escapeHtml(product.name)}</strong>${detail ? `｜${escapeHtml(detail)}` : ''}</li>`;
+                    }).join('');
+                    const sources = item.sources.slice(0, 2).map(source => `
+                        <a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.label)}（${escapeHtml(source.date)}）↗</a>
+                    `).join('・');
+                    card.className = 'mixed-result-card mixed-result-business';
+                    card.innerHTML = `
+                        <div class="mixed-result-heading">
+                            <span class="mixed-source-badge mixed-source-government" aria-label="來源：政府流向／業者紀錄">
+                                <span class="mixed-source-icon" aria-hidden="true">流</span>
+                                <span class="mixed-source-copy">
+                                    <small>地方政府資料</small>
+                                    <strong>流向／業者</strong>
+                                </span>
+                            </span>
+                            <span class="mixed-result-id">紀錄 ${escapeHtml(item.id)}</span>
+                        </div>
+                        <h3>${escapeHtml(item.name)}</h3>
+                        <p>${escapeHtml(item.county || '縣市未載')}${item.address ? `・${escapeHtml(item.address)}` : ''}</p>
+                        <div class="mixed-result-detail">${escapeHtml(item.statuses.join('；'))}</div>
+                        ${products ? `<ul class="mixed-result-products">${products}</ul>` : ''}
+                        <p class="mixed-result-source">${sources}</p>
+                    `;
+                }
+                matchList.appendChild(card);
+            });
+
+            if (total > visibleResults.length) {
+                const limit = document.createElement('p');
+                limit.className = 'mixed-result-limit';
+                limit.textContent = `共有 ${total} 筆結果，目前顯示前 ${visibleResults.length} 筆；請增加關鍵字縮小範圍。`;
+                matchList.appendChild(limit);
             }
         }
         function renderProductMatches(matches, matchList, query) {
