@@ -2,7 +2,7 @@
 // Inclusion rule: a corporate website/social post must confirm the action, and an official
 // corporate or government source must identify the affected product and batch/effective date.
 const enterpriseAnnouncementDraft = {
-  reviewedAt: "2026-07-28",
+  reviewedAt: "2026-08-03",
   publicationStatus: "draft",
   inclusionRule: "企業官網或官方社群確認處置，並由企業或政府官方資料補齊產品及批號／效期",
   readyForPreview: [

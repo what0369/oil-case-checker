@@ -53,7 +53,8 @@ class StaticAssetsTests(unittest.TestCase):
         self.assertIn("26V224XW01", html)
         self.assertIn("26S624XW01", html)
         self.assertIn("苯駢芘 2.9 μg/kg", html)
-        self.assertIn("後續抽驗進行中", html)
+        self.assertIn("5 件中 4 批不合格", html)
+        self.assertIn("7 批已完成下架", html)
         self.assertIn("https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=31669", html)
         self.assertIn("camelliaMatches", html)
 
@@ -99,14 +100,14 @@ class StaticAssetsTests(unittest.TestCase):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         enterprise = (ROOT / "data" / "enterprise-announcements-draft.js").read_text(encoding="utf-8")
 
-        self.assertIn("115.7.28", html)
+        self.assertIn("115.8.3", html)
         self.assertIn("7 月 27 日第三方獨立調查", html)
         self.assertIn("id=t634544", html)
         self.assertIn("33 瓶", html)
         self.assertIn("架上 0 瓶", html)
         self.assertIn("苦茶籽原料由中國輸入", html)
-        self.assertIn("截至 115 年 7 月 28 日尚未公布結果", html)
-        self.assertIn('reviewedAt: "2026-07-28"', enterprise)
+        self.assertIn("其餘批號尚未公開", html)
+        self.assertIn('reviewedAt: "2026-08-03"', enterprise)
 
 
 if __name__ == "__main__":
