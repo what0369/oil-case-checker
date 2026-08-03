@@ -219,6 +219,194 @@
     margin-bottom: 8px;
 }
 
+.result-count-summary {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    gap: 5px;
+}
+
+.result-count-chip {
+    display: inline-flex;
+    align-items: center;
+    min-height: 25px;
+    padding: 4px 9px;
+    border: 1px solid;
+    border-radius: 999px;
+    font-size: 10px;
+    font-weight: 900;
+    font-family: inherit;
+    line-height: 1;
+    white-space: nowrap;
+    cursor: pointer;
+    transition: transform .15s ease, box-shadow .15s ease, filter .15s ease;
+}
+
+.result-count-chip:hover {
+    filter: saturate(1.12);
+    transform: translateY(-1px);
+}
+
+.result-count-chip:focus-visible {
+    outline: 3px solid rgba(79, 70, 229, .25);
+    outline-offset: 2px;
+}
+
+.result-count-chip.is-active {
+    box-shadow: 0 0 0 2px #fff, 0 0 0 4px currentColor, 0 4px 10px rgba(15, 23, 42, .12);
+}
+
+.result-count-total {
+    border-color: #cbd5e1;
+    background: #f1f5f9;
+    color: #334155;
+}
+
+.result-count-product {
+    border-color: #bfdbfe;
+    background: #dbeafe;
+    color: #1d4ed8;
+}
+
+.result-count-news {
+    border-color: #99f6e4;
+    background: #ccfbf1;
+    color: #0f766e;
+}
+
+.result-count-enterprise {
+    border-color: #ddd6fe;
+    background: #ede9fe;
+    color: #6d28d9;
+}
+
+.result-count-business {
+    border-color: #fde68a;
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.source-type-guide {
+    margin: 10px 0 14px;
+    padding: 14px;
+    border: 1px solid #dbe4f0;
+    border-radius: 14px;
+    background: #f8fafc;
+}
+
+.source-type-guide h3 {
+    margin: 0 0 10px;
+    color: #334155;
+    font-size: 12px;
+    font-weight: 900;
+}
+
+.source-type-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.source-type-guide-item {
+    padding: 10px 11px;
+    border: 1px solid;
+    border-radius: 11px;
+}
+
+.source-type-guide-item strong {
+    display: inline-flex;
+    margin-bottom: 4px;
+    font-size: 11px;
+    font-weight: 900;
+}
+
+.source-type-guide-item p {
+    margin: 0;
+    color: #475569;
+    font-size: 10px;
+    line-height: 1.6;
+}
+
+.source-type-guide-product {
+    border-color: #bfdbfe;
+    background: #eff6ff;
+}
+
+.source-type-guide-product strong {
+    color: #1d4ed8;
+}
+
+.source-type-guide-news {
+    border-color: #99f6e4;
+    background: #f0fdfa;
+}
+
+.source-type-guide-news strong {
+    color: #0f766e;
+}
+
+.source-type-guide-enterprise {
+    border-color: #ddd6fe;
+    background: #f5f3ff;
+}
+
+.source-type-guide-enterprise strong {
+    color: #6d28d9;
+}
+
+.source-type-guide-business {
+    border-color: #fde68a;
+    background: #fffbeb;
+}
+
+.source-type-guide-business strong {
+    color: #92400e;
+}
+
+@media (max-width: 640px) {
+    .source-type-guide-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.result-filter-empty {
+    display: grid;
+    justify-items: center;
+    gap: 8px;
+    padding: 32px 16px;
+    color: #64748b;
+    text-align: center;
+}
+
+.result-filter-empty > span {
+    display: grid;
+    width: 42px;
+    height: 42px;
+    place-items: center;
+    border-radius: 999px;
+    background: #f1f5f9;
+    color: #94a3b8;
+    font-size: 18px;
+    font-weight: 900;
+}
+
+.result-filter-empty strong {
+    font-size: 13px;
+}
+
+.result-filter-empty button {
+    border: 0;
+    background: transparent;
+    color: #4f46e5;
+    font-size: 12px;
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.result-filter-empty button:hover {
+    text-decoration: underline;
+}
+
 .mixed-source-badge {
     display: inline-grid;
     grid-template-columns: 28px auto;
@@ -279,6 +467,17 @@
 .mixed-source-official .mixed-source-icon {
     background: #2563eb;
     box-shadow: 0 3px 7px rgba(37, 99, 235, .24);
+}
+
+.mixed-source-news {
+    border-color: #99f6e4;
+    background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+    color: #0f766e;
+}
+
+.mixed-source-news .mixed-source-icon {
+    background: #0d9488;
+    box-shadow: 0 3px 7px rgba(13, 148, 136, .22);
 }
 
 .mixed-source-enterprise {
