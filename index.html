@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>油品食安事件查詢系統</title>
     <link rel="stylesheet" href="./styles.css">
-    <link rel="stylesheet" href="./enterprise-tab.css?v=1150728-labels">
+    <link rel="stylesheet" href="./enterprise-tab.css?v=1150803-type-guide">
 </head>
 <body class="bg-slate-50 text-slate-800 min-h-screen flex flex-col">
     <!-- 頂部導覽列 -->
@@ -20,12 +20,15 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">油品食安事件查詢系統</h1>
-                    <p class="text-xs text-slate-400 mt-0.5">資料更新：中聯油脂案＋連淨苦茶油案（115.8.3）</p>
+                    <p class="text-xs text-slate-400 mt-0.5">資料更新：中聯油脂案＋兩起苦茶油事件（115.8.3）</p>
                 </div>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
                 <button onclick="switchTab('single')" id="btn-tab-single" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-indigo-600 text-white shadow">
                     🔍 產品與業者整合查詢
+                </button>
+                <button onclick="switchTab('overview')" id="btn-tab-overview" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
+                    📰 近期事件總覽
                 </button>
                 <button onclick="switchTab('database')" id="btn-tab-database" class="tab-btn px-4 py-2 text-sm font-medium rounded-lg bg-slate-800 text-slate-300 hover:text-white hover:bg-slate-700 transition">
                     📋 瀏覽完整資料庫
@@ -36,38 +39,17 @@
             </div>
         </div>
     </header>
-    <!-- 統計快報列 -->
-    <section id="case-stats" class="bg-indigo-50 border-b border-indigo-100 py-3">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div class="p-2 border-r border-indigo-100 last:border-none">
-                <span class="text-xs text-slate-500 block">不得上架／銷毀</span>
-                <span class="text-2xl font-black text-red-700" id="stat-blocked-batches">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">批</span>
-            </div>
-            <div class="p-2 border-r border-indigo-100 last:border-none">
-                <span class="text-xs text-slate-500 block">可重新上架</span>
-                <span class="text-2xl font-black text-emerald-700" id="stat-relisted-batches">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">批</span>
-            </div>
-            <div class="p-2 border-r border-indigo-100 last:border-none">
-                <span class="text-xs text-slate-500 block">留置／無檢體</span>
-                <span class="text-2xl font-black text-amber-700" id="stat-other-batches">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">批</span>
-            </div>
-            <div class="p-2 last:border-none">
-                <span class="text-xs text-slate-500 block">7/22 官方業者清單</span>
-                <span class="text-2xl font-black text-indigo-700" id="stat-official-rows">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">列</span>
-            </div>
-        </div>
-    </section>
     <!-- 主內容區 -->
     <main class="flex-grow max-w-7xl w-full mx-auto px-4 py-6 sm:px-6 lg:px-8">
-        <!-- TAB 1: 產品與業者整合查詢 -->
-        <div id="tab-single" class="tab-content space-y-6">
+        <!-- TAB 1: 近期油品食安事件總覽 -->
+        <div id="tab-overview" class="tab-content hidden space-y-6">
             <section class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
                 <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
                     <div>
                         <h2 class="text-lg font-bold text-slate-900">近期油品食安事件總覽</h2>
-                        <p class="text-xs text-slate-500 mt-1">兩案原料與調查範圍不同，網站分開呈現，不合併計算批號。</p>
+                        <p class="text-xs text-slate-500 mt-1">三案原料與調查範圍不同，網站分開呈現，不合併計算批號。</p>
                     </div>
-                    <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-3 py-1">2 起事件</span>
+                    <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-3 py-1">3 起事件</span>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <article class="event-overview-card-wide rounded-xl border border-indigo-200 bg-indigo-50 p-4 space-y-2">
@@ -77,6 +59,27 @@
                         </div>
                         <h3 class="font-extrabold text-slate-900">大豆沙拉油及下游產品</h3>
                         <p class="text-xs text-slate-600 leading-relaxed">30 批已有食藥署評估結果：7 批不得上架、19 批可重新上架、3 批留置、1 批外銷無檢體。</p>
+                        <section id="case-stats" class="rounded-lg border border-indigo-200 bg-white py-2" aria-label="中聯油脂事件統計">
+                            <div class="grid grid-cols-2 md:grid-cols-4 gap-2 text-center">
+                                <div class="p-2 border-r border-indigo-100 last:border-none">
+                                    <span class="text-xs text-slate-500 block">不得上架／銷毀</span>
+                                    <span class="text-2xl font-black text-red-700" id="stat-blocked-batches">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">批</span>
+                                </div>
+                                <div class="p-2 md:border-r border-indigo-100 last:border-none">
+                                    <span class="text-xs text-slate-500 block">可重新上架</span>
+                                    <span class="text-2xl font-black text-emerald-700" id="stat-relisted-batches">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">批</span>
+                                </div>
+                                <div class="p-2 border-r border-indigo-100 last:border-none">
+                                    <span class="text-xs text-slate-500 block">留置／無檢體</span>
+                                    <span class="text-2xl font-black text-amber-700" id="stat-other-batches">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">批</span>
+                                </div>
+                                <div class="p-2 last:border-none">
+                                    <span class="text-xs text-slate-500 block">7/22 官方業者清單</span>
+                                    <span class="text-2xl font-black text-indigo-700" id="stat-official-rows">--</span><span class="text-xs text-slate-600 font-semibold ml-0.5">列</span>
+                                </div>
+                            </div>
+                            <p class="px-3 pb-1 text-[11px] text-slate-500 text-center">以上僅為中聯油脂事件統計；5,139 為官方清單資料列數，不代表不同企業家數。</p>
+                        </section>
                         <div class="official-update-note">
                             <strong>7 月 27 日第三方獨立調查</strong>
                             <p>食藥署調查認為本案並非單一因素造成，而是高風險原料管理、製程監控及檢驗監測等多項管理缺失交互影響；30 批分類沒有改變。</p>
@@ -147,8 +150,56 @@
                             <a class="text-red-700 hover:underline" href="https://www.nownews.com/news/6860595" target="_blank" rel="noopener noreferrer">食藥署 7/27 檢驗結果說明（媒體報導） ↗</a>
                         </div>
                     </article>
+                    <article class="event-overview-card-wide rounded-xl border border-amber-300 bg-amber-50 p-4 space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-extrabold text-amber-800">事件三・獨立供應鏈事件</span>
+                            <span class="text-xs font-bold text-red-700 bg-white rounded-full px-2 py-1">4 個批次確認超標</span>
+                            <span class="text-xs font-bold text-amber-800 bg-white rounded-full px-2 py-1">其他產品預防性下架</span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900">源春製油廠代工苦茶油供應鏈</h3>
+                        <p class="text-xs text-slate-700 leading-relaxed">115 年 7 月 29 日至 31 日，永豐餘生技、臺北市衛生局及國際機能食品先後通報或公布 4 個苦茶油批次苯駢芘超過 2.0 ppb 限量；追查均指向嘉義縣源春製油廠代工供應鏈。</p>
+                        <div class="rounded-lg border border-red-200 bg-white p-3 text-xs text-slate-700 leading-relaxed space-y-1">
+                            <p class="font-extrabold text-red-700">確認檢驗不合格</p>
+                            <p><strong>在地金花小菓苦茶油 250mL</strong>：效期 2028/05/25，2.9 ppb。</p>
+                            <p><strong>高仰三苦茶油</strong>：效期 2028/06/22 為 2.4 ppb；2028/06/15 為 2.6 ppb。</p>
+                            <p><strong>江醫師健康舖子台灣苦茶油 500mL</strong>：效期 2027/12/25，2.6 ppb。</p>
+                        </div>
+                        <div class="rounded-lg border border-amber-200 bg-amber-100 p-3 text-xs text-amber-950 leading-relaxed space-y-1">
+                            <p class="font-extrabold">預防性管制，不等於已確認超標</p>
+                            <p>同批苦茶籽製成的在地金花小菓、高仰三、庭茂共 6 個效期批次均下架；永豐餘「猴頭菇香鬆 190g」雖未使用問題批次，也預防性下架。</p>
+                            <p>江醫師另有 599 瓶效期 2028/05/24 尚未出貨，已停止流通；源春自有苦茶油約 150 公斤就地保管，抽驗結果仍待公開。</p>
+                        </div>
+                        <div class="recall-progress-grid">
+                            <div>
+                                <strong>924 瓶</strong>
+                                <span>金花小菓問題批次產量</span>
+                            </div>
+                            <div>
+                                <strong>2,349 瓶</strong>
+                                <span>高仰三兩批問題產品</span>
+                            </div>
+                            <div>
+                                <strong>780 瓶</strong>
+                                <span>江醫師問題批次產量</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-600">源春已被要求停工改善；原料苦茶籽來源欠缺明確佐證，食藥署已報請檢察機關協助偵查。污染原因與源春自有品牌抽驗結果仍待主管機關後續公布。</p>
+                        <div class="flex flex-wrap gap-3 text-xs font-bold">
+                            <a class="text-indigo-700 hover:underline" href="https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634565&amp;mid=267" target="_blank" rel="noopener noreferrer">新北市衛生局：江醫師問題苦茶油 ↗</a>
+                            <a class="text-indigo-700 hover:underline" href="https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634564&amp;mid=267" target="_blank" rel="noopener noreferrer">臺東縣衛生局：流向與擴大抽驗 ↗</a>
+                            <a class="text-amber-800 hover:underline" href="https://www.foodnext.net/news/newsnow/paper/6611188269" target="_blank" rel="noopener noreferrer">食力 8/1 供應鏈整理 ↗</a>
+                            <a class="text-amber-800 hover:underline" href="https://www.green-n-safe.com/Products/SubList?id=49" target="_blank" rel="noopener noreferrer">永豐餘生技商品頁 ↗</a>
+                            <a class="text-amber-800 hover:underline" href="https://www.drfish.com.tw/products/taiwan-bitter-tea-oil" target="_blank" rel="noopener noreferrer">江醫師商品頁 ↗</a>
+                            <a class="text-amber-800 hover:underline" href="https://www.yuanchuen.com.tw/product.php?cid=2&amp;lang=tw&amp;tb=1" target="_blank" rel="noopener noreferrer">源春自有油品頁 ↗</a>
+                        </div>
+                        <p class="text-[11px] text-amber-900">來源層級提醒：江醫師效期 2027/12/25 問題產品已有新北市衛生局正式公告；其他源春供應鏈產品的完整批次、檢驗值與流向仍主要依食力轉述主管機關說明，本站維持標示為新聞整理。</p>
+                    </article>
                 </div>
             </section>
+        </div>
+
+        <!-- TAB 2: 產品與業者整合查詢（預設首頁） -->
+        <div id="tab-single" class="tab-content space-y-6">
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- 比對輸入區 -->
                 <div class="lg:col-span-5 space-y-4">
@@ -196,7 +247,7 @@
                                 </svg>
                             </div>
                             <h3 class="text-md font-bold text-slate-700">請在左側輸入查詢內容</h3>
-                            <p class="text-sm text-slate-400 mt-1 max-w-sm">系統會比對中聯 30 批最新狀態、連淨苦茶油 2 個問題批號、共 492 項產品資料及 <span id="business-record-total">--</span> 筆彙整店家／業者紀錄。</p>
+                            <p class="text-sm text-slate-400 mt-1 max-w-sm">系統會比對中聯 30 批最新狀態、兩起苦茶油事件、共 500 項產品／查核資料及 <span id="business-record-total">--</span> 筆彙整店家／業者紀錄。</p>
                         </div>
                         <!-- 狀態結果顯示 (會透過JS動態抽換) -->
                         <div id="single-result-content" class="hidden space-y-6">
@@ -206,9 +257,9 @@
                             </div>
                             <!-- 詳細比對匹配清單 -->
                             <div class="space-y-3">
-                                <div class="flex items-center justify-between">
-                                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">全部來源搜尋結果</span>
-                                    <span id="result-match-count" class="text-xs font-bold px-2 py-0.5 bg-slate-100 text-slate-600 rounded-full">--</span>
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                                    <span class="text-xs font-bold text-slate-500 uppercase tracking-wider">搜尋結果分類</span>
+                                    <span id="result-match-count" class="result-count-summary" aria-label="搜尋結果分類數量">--</span>
                                 </div>
                                 <div id="result-match-list" class="space-y-2 max-h-[450px] overflow-y-auto custom-scrollbar pr-1">
                                     <!-- 動態生成項目 -->
@@ -219,7 +270,7 @@
                 </div>
             </div>
         </div>
-        <!-- TAB 2: 完整資料庫瀏覽器 -->
+        <!-- TAB 3: 完整資料庫瀏覽器 -->
         <div id="tab-database" class="tab-content hidden space-y-6">
 
             <!-- 大看板篩選區 -->
@@ -230,7 +281,7 @@
                             <span class="w-1.5 h-5 bg-indigo-600 rounded-full"></span>
                             油品食安事件產品與流向資料庫
                         </h2>
-                        <p class="text-sm text-slate-500 mt-1">保留中聯案 7 月 9 日預防性下架範圍，並新增連淨苦茶油案兩個問題批號；兩案請依各自官方公告判定。</p>
+                        <p class="text-sm text-slate-500 mt-1">保留中聯案 7 月 9 日預防性下架範圍，並新增連淨與源春代工供應鏈兩起苦茶油事件；三案須依各自來源與判定層級閱讀。</p>
                     </div>
                     <div class="flex items-center gap-2">
                         <button onclick="resetFilters()" class="px-3 py-1.5 text-xs font-medium bg-slate-100 hover:bg-slate-200 text-slate-600 rounded-lg transition">
@@ -300,7 +351,7 @@
             </div>
         </div>
 
-        <!-- TAB 3: 企業自主公告 -->
+        <!-- TAB 4: 企業自主公告 -->
         <div id="tab-enterprise" class="tab-content hidden">
             <section class="enterprise-hero">
                 <div>
@@ -366,7 +417,28 @@
         <!-- 全站資料來源與備註：固定置於主要內容最下方，避免打斷查詢結果 -->
         <section id="source-notes" class="mt-10 bg-white rounded-2xl border border-slate-200 p-5 text-xs text-slate-500 leading-relaxed space-y-2">
             <h2 class="text-sm font-bold text-slate-700">📚 資料來源與備註（參考區）</h2>
-            <p>*中聯案批號狀態以食藥署 115.7.21 評估結果整理：7 批不得上架、19 批可重新上架、3 批未出貨留置、1 批外銷無檢體；另補充 115.7.27 第三方獨立調查結論。連淨苦茶油案依中央、地方政府及食藥署 115.7.27 記者會說明整理，為不同原料、不同調查範圍的獨立事件。</p>
+            <div class="source-type-guide" aria-label="搜尋結果的資料類型說明">
+                <h3>搜尋結果的資料類型</h3>
+                <div class="source-type-guide-grid">
+                    <article class="source-type-guide-item source-type-guide-product">
+                        <strong>產品資料</strong>
+                        <p>來自食藥署或衛生局正式公告的產品、批號、效期及檢驗狀態。</p>
+                    </article>
+                    <article class="source-type-guide-item source-type-guide-news">
+                        <strong>新聞整理</strong>
+                        <p>媒體具名轉述主管機關的資料，但尚未找到可逐項對應的官方原始公告。</p>
+                    </article>
+                    <article class="source-type-guide-item source-type-guide-enterprise">
+                        <strong>企業公告</strong>
+                        <p>企業官網或官方社群自行發布的下架、停用、回收或退換貨聲明。</p>
+                    </article>
+                    <article class="source-type-guide-item source-type-guide-business">
+                        <strong>流向業者</strong>
+                        <p>政府公布的下游店家、餐廳、通路或使用業者紀錄；不等於該業者產品經檢驗不合格。</p>
+                    </article>
+                </div>
+            </div>
+            <p>*中聯案批號狀態以食藥署 115.7.21 評估結果整理：7 批不得上架、19 批可重新上架、3 批未出貨留置、1 批外銷無檢體；另補充 115.7.27 第三方獨立調查結論。連淨苦茶油案與源春代工苦茶油供應鏈事件均獨立呈現，不與中聯案合併計算。</p>
             <p>
                 官方來源：
                 <a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/site13712.aspx" target="_blank" rel="noopener noreferrer">食藥署中聯油脂案專區</a>
@@ -381,12 +453,28 @@
                 ・<a class="text-red-700 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/teaoil" target="_blank" rel="noopener noreferrer">新北市苦茶油食安專區</a>
                 ・<a class="text-red-700 hover:underline" href="https://www.dthc.gov.taipei/News_Content.aspx?n=3D25BEC250DA19B5&amp;s=C2BBB560843353E5&amp;sms=72544237BBE4C5F6" target="_blank" rel="noopener noreferrer">臺北市回收進度（115.7.24）</a>
                 ・<a class="text-red-700 hover:underline" href="https://www.nownews.com/news/6860595" target="_blank" rel="noopener noreferrer">食藥署 7/27 檢驗結果說明（媒體報導）</a>
+                ・<a class="text-indigo-700 hover:underline" href="https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634565&amp;mid=267" target="_blank" rel="noopener noreferrer">新北市衛生局江醫師苦茶油公告（115.7.31）</a>
+                ・<a class="text-indigo-700 hover:underline" href="https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634564&amp;mid=267" target="_blank" rel="noopener noreferrer">臺東縣衛生局苦茶油流向與抽驗公告（115.7.31）</a>
+                ・<a class="text-amber-800 hover:underline" href="https://www.foodnext.net/news/newsnow/paper/6611188269" target="_blank" rel="noopener noreferrer">源春代工供應鏈 8/1 整理（食力轉述主管機關與企業說明）</a>
             </p>
             <p class="text-red-700">*連淨苦茶油案共 7 批同原料同製程產品：業者自主通報 2 批不合格，後續 5 件抽驗為 4 批不合格、1 批合格，7 批均已完成下架。政府公開頁面目前僅列出兩個通路產品批號，其餘批號尚未公開，本站不推測補列。</p>
+            <p class="text-amber-800">*源春代工供應鏈目前確認 4 個超標批次；其中江醫師效期 2027/12/25 產品已有新北市衛生局正式公告。庭茂苦茶油、猴頭菇香鬆、江醫師效期 2028/05/24 未出貨產品及源春自有庫存屬預防性管制或待驗範圍，本站不將其標示為已檢驗不合格；其他產品仍以食力 8/1 整理作為交叉查核來源。</p>
             <details class="rounded-lg border border-slate-200 bg-slate-50 px-3 py-2">
                 <summary class="cursor-pointer font-semibold text-slate-600">各地衛生局追蹤入口（歷史流向輔助資料）</summary>
+                <div class="mt-3 rounded-lg border border-indigo-100 bg-indigo-50 px-3 py-3 text-slate-600">
+                    <p class="font-bold text-indigo-800">115 年 8 月 3 日地方追蹤摘要</p>
+                    <ul class="mt-2 list-disc space-y-1 pl-5 leading-6">
+                        <li><strong>臺南：</strong>8 月 2–3 日新增台糖拒收中聯半成品油品及通報責任調查；目前沒有新增問題產品、批號或流向名單。</li>
+                        <li><strong>宜蘭：</strong>官方公布影響下游業者 7 家、回收油品 702 公升、預防性回收相關食品 63,931.3 公斤，並完成 201 家業者查核。</li>
+                        <li><strong>花蓮：</strong>截至 7 月 16 日完成 193 家業者查核，未公布新增問題產品或業者名單。</li>
+                        <li><strong>馬祖：</strong>完成 40 家業者查核、預防性下架 288 件相關油品；預防性下架不代表產品均經檢驗不合格。</li>
+                        <li><strong>臺東：</strong>問題苦茶油未流入臺東販售；地方苦茶油抽驗結果仍待官方公布。</li>
+                    </ul>
+                    <p class="mt-2 text-slate-500">以上為地方稽查與回收進度，不增加產品搜尋筆數；基隆、嘉義縣、屏東及金門目前未見比本站既有資料更新的逐項產品、批號或流向名單。</p>
+                </div>
                 <p class="mt-2 leading-6">
-                    <a class="text-indigo-600 hover:underline" href="https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D" target="_blank" rel="noopener noreferrer">臺北市</a>
+                    <a class="text-indigo-600 hover:underline" href="https://www.klchb.klcg.gov.tw/tw/klchb/4218.html" target="_blank" rel="noopener noreferrer">基隆市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D" target="_blank" rel="noopener noreferrer">臺北市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/oil" target="_blank" rel="noopener noreferrer">新北市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://food-safety.tycg.gov.tw/News_Content.aspx?n=1268&amp;s=6264&amp;sms=11293" target="_blank" rel="noopener noreferrer">桃園市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://dep.hcchb.gov.tw/ch/home.jsp?id=170&amp;parentpath=0,40,75&amp;mcustomize=onemessages_view.jsp&amp;toolsflag=Y&amp;dataserno=202607140003&amp;t=HcchbOnes&amp;mserno=201604100001" target="_blank" rel="noopener noreferrer">新竹市</a>
@@ -394,9 +482,17 @@
                     ・<a class="text-indigo-600 hover:underline" href="https://www.mlshb.gov.tw/nc/article?id=64766940-e130-48d1-9736-acabed4454b5" target="_blank" rel="noopener noreferrer">苗栗縣</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://www.health.taichung.gov.tw/1630364/3313371/3313372/nodeCp?nodeId=3325004" target="_blank" rel="noopener noreferrer">臺中市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874" target="_blank" rel="noopener noreferrer">彰化縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.cyshb.gov.tw/" target="_blank" rel="noopener noreferrer">嘉義縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://health.tainan.gov.tw/list.asp?orcaid=7F827088-05ED-4277-8679-783BB5E47C5C" target="_blank" rel="noopener noreferrer">臺南市</a>
                     ・<a class="text-indigo-600 hover:underline" href="https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B" target="_blank" rel="noopener noreferrer">高雄市</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.ptshb.gov.tw/" target="_blank" rel="noopener noreferrer">屏東縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.ilshb.gov.tw/News_Content.aspx?n=15702&amp;s=403587&amp;sms=15513" target="_blank" rel="noopener noreferrer">宜蘭縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/csmnewsContent.aspx?id=t634507&amp;mid=267" target="_blank" rel="noopener noreferrer">花蓮縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634564&amp;mid=267" target="_blank" rel="noopener noreferrer">臺東縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://phb.kinmen.gov.tw/Content_List.aspx?n=A705B93C56187665" target="_blank" rel="noopener noreferrer">金門縣</a>
+                    ・<a class="text-indigo-600 hover:underline" href="https://www.fda.gov.tw/tc/csmnewsContent.aspx?id=t634493&amp;mid=267" target="_blank" rel="noopener noreferrer">馬祖（連江縣）</a>
                 </p>
-                <p class="mt-1 text-slate-500">地方資料多為下游業者、通路、稽查與下架進度；產品查詢仍以食藥署清單為主，避免把業者名單重複計為產品。</p>
+                <p class="mt-1 text-slate-500">地方資料多為下游業者、通路、稽查與下架進度；有油品專區者直接連至專區，其餘連至衛生局食安或官方公告入口。產品查詢仍以食藥署清單為主，避免把業者名單重複計為產品。</p>
             </details>
         </section>
     </main>
@@ -411,7 +507,7 @@
     <script src="./enterprise-tab.js?v=20260728-1"></script>
     <!-- JS 邏輯代碼 -->
     <script>
-        // 中聯案 490 項歷史產品，加上連淨苦茶油案 2 個問題批號，共 492 項
+        // 中聯案 490 項歷史產品，加上連淨 2 筆與源春代工供應鏈 8 筆查核資料，共 500 項
         const productsDatabase = [
             { id: 1, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "雙蔬鮪魚飯糰", expiry: "已逾有效日期" },
             { id: 2, county: "基隆市", vendor: "聯華食品工業股份有限公司-基隆", name: "林聰明-雞肉飯飯糰", expiry: "已逾有效日期" },
@@ -906,12 +1002,21 @@
             { id: 488, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康大豆沙拉油 18kg", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
             { id: 489, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "益康烹調油 18L", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
             { id: 490, county: "臺中市", vendor: "福懋油脂股份有限公司", name: "一級黃豆油(散裝)", expiry: "115年4至6月生產相關批次（請依官方或業者公告確認）" },
-            { id: 491, county: "新北市", vendor: "連淨綠色科技股份有限公司", name: "有機苦茶油 250mL", expiry: "批號 26V224XW01・苯駢芘不合格・下架回收中" },
-            { id: 492, county: "新北市", vendor: "連淨綠色科技股份有限公司", name: "統一生機初榨苦茶油 250mL", expiry: "批號 26S624XW01・苯駢芘不合格・下架回收中" }
+            { id: 491, county: "新北市", vendor: "連淨綠色科技股份有限公司", name: "有機苦茶油 250mL", expiry: "批號 26V224XW01・苯駢芘不合格・下架回收中", sourceLabel: "新北市政府衛生局 115/7/23 正式公告", sourceUrl: "https://www.ntpc.gov.tw/ch/home.jsp?dataserno=28a41cc9a42dd5fd5330fc67de48db17&id=e8ca970cde5c00e1" },
+            { id: 492, county: "新北市", vendor: "連淨綠色科技股份有限公司", name: "統一生機初榨苦茶油 250mL", expiry: "批號 26S624XW01・苯駢芘不合格・下架回收中", sourceLabel: "新北市政府衛生局 115/7/23 正式公告", sourceUrl: "https://www.ntpc.gov.tw/ch/home.jsp?dataserno=28a41cc9a42dd5fd5330fc67de48db17&id=e8ca970cde5c00e1" },
+            { id: 493, county: "臺北市", vendor: "永豐餘生技股份有限公司・威加國際股份有限公司・源春製油廠", name: "在地金花小菓苦茶油 250mL", expiry: "效期 2028/05/25・苯駢芘 2.9 ppb・確認不合格・全批號下架回收", sourceType: "verified-report", sourceLabel: "食力 115/8/1 轉述食藥署、臺北市衛生局及企業說明" },
+            { id: 494, county: "臺北市", vendor: "威加國際股份有限公司・高仰三・源春製油廠・長庚生物科技", name: "高仰三苦茶油", expiry: "效期 2028/06/22・苯駢芘 2.4 ppb・確認不合格・下架回收", sourceType: "verified-report", sourceLabel: "食力 115/8/1 轉述食藥署與臺北市衛生局說明" },
+            { id: 495, county: "臺北市", vendor: "威加國際股份有限公司・高仰三・源春製油廠・長庚生物科技", name: "高仰三苦茶油", expiry: "效期 2028/06/15・苯駢芘 2.6 ppb・確認不合格・下架回收", sourceType: "verified-report", sourceLabel: "食力 115/8/1 轉述食藥署與臺北市衛生局說明" },
+            { id: 496, county: "新北市", vendor: "國際機能食品股份有限公司・江醫師健康舖子・源春製油廠", name: "台灣苦茶油 500mL", expiry: "效期 2027/12/25・苯駢芘 2.6 ppb・確認不合格・下架回收", sourceLabel: "新北市政府衛生局 115/7/31 正式公告", sourceUrl: "https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634565&mid=267" },
+            { id: 497, county: "臺北市", vendor: "威加國際股份有限公司・庭茂・源春製油廠", name: "庭茂苦茶油", expiry: "同批苦茶籽產品・涉及效期 2028/01/02、2028/02/22、2028/03/17、2028/05/25、2028/06/15、2028/06/22・預防性下架・未確認超標", sourceType: "verified-report", sourceLabel: "食力 115/8/1 轉述食藥署與臺北市衛生局說明" },
+            { id: 498, county: "臺北市", vendor: "永豐餘生技股份有限公司・GREEN & SAFE・源春製油廠", name: "猴頭菇香鬆 190g", expiry: "使用源春苦茶油但非本次問題批次・預防性下架・未確認超標", sourceType: "verified-report", sourceLabel: "食力 115/8/1 轉述臺北市衛生局與企業說明" },
+            { id: 499, county: "新北市", vendor: "國際機能食品股份有限公司・江醫師健康舖子・源春製油廠", name: "台灣苦茶油 500mL", expiry: "效期 2028/05/24・599 瓶尚未出貨・停止流通・未公布該批檢驗值", sourceType: "verified-report", sourceLabel: "食力 115/8/1 轉述食藥署與新北市衛生局說明" },
+            { id: 500, county: "嘉義縣", vendor: "源春製油廠", name: "源春自有品牌苦茶油", expiry: "廠內約 150 公斤就地保管並停止販售・抽驗 1 件結果待公布・不得解讀為已確認超標", sourceType: "verified-report", sourceLabel: "食力 115/8/1 轉述食藥署與嘉義縣衛生局說明" }
         ];
         // 系統變數初始化
         let filteredDatabase = [...productsDatabase];
         let filteredBusinesses = [];
+        let latestUnifiedSearchResults = null;
         let dbCurrentPage = 1;
         const dbItemsPerPage = 10;
         window.onload = function() {
@@ -962,6 +1067,7 @@
                 chip.textContent = item.batch;
                 chip.title = item.label;
                 chip.addEventListener('click', () => {
+                    switchTab('single');
                     document.getElementById('search-input').value = item.batch;
                     handleUnifiedSearch(item.batch);
                     document.getElementById('search-input').scrollIntoView({ behavior: 'smooth', block: 'center' });
@@ -1048,11 +1154,14 @@
             const matchCount = document.getElementById('result-match-count');
             const matchList = document.getElementById('result-match-list');
             const safeQuery = escapeHtml(query);
-            const camelliaMatches = matches.filter(item => item.id === 491 || item.id === 492);
+            const camelliaMatches = matches.filter(item => item.id >= 491 && item.id <= 500);
+            const lianjingMatches = camelliaMatches.filter(item => item.id === 491 || item.id === 492);
+            const yuanchunConfirmedMatches = camelliaMatches.filter(item => item.id >= 493 && item.id <= 496);
+            const yuanchunPrecautionaryMatches = camelliaMatches.filter(item => item.id >= 497 && item.id <= 500);
             matchList.innerHTML = '';
             matchCount.textContent = `${matches.length} 筆項目`;
-            if (camelliaMatches.length > 0) {
-                const matchedBatches = camelliaMatches
+            if (lianjingMatches.length > 0) {
+                const matchedBatches = lianjingMatches
                     .map(item => item.expiry.match(/26[A-Z0-9]+/)?.[0])
                     .filter(Boolean)
                     .join('、');
@@ -1062,6 +1171,27 @@
                     <div>
                         <h4 class="text-md font-extrabold text-red-700">🚨 連淨苦茶油問題批號：${escapeHtml(matchedBatches)}</h4>
                         <p class="text-xs text-red-600 mt-0.5">本案檢出苯駢芘超標，產品已下架回收；請停止食用並向原購買通路洽詢退換貨。這是獨立事件，不屬於中聯油脂案批號。</p>
+                    </div>
+                `;
+                renderProductMatches(matches, matchList, query);
+            } else if (yuanchunConfirmedMatches.length > 0) {
+                const matchedProducts = [...new Set(yuanchunConfirmedMatches.map(item => item.name))].join('、');
+                banner.className = "rounded-xl p-4 flex items-center gap-4 border border-red-200 bg-red-50 text-red-900";
+                banner.innerHTML = `
+                    <div class="p-2 bg-red-600 text-white rounded-full">!</div>
+                    <div>
+                        <h4 class="text-md font-extrabold text-red-700">🚨 源春代工供應鏈確認不合格：${escapeHtml(matchedProducts)}</h4>
+                        <p class="text-xs text-red-600 mt-0.5">命中資料含主管機關或業者確認的苯駢芘超標批次。請核對產品效期、停止食用並向原通路洽詢退換貨；同頁出現的其他預防性下架產品不代表已驗出超標。</p>
+                    </div>
+                `;
+                renderProductMatches(matches, matchList, query);
+            } else if (yuanchunPrecautionaryMatches.length > 0) {
+                banner.className = "rounded-xl p-4 flex items-center gap-4 border border-amber-200 bg-amber-50 text-amber-950";
+                banner.innerHTML = `
+                    <div class="p-2 bg-amber-600 text-white rounded-full">!</div>
+                    <div>
+                        <h4 class="text-md font-extrabold text-amber-800">⚠️ 源春代工供應鏈：預防性管制或結果待公布</h4>
+                        <p class="text-xs text-amber-800 mt-0.5">這些品項因同原料、同供應鏈或源頭管制而下架、停止流通或留置；目前沒有足夠公開證據可標示為已檢驗不合格。</p>
                     </div>
                 `;
                 renderProductMatches(matches, matchList, query);
@@ -1136,7 +1266,7 @@
                     </div>
                     <div>
                         <h4 class="text-md font-extrabold text-slate-700">目前資料未命中</h4>
-                        <p class="text-xs text-slate-600 mt-0.5">您搜尋的「${safeQuery}」未命中中聯 30 批狀態、連淨苦茶油 2 個問題批號、492 項產品資料或企業自主公告${businessMatchCount > 0 ? `，但同一清單另有 ${businessMatchCount} 筆店家／業者紀錄` : ''}。未命中不代表產品一定安全，仍請核對品牌、批號、有效日期與官方最新公告。</p>
+                        <p class="text-xs text-slate-600 mt-0.5">您搜尋的「${safeQuery}」未命中中聯 30 批狀態、兩起苦茶油事件、500 項產品／查核資料或企業自主公告${businessMatchCount > 0 ? `，但同一清單另有 ${businessMatchCount} 筆店家／業者紀錄` : ''}。未命中不代表產品一定安全，仍請核對品牌、批號、有效日期與官方最新公告。</p>
                     </div>
                 `;
                 matchList.innerHTML = `
@@ -1149,32 +1279,75 @@
             }
         }
         function renderUnifiedMixedResults(query, productMatches, enterpriseMatches, businessMatches) {
+            latestUnifiedSearchResults = { query, productMatches, enterpriseMatches, businessMatches };
+            renderUnifiedMixedResultView(query, productMatches, enterpriseMatches, businessMatches, 'all');
+        }
+        function setUnifiedResultFilter(filter) {
+            if (!latestUnifiedSearchResults) return;
+            const { query, productMatches, enterpriseMatches, businessMatches } = latestUnifiedSearchResults;
+            renderUnifiedMixedResultView(query, productMatches, enterpriseMatches, businessMatches, filter);
+        }
+        function renderUnifiedMixedResultView(query, productMatches, enterpriseMatches, businessMatches, filter) {
             const matchList = document.getElementById('result-match-list');
             const matchCount = document.getElementById('result-match-count');
+            const officialProductMatches = productMatches.filter(item => item.sourceType !== 'verified-report');
+            const newsMatches = productMatches.filter(item => item.sourceType === 'verified-report');
             const total = productMatches.length + enterpriseMatches.length + businessMatches.length;
-            matchCount.textContent = `共 ${total} 筆｜產品 ${productMatches.length}・企業 ${enterpriseMatches.length}・業者 ${businessMatches.length}`;
+            const activeFilter = ['all', 'product', 'news', 'enterprise', 'business'].includes(filter) ? filter : 'all';
+            matchCount.innerHTML = `
+                <button type="button" class="result-count-chip result-count-total ${activeFilter === 'all' ? 'is-active' : ''}" aria-pressed="${activeFilter === 'all'}" onclick="setUnifiedResultFilter('all')">共 ${total} 筆</button>
+                <button type="button" class="result-count-chip result-count-product ${activeFilter === 'product' ? 'is-active' : ''}" aria-pressed="${activeFilter === 'product'}" onclick="setUnifiedResultFilter('product')">產品資料 ${officialProductMatches.length}</button>
+                <button type="button" class="result-count-chip result-count-news ${activeFilter === 'news' ? 'is-active' : ''}" aria-pressed="${activeFilter === 'news'}" onclick="setUnifiedResultFilter('news')">新聞整理 ${newsMatches.length}</button>
+                <button type="button" class="result-count-chip result-count-enterprise ${activeFilter === 'enterprise' ? 'is-active' : ''}" aria-pressed="${activeFilter === 'enterprise'}" onclick="setUnifiedResultFilter('enterprise')">企業公告 ${enterpriseMatches.length}</button>
+                <button type="button" class="result-count-chip result-count-business ${activeFilter === 'business' ? 'is-active' : ''}" aria-pressed="${activeFilter === 'business'}" onclick="setUnifiedResultFilter('business')">流向業者 ${businessMatches.length}</button>
+            `;
             if (total === 0) return;
 
-            const mixedResults = [
-                ...productMatches.map(item => ({ type: 'product', label: item.name, item })),
+            const allMixedResults = [
+                ...officialProductMatches.map(item => ({ type: 'product', label: item.name, item })),
+                ...newsMatches.map(item => ({ type: 'news', label: item.name, item })),
                 ...enterpriseMatches.map(item => ({ type: 'enterprise', label: item.company, item })),
                 ...businessMatches.map(item => ({ type: 'business', label: item.name, item }))
             ].sort((a, b) => a.label.localeCompare(b.label, 'zh-TW'));
+            const mixedResults = activeFilter === 'all'
+                ? allMixedResults
+                : allMixedResults.filter(result => result.type === activeFilter);
             const visibleResults = mixedResults.slice(0, 60);
             matchList.innerHTML = '';
 
+            if (mixedResults.length === 0) {
+                const filterLabels = { product: '產品資料', news: '新聞整理', enterprise: '企業公告', business: '流向業者' };
+                matchList.innerHTML = `
+                    <div class="result-filter-empty">
+                        <span>0</span>
+                        <strong>${escapeHtml(filterLabels[activeFilter] || '此分類')}目前沒有結果</strong>
+                        <button type="button" onclick="setUnifiedResultFilter('all')">返回全部結果</button>
+                    </div>
+                `;
+                return;
+            }
+
             visibleResults.forEach(result => {
                 const card = document.createElement('article');
-                if (result.type === 'product') {
+                if (result.type === 'product' || result.type === 'news') {
                     const item = result.item;
+                    const isVerifiedReport = item.sourceType === 'verified-report';
+                    const sourceBadgeClass = isVerifiedReport ? 'mixed-source-news' : 'mixed-source-official';
+                    const sourceIcon = isVerifiedReport ? '新' : '公';
+                    const sourceKicker = isVerifiedReport ? '來源・新聞整理' : '來源・官方資料';
+                    const sourceTitle = isVerifiedReport ? '引述主管機關' : '產品／批號';
+                    const sourceDescription = item.sourceLabel || '食藥署與地方政府公開產品資料彙整';
+                    const sourceMarkup = item.sourceUrl
+                        ? `<a href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer">${escapeHtml(sourceDescription)} ↗</a>`
+                        : escapeHtml(sourceDescription);
                     card.className = 'mixed-result-card mixed-result-product';
                     card.innerHTML = `
                         <div class="mixed-result-heading">
-                            <span class="mixed-source-badge mixed-source-official" aria-label="來源：官方產品／批號資料">
-                                <span class="mixed-source-icon" aria-hidden="true">公</span>
+                            <span class="mixed-source-badge ${sourceBadgeClass}" aria-label="來源：${escapeHtml(sourceKicker)}">
+                                <span class="mixed-source-icon" aria-hidden="true">${sourceIcon}</span>
                                 <span class="mixed-source-copy">
-                                    <small>官方資料</small>
-                                    <strong>產品／批號</strong>
+                                    <small>${sourceKicker}</small>
+                                    <strong>${sourceTitle}</strong>
                                 </span>
                             </span>
                             <span class="mixed-result-id">序號 ${escapeHtml(item.id)}</span>
@@ -1182,7 +1355,7 @@
                         <h3>${highlightKeyword(item.name, query)}</h3>
                         <p>${escapeHtml(item.county)}・${highlightKeyword(item.vendor, query)}</p>
                         <div class="mixed-result-detail">${highlightKeyword(item.expiry, query)}</div>
-                        <p class="mixed-result-source">來源：食藥署與地方政府公開產品資料彙整</p>
+                        <p class="mixed-result-source">來源：${sourceMarkup}</p>
                     `;
                 } else if (result.type === 'enterprise') {
                     const item = result.item;
@@ -1201,7 +1374,7 @@
                             <span class="mixed-source-badge mixed-source-enterprise" aria-label="來源：企業自主公告">
                                 <span class="mixed-source-icon" aria-hidden="true">企</span>
                                 <span class="mixed-source-copy">
-                                    <small>企業資料</small>
+                                    <small>來源・企業資料</small>
                                     <strong>自主公告</strong>
                                 </span>
                             </span>
@@ -1230,7 +1403,7 @@
                             <span class="mixed-source-badge mixed-source-government" aria-label="來源：政府流向／業者紀錄">
                                 <span class="mixed-source-icon" aria-hidden="true">流</span>
                                 <span class="mixed-source-copy">
-                                    <small>地方政府資料</small>
+                                    <small>來源・地方政府</small>
                                     <strong>流向／業者</strong>
                                 </span>
                             </span>
@@ -1246,10 +1419,10 @@
                 matchList.appendChild(card);
             });
 
-            if (total > visibleResults.length) {
+            if (mixedResults.length > visibleResults.length) {
                 const limit = document.createElement('p');
                 limit.className = 'mixed-result-limit';
-                limit.textContent = `共有 ${total} 筆結果，目前顯示前 ${visibleResults.length} 筆；請增加關鍵字縮小範圍。`;
+                limit.textContent = `此分類共有 ${mixedResults.length} 筆結果，目前顯示前 ${visibleResults.length} 筆；請增加關鍵字縮小範圍。`;
                 matchList.appendChild(limit);
             }
         }
