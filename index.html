@@ -200,6 +200,94 @@
 
         <!-- TAB 2: 產品與業者整合查詢（預設首頁） -->
         <div id="tab-single" class="tab-content space-y-6">
+            <section class="bg-white rounded-2xl p-5 shadow-sm border border-slate-200 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-start justify-between gap-3">
+                    <div>
+                        <h2 class="text-lg font-bold text-slate-900">近期油品食安事件總覽</h2>
+                        <p class="text-xs text-slate-500 mt-1">兩案原料與調查範圍不同，網站分開呈現，不合併計算批號。</p>
+                    </div>
+                    <span class="text-xs font-bold text-indigo-700 bg-indigo-50 border border-indigo-200 rounded-full px-3 py-1">2 起事件</span>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <article class="event-overview-card-wide rounded-xl border border-indigo-200 bg-indigo-50 p-4 space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-extrabold text-indigo-700">事件一</span>
+                            <span class="text-xs font-bold text-slate-600 bg-white rounded-full px-2 py-1">中聯油脂案</span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900">大豆沙拉油及下游產品</h3>
+                        <p class="text-xs text-slate-600 leading-relaxed">30 批已有食藥署評估結果：7 批不得上架、19 批可重新上架、3 批留置、1 批外銷無檢體。</p>
+                        <div class="official-update-note">
+                            <strong>7 月 27 日第三方獨立調查</strong>
+                            <p>食藥署調查認為本案並非單一因素造成，而是高風險原料管理、製程監控及檢驗監測等多項管理缺失交互影響；30 批分類沒有改變。</p>
+                            <a href="https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=t634544" target="_blank" rel="noopener noreferrer">查看食藥署調查結果 ↗</a>
+                        </div>
+                        <details class="event-batch-details">
+                            <summary>
+                                <span>
+                                    <strong>115 年 4–6 月 30 批油品最新狀態</strong>
+                                    <small>點選展開全部批號</small>
+                                </span>
+                                <span class="event-batch-toggle" aria-hidden="true">＋</span>
+                            </summary>
+                            <div class="event-batch-groups">
+                                <section class="event-batch-group event-batch-group-danger">
+                                    <h4>7 批不得上架／啟動銷毀</h4>
+                                    <div id="blocked-batch-list" class="flex flex-wrap gap-1"></div>
+                                </section>
+                                <section class="event-batch-group event-batch-group-safe">
+                                    <h4>19 批符合規定／可重新上架</h4>
+                                    <div id="relisted-batch-list" class="flex flex-wrap gap-1"></div>
+                                </section>
+                                <section class="event-batch-group event-batch-group-pending">
+                                    <h4>3 批留置、1 批外銷無檢體</h4>
+                                    <div id="other-batch-list" class="flex flex-wrap gap-1"></div>
+                                </section>
+                            </div>
+                            <div class="event-batch-footer">
+                                <p>點選任一批號，可直接帶入下方搜尋框查看明確狀態。產品或店家名稱命中舊流向資料時，不再自動判定為目前仍下架。</p>
+                                <a href="https://www.fda.gov.tw/EdibleOilOperator/index.aspx" target="_blank" rel="noopener noreferrer">開啟官方即時業者查詢 ↗</a>
+                            </div>
+                        </details>
+                    </article>
+                    <article class="event-overview-card-wide rounded-xl border border-red-200 bg-red-50 p-4 space-y-2">
+                        <div class="flex flex-wrap items-center gap-2">
+                            <span class="text-xs font-extrabold text-red-700">事件二・獨立事件</span>
+                            <span class="text-xs font-bold text-red-700 bg-white rounded-full px-2 py-1">7 批已完成下架</span>
+                            <span class="text-xs font-bold text-amber-700 bg-white rounded-full px-2 py-1">5 件中 4 批不合格</span>
+                        </div>
+                        <h3 class="font-extrabold text-slate-900">連淨苦茶油苯駢芘超標</h3>
+                        <p class="text-xs text-slate-700 leading-relaxed">業者於 115 年 7 月 21 日自主通報；「連淨苦茶油」檢出苯駢芘 2.9 μg/kg，超過限量 2.0 μg/kg。主管機關已要求停工、停止販售及回收。</p>
+                        <div class="text-xs text-slate-700 leading-relaxed">
+                            <p><strong>有機苦茶油 250mL</strong>：批號 <strong>26V224XW01</strong>（棉花田生機園地）</p>
+                            <p><strong>統一生機初榨苦茶油 250mL</strong>：批號 <strong>26S624XW01</strong>（統一生機健康有機超市）</p>
+                        </div>
+                        <div class="recall-progress-grid">
+                            <div>
+                                <strong>939 瓶</strong>
+                                <span>兩項問題批號曾售出</span>
+                            </div>
+                            <div>
+                                <strong>33 瓶</strong>
+                                <span>截至 7/23 自消費者端回收</span>
+                            </div>
+                            <div>
+                                <strong>架上 0 瓶</strong>
+                                <span>通路已無問題批號商品</span>
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-600">新北市衛生局表示苦茶籽原料由中國輸入，驗收時曾取得苯駢芘檢驗合格證明，污染原因仍須從原料與製程檢討。臺北市另公布棉花田通路 720 瓶中售出 710 瓶，截至 7/24 已回收 10 瓶。</p>
+                        <p class="text-xs text-red-700 font-bold">食藥署於 7/27 說明：除業者自主通報的 2 批不合格外，另抽驗 5 件中有 4 批不合格、1 批合格；同原料同製程共 7 批均已於 7/23 完成下架，其餘苦茶油批次持續停止生產及販售。</p>
+                        <p class="text-xs text-slate-600">目前政府公開頁面僅列出上方兩個通路產品批號，其餘批號尚未公開，因此搜尋資料不臆測補列。</p>
+                        <div class="flex flex-wrap gap-3 text-xs font-bold">
+                            <a class="text-red-700 hover:underline" href="https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=31669" target="_blank" rel="noopener noreferrer">食藥署公告 ↗</a>
+                            <a class="text-red-700 hover:underline" href="https://www.ntpc.gov.tw/ch/home.jsp?dataserno=28a41cc9a42dd5fd5330fc67de48db17&amp;id=e8ca970cde5c00e1" target="_blank" rel="noopener noreferrer">新北市批號與流向 ↗</a>
+                            <a class="text-red-700 hover:underline" href="https://foodtracer.health.ntpc.gov.tw/w/foodtracer/teaoil" target="_blank" rel="noopener noreferrer">新北市苦茶油食安專區 ↗</a>
+                            <a class="text-red-700 hover:underline" href="https://www.dthc.gov.taipei/News_Content.aspx?n=3D25BEC250DA19B5&amp;s=C2BBB560843353E5&amp;sms=72544237BBE4C5F6" target="_blank" rel="noopener noreferrer">臺北市回收進度 ↗</a>
+                            <a class="text-red-700 hover:underline" href="https://www.nownews.com/news/6860595" target="_blank" rel="noopener noreferrer">食藥署 7/27 檢驗結果說明（媒體報導） ↗</a>
+                        </div>
+                    </article>
+                </div>
+            </section>
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <!-- 比對輸入區 -->
                 <div class="lg:col-span-5 space-y-4">
