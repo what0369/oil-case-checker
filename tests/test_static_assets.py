@@ -103,6 +103,276 @@ class StaticAssetsTests(unittest.TestCase):
         self.assertIn("id=t634580", html)
         self.assertIn("item.id >= 501 && item.id <= 505", html)
 
+    def test_broad_camellia_search_uses_multi_incident_summary(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn("const matchedIncidentGroups", html)
+        self.assertIn("matchedIncidentGroups.length > 1", html)
+        self.assertIn("找到多起苦茶油事件", html)
+        self.assertIn("輸入完整批號或產品名稱，可顯示該事件的專屬警示", html)
+        self.assertLess(
+            html.index("matchedIncidentGroups.length > 1"),
+            html.index("lianjingMatches.length > 0", html.index("matchedIncidentGroups.length > 1")),
+        )
+
+    def test_visible_version_number_uses_date_and_revision(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn('<meta name="application-version" content="v2026.08.11.2">', html)
+        self.assertIn("版本 v2026.08.11.2", html)
+        self.assertIn("版本格式：v西元年.月.日.當日修訂序號", html)
+
+    def test_multi_incident_summary_uses_subdued_neutral_colors(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        summary_start = html.index("matchedIncidentGroups.length > 1")
+        summary_end = html.index("} else if (lianjingMatches.length > 0)", summary_start)
+        summary = html[summary_start:summary_end]
+        self.assertIn("border-slate-200 bg-white text-slate-700", summary)
+        self.assertIn("bg-slate-500 text-white", summary)
+        self.assertIn("text-slate-600", summary)
+        self.assertNotIn("bg-indigo-50", summary)
+        self.assertNotIn("text-indigo-700", summary)
+
+    def test_all_source_types_share_one_unified_result_list(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        enterprise = (ROOT / "enterprise-tab.js").read_text(encoding="utf-8")
+
+        self.assertNotIn('id="unified-enterprise-section"', html)
+        self.assertNotIn('id="unified-business-section"', html)
+        self.assertIn("findEnterpriseAnnouncementMatches(query)", html)
+        self.assertIn("renderUnifiedMixedResults(query, matches, enterpriseMatches, filteredBusinesses)", html)
+        self.assertIn("function renderUnifiedMixedResults", html)
+        self.assertIn("官方產品／批號資料", html)
+        self.assertIn("企業自主公告", html)
+        self.assertIn("政府流向／業者紀錄", html)
+        self.assertIn("mixed-source-icon", html)
+        self.assertIn("mixed-source-copy", html)
+        self.assertIn("搜尋結果分類", html)
+        self.assertIn('aria-label="搜尋結果分類數量"', html)
+        self.assertIn("result-count-summary", html)
+        self.assertIn("result-count-product", html)
+        self.assertIn("result-count-news", html)
+        self.assertIn("result-count-enterprise", html)
+        self.assertIn("result-count-business", html)
+        self.assertIn("officialProductMatches", html)
+        self.assertIn("newsMatches", html)
+        self.assertIn("產品資料 ${officialProductMatches.length}", html)
+        self.assertIn("新聞整理 ${newsMatches.length}", html)
+        self.assertIn("企業公告 ${enterpriseMatches.length}", html)
+        self.assertIn("流向業者 ${businessMatches.length}", html)
+        self.assertIn("matchCount.innerHTML", html)
+        self.assertIn("function setUnifiedResultFilter", html)
+        self.assertIn("function renderUnifiedMixedResultView", html)
+        self.assertIn("onclick=\"setUnifiedResultFilter('product')\"", html)
+        self.assertIn("onclick=\"setUnifiedResultFilter('news')\"", html)
+        self.assertIn("onclick=\"setUnifiedResultFilter('enterprise')\"", html)
+        self.assertIn("onclick=\"setUnifiedResultFilter('business')\"", html)
+        self.assertIn("aria-pressed", html)
+        self.assertIn("mixed-source-news", html)
+        self.assertIn("來源・新聞整理", html)
+        self.assertIn("來源・官方資料", html)
+        self.assertIn("來源・企業資料", html)
+        self.assertIn("來源・地方政府", html)
+        self.assertIn("目前沒有結果", html)
+        self.assertIn("返回全部結果", html)
+        self.assertIn(".result-count-product", (ROOT / "enterprise-tab.css").read_text(encoding="utf-8"))
+        self.assertIn(".result-count-news", (ROOT / "enterprise-tab.css").read_text(encoding="utf-8"))
+        self.assertIn(".result-count-chip.is-active", (ROOT / "enterprise-tab.css").read_text(encoding="utf-8"))
+        self.assertIn(".mixed-source-news", (ROOT / "enterprise-tab.css").read_text(encoding="utf-8"))
+        self.assertIn("function findEnterpriseAnnouncementMatches", enterprise)
+        self.assertIn("A 級證據・企業自主公告", enterprise)
+
+    def test_batch_statuses_are_nested_in_event_one_and_sections_are_distinct(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        css = (ROOT / "enterprise-tab.css").read_text(encoding="utf-8")
+
+        event_one = html.index("事件一")
+        case_stats = html.index('id="case-stats"')
+        batch_summary = html.index("115 年 4–6 月 30 批油品最新狀態")
+        event_two = html.index("事件二・獨立事件")
+        self.assertLess(event_one, case_stats)
+        self.assertLess(case_stats, event_two)
+        self.assertLess(event_one, batch_summary)
+        self.assertLess(batch_summary, event_two)
+        self.assertEqual(1, html.count('id="blocked-batch-list"'))
+        self.assertEqual(1, html.count('id="relisted-batch-list"'))
+        self.assertEqual(1, html.count('id="other-batch-list"'))
+        self.assertIn("點選展開全部批號", html)
+        self.assertIn("🔎 搜尋結果區", html)
+        self.assertIn("📚 資料來源與備註（參考區）", html)
+        self.assertIn("https://www.klchb.klcg.gov.tw/tw/klchb/4218.html", html)
+        self.assertIn(">嘉義縣</a>", html)
+        self.assertIn("https://health.tainan.gov.tw/list.asp?orcaid=7F827088-05ED-4277-8679-783BB5E47C5C", html)
+        self.assertIn(">屏東縣</a>", html)
+        self.assertIn(">宜蘭縣</a>", html)
+        self.assertIn(">花蓮縣</a>", html)
+        self.assertIn(">臺東縣</a>", html)
+        self.assertIn(">金門縣</a>", html)
+        self.assertIn("馬祖（連江縣）", html)
+        self.assertIn("115 年 8 月 3 日地方追蹤摘要", html)
+        self.assertIn("影響下游業者 7 家", html)
+        self.assertIn("完成 193 家業者查核", html)
+        self.assertIn("預防性下架 288 件", html)
+        self.assertIn("不增加產品搜尋筆數", html)
+        self.assertIn("https://www.ilshb.gov.tw/News_Content.aspx?n=15702&amp;s=403587&amp;sms=15513", html)
+        self.assertIn("https://www.fda.gov.tw/tc/csmnewsContent.aspx?id=t634507&amp;mid=267", html)
+        self.assertIn("https://phb.kinmen.gov.tw/Content_List.aspx?n=A705B93C56187665", html)
+        self.assertIn("https://www.fda.gov.tw/tc/csmnewsContent.aspx?id=t634493&amp;mid=267", html)
+        self.assertIn("搜尋結果的資料類型", html)
+        self.assertIn("不等於該業者產品經檢驗不合格", html)
+        self.assertIn("source-type-guide-product", html)
+        self.assertIn("source-type-guide-news", html)
+        self.assertIn("source-type-guide-enterprise", html)
+        self.assertIn("source-type-guide-business", html)
+        self.assertIn(".source-type-guide-grid", css)
+        self.assertIn("#single-result-card", css)
+        self.assertIn("background: #eff6ff", css)
+        self.assertIn("#source-notes", css)
+        self.assertIn("background: #fff7e6", css)
+
+    def test_event_overview_is_an_independent_tab_from_search(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        overview_start = html.index('<div id="tab-overview"')
+        search_start = html.index('<div id="tab-single"')
+        overview_heading = html.index("近期油品食安事件總覽", overview_start)
+        search_heading = html.index("產品與店家／業者整合查詢", search_start)
+        self.assertLess(overview_start, overview_heading)
+        self.assertLess(overview_heading, search_start)
+        self.assertLess(search_start, search_heading)
+        self.assertLess(html.index('id="case-stats"'), search_start)
+        self.assertIn("以上僅為中聯油脂事件統計", html)
+        self.assertIn("不代表不同企業家數", html)
+        self.assertIn("onclick=\"switchTab('overview')\"", html)
+        self.assertIn('id="btn-tab-overview"', html)
+        self.assertIn('id="tab-overview" class="tab-content hidden', html)
+        self.assertIn('id="tab-single" class="tab-content space-y-6"', html)
+        self.assertIn("switchTab('single');", html)
+
+    def test_latest_official_updates_are_included_without_changing_batch_counts(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        enterprise = (ROOT / "data" / "enterprise-announcements-draft.js").read_text(encoding="utf-8")
+
+        self.assertIn("115.8.10", html)
+        self.assertIn("7 月 27 日第三方獨立調查", html)
+        self.assertIn("id=t634544", html)
+        self.assertIn("33 瓶", html)
+        self.assertIn("架上 0 瓶", html)
+        self.assertIn("苦茶籽原料由中國輸入", html)
+        self.assertIn("其餘批號尚未公開", html)
+        self.assertIn("各案原料、製造端與調查範圍不同", html)
+        self.assertIn("源春代工供應鏈目前確認 4 個超標批次", html)
+        self.assertIn('reviewedAt: "2026-08-03"', enterprise)
+
+
+if __name__ == "__main__":
+    unittest.main()
+import json
+import re
+import unittest
+from pathlib import Path
+
+
+ROOT = Path(__file__).resolve().parents[1]
+
+
+class StaticAssetsTests(unittest.TestCase):
+    def test_tailwind_is_built_locally(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        package = json.loads((ROOT / "package.json").read_text(encoding="utf-8"))
+        stylesheet = ROOT / "styles.css"
+
+        self.assertNotIn("cdn.tailwindcss.com", html)
+        self.assertIn('href="./styles.css"', html)
+        self.assertTrue(stylesheet.is_file())
+        self.assertGreater(stylesheet.stat().st_size, 1_000)
+        self.assertEqual(package["devDependencies"]["tailwindcss"], "4.3.3")
+        self.assertEqual(package["devDependencies"]["@tailwindcss/cli"], "4.3.3")
+
+    def test_multi_keyword_and_search_is_present(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn("多個關鍵字請用空格分隔，結果需同時符合", html)
+        self.assertIn("function splitSearchTerms", html)
+        self.assertIn("function matchesEverySearchTerm", html)
+        self.assertIn("terms.every(term =>", html)
+
+    def test_current_batch_statuses_are_complete_and_separated(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+        data = (ROOT / "batch-status-data.js").read_text(encoding="utf-8")
+
+        self.assertEqual(7, data.count('status: "blocked"'))
+        self.assertEqual(19, data.count('status: "relisted"'))
+        self.assertEqual(3, data.count('status: "held"'))
+        self.assertEqual(1, data.count('status: "no-specimen"'))
+        self.assertEqual(30, data.count('batch: "'))
+        batches = re.findall(r'batch: "([^"]+)"', data)
+        self.assertEqual(30, len(set(batches)))
+        self.assertIn("2026/07/22 13:34", data)
+        self.assertIn("forcedOperatorRows: 5139", data)
+        self.assertIn("function findBatchStatus", html)
+        self.assertIn("產品或店家名稱命中舊流向資料時，不再自動判定為目前仍下架", html)
+
+    def test_camellia_oil_incident_is_separate_and_searchable(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn("<title>油品食安事件查詢系統</title>", html)
+        self.assertIn("連淨苦茶油案", html)
+        self.assertIn("事件二・獨立事件", html)
+        self.assertIn("26V224XW01", html)
+        self.assertIn("26S624XW01", html)
+        self.assertIn("苯駢芘 2.9 μg/kg", html)
+        self.assertIn("5 件中 4 批不合格", html)
+        self.assertIn("7 批已完成下架", html)
+        self.assertIn("https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&amp;id=31669", html)
+        self.assertIn("camelliaMatches", html)
+
+    def test_third_incident_separates_confirmed_and_precautionary_records(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn("事件三・獨立供應鏈事件", html)
+        self.assertIn("源春製油廠代工苦茶油供應鏈", html)
+        self.assertIn("4 個批次確認超標", html)
+        self.assertIn("在地金花小菓苦茶油 250mL", html)
+        self.assertIn("高仰三苦茶油", html)
+        self.assertIn("江醫師健康舖子台灣苦茶油 500mL", html)
+        self.assertIn("效期 2028/06/22・苯駢芘 2.4 ppb・確認不合格", html)
+        self.assertIn("效期 2028/06/15・苯駢芘 2.6 ppb・確認不合格", html)
+        self.assertIn("庭茂苦茶油", html)
+        self.assertIn("猴頭菇香鬆 190g", html)
+        self.assertIn("預防性下架・未確認超標", html)
+        self.assertIn("抽驗 1 件符合規定・不代表先前不合格批次撤銷", html)
+        self.assertIn("sourceType: \"verified-report\"", html)
+        self.assertIn("新聞整理", html)
+        self.assertIn("引述主管機關", html)
+        self.assertIn("新北市政府衛生局 115/7/31 正式公告", html)
+        self.assertIn("https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634565&mid=267", html)
+        self.assertIn("item.sourceUrl", html)
+        self.assertIn("sourceMarkup", html)
+        self.assertIn("https://www.foodnext.net/news/newsnow/paper/6611188269", html)
+        self.assertIn("共 505 項產品／查核資料", html)
+
+    def test_august_official_camellia_updates_are_searchable_and_cited(self):
+        html = (ROOT / "index.html").read_text(encoding="utf-8")
+
+        self.assertIn("115.8.10", html)
+        self.assertIn("事件四・8 月擴大抽驗", html)
+        self.assertIn("5 項產品確認不合格", html)
+        self.assertIn("臺南福利站苦茶油", html)
+        self.assertIn("東山苦茶油", html)
+        self.assertIn("德昌商號苦茶油", html)
+        self.assertIn("冬化技研苦茶油", html)
+        self.assertIn("百年堂黃金苦茶油", html)
+        self.assertIn("批號 20260720K", html)
+        self.assertIn("苯駢芘 6.4 μg/kg", html)
+        self.assertIn("苯駢芘 6.3 μg/kg", html)
+        self.assertIn("id=t634583", html)
+        self.assertIn("id=t634587", html)
+        self.assertIn("id=t634588", html)
+        self.assertIn("id=t634580", html)
+        self.assertIn("item.id >= 501 && item.id <= 505", html)
+
     def test_all_source_types_share_one_unified_result_list(self):
         html = (ROOT / "index.html").read_text(encoding="utf-8")
         enterprise = (ROOT / "enterprise-tab.js").read_text(encoding="utf-8")
