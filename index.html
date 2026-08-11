@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="application-version" content="v2026.08.11.2">
     <title>油品食安事件查詢系統</title>
     <link rel="stylesheet" href="./styles.css">
     <link rel="stylesheet" href="./enterprise-tab.css?v=1150803-type-guide">
@@ -20,7 +21,8 @@
                 </div>
                 <div>
                     <h1 class="text-xl font-bold tracking-tight">油品食安事件查詢系統</h1>
-                    <p class="text-xs text-slate-400 mt-0.5">資料更新：中聯油脂案＋苦茶油事件追蹤（115.8.10）</p>
+                    <!-- 版本格式：v西元年.月.日.當日修訂序號 -->
+                    <p class="text-xs text-slate-400 mt-0.5">資料更新：中聯油脂案＋苦茶油事件追蹤（115.8.10）｜版本 v2026.08.11.2</p>
                 </div>
             </div>
             <div class="flex flex-wrap justify-center gap-2">
@@ -1189,9 +1191,25 @@
             const yuanchunConfirmedMatches = camelliaMatches.filter(item => item.id >= 493 && item.id <= 496);
             const yuanchunPrecautionaryMatches = camelliaMatches.filter(item => item.id >= 497 && item.id <= 500);
             const augustConfirmedMatches = camelliaMatches.filter(item => item.id >= 501 && item.id <= 505);
+            const matchedIncidentGroups = [
+                { label: '連淨苦茶油案', count: lianjingMatches.length },
+                { label: '源春供應鏈事件', count: yuanchunConfirmedMatches.length + yuanchunPrecautionaryMatches.length },
+                { label: '8 月擴大抽驗事件', count: augustConfirmedMatches.length }
+            ].filter(group => group.count > 0);
             matchList.innerHTML = '';
             matchCount.textContent = `${matches.length} 筆項目`;
-            if (lianjingMatches.length > 0) {
+            if (matchedIncidentGroups.length > 1) {
+                const matchedGroupLabels = matchedIncidentGroups.map(group => group.label).join('、');
+                banner.className = "rounded-xl p-4 flex items-center gap-4 border border-slate-200 bg-white text-slate-700";
+                banner.innerHTML = `
+                    <div class="p-2 bg-slate-500 text-white rounded-full">i</div>
+                    <div>
+                        <h4 class="text-md font-extrabold text-slate-700">找到多起苦茶油事件，共 ${camelliaMatches.length} 筆產品／查核資料</h4>
+                        <p class="text-xs text-slate-600 mt-0.5">此次搜尋同時命中${escapeHtml(matchedGroupLabels)}。各案的產品、批號與處置不同，請查看下方每筆資料及官方來源；輸入完整批號或產品名稱，可顯示該事件的專屬警示。</p>
+                    </div>
+                `;
+                renderProductMatches(matches, matchList, query);
+            } else if (lianjingMatches.length > 0) {
                 const matchedBatches = lianjingMatches
                     .map(item => item.expiry.match(/26[A-Z0-9]+/)?.[0])
                     .filter(Boolean)
