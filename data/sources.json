@@ -1,5 +1,5 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "default_keywords": [
     "中聯油脂",
     "中聯",
@@ -13,7 +13,89 @@
     "回收",
     "稽查"
   ],
+  "keyword_profiles": {
+    "oil_incident": {
+      "keywords": [
+        "不合格",
+        "檢出",
+        "超標",
+        "異常",
+        "污染",
+        "違規",
+        "混充",
+        "摻偽",
+        "標示不實",
+        "下架",
+        "回收",
+        "召回",
+        "封存",
+        "銷毀",
+        "自主通報",
+        "停止販售",
+        "事件",
+        "食安",
+        "抽驗",
+        "檢驗",
+        "稽查",
+        "查核",
+        "流向"
+      ],
+      "required_keywords": [
+        "油脂",
+        "油品",
+        "食用油",
+        "大豆油",
+        "沙拉油",
+        "橄欖油",
+        "橄欖粕油",
+        "芝麻油",
+        "麻油",
+        "香油",
+        "花生油",
+        "葵花油",
+        "芥花油",
+        "油菜籽油",
+        "玉米油",
+        "米糠油",
+        "玄米油",
+        "椰子油",
+        "棕櫚油",
+        "亞麻仁油",
+        "葡萄籽油",
+        "調合油",
+        "苦茶油",
+        "茶油",
+        "豬油",
+        "牛油",
+        "雞油",
+        "奶油",
+        "魚油",
+        "動物油脂"
+      ]
+    }
+  },
   "sources": [
+    {
+      "id": "tfda-news",
+      "agency": "衛生福利部食品藥物管理署",
+      "name": "本署新聞（油脂事件）",
+      "url": "https://www.fda.gov.tw/TC/news.aspx?cid=4",
+      "keyword_profile": "oil_incident"
+    },
+    {
+      "id": "tfda-local-news",
+      "agency": "衛生福利部食品藥物管理署",
+      "name": "國內衛生局新聞（油脂事件）",
+      "url": "https://www.fda.gov.tw/Tc/csmnews.aspx",
+      "keyword_profile": "oil_incident"
+    },
+    {
+      "id": "tfda-international-alerts",
+      "agency": "衛生福利部食品藥物管理署",
+      "name": "國際消費警訊（油脂事件）",
+      "url": "https://www.fda.gov.tw/TC/csmLight.aspx",
+      "keyword_profile": "oil_incident"
+    },
     {
       "id": "tfda",
       "agency": "衛生福利部食品藥物管理署",
