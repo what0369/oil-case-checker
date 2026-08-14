@@ -1,3 +1,4 @@
+import json
 import sys
 import unittest
 from pathlib import Path
@@ -26,6 +27,46 @@ class SourceMonitorTests(unittest.TestCase):
 
     def test_dynamic_view_count_is_removed(self):
         self.assertEqual("公告內容", normalize_text("公告內容 點閱次數：12,345"))
+
+    def test_broad_monitor_requires_oil_and_event_terms(self):
+        parser = RelevantHTMLParser(
+            "https://example.gov.tw/news/",
+            ["不合格", "下架", "回收"],
+            ["食用油", "橄欖油", "苦茶油"],
+        )
+        parser.feed(
+            """
+            <a href="oil">橄欖油檢驗不合格</a>
+            <a href="vegetable">蔬菜農藥不合格</a>
+            <a href="guide">食用油選購指南</a>
+            <a href="other.pdf">蔬菜抽驗附件</a>
+            """
+        )
+        self.assertEqual(
+            {"橄欖油檢驗不合格 | https://example.gov.tw/news/oil"},
+            parser.links,
+        )
+
+    def test_config_includes_general_oil_incident_sources_and_terms(self):
+        config_path = Path(__file__).resolve().parents[1] / "data" / "sources.json"
+        config = json.loads(config_path.read_text(encoding="utf-8"))
+        source_ids = {source["id"] for source in config["sources"]}
+        self.assertTrue(
+            {
+                "tfda-news",
+                "tfda-local-news",
+                "tfda-international-alerts",
+            }.issubset(source_ids)
+        )
+        profile = config["keyword_profiles"]["oil_incident"]
+        self.assertTrue(
+            {"橄欖油", "芝麻油", "花生油", "調合油", "豬油", "魚油"}.issubset(
+                profile["required_keywords"]
+            )
+        )
+        self.assertTrue(
+            {"不合格", "下架", "回收", "混充"}.issubset(profile["keywords"])
+        )
 
     def test_signal_diff_is_sorted_and_unique(self):
         added, removed = diff_signals(["b", "a"], ["b", "c", "c"])
