@@ -40,15 +40,29 @@ def normalize_text(value: str) -> str:
 
 
 class RelevantHTMLParser(HTMLParser):
-    def __init__(self, base_url: str, keywords: list[str]) -> None:
+    def __init__(
+        self,
+        base_url: str,
+        keywords: list[str],
+        required_keywords: list[str] | None = None,
+    ) -> None:
         super().__init__(convert_charrefs=True)
         self.base_url = base_url
         self.keywords = keywords
+        self.required_keywords = required_keywords or []
         self.skip_depth = 0
         self.anchor_href: str | None = None
         self.anchor_text: list[str] = []
         self.links: set[str] = set()
         self.snippets: set[str] = set()
+
+    def is_relevant(self, value: str) -> bool:
+        candidate = value.lower()
+        has_event_term = any(word.lower() in candidate for word in self.keywords)
+        has_required_term = not self.required_keywords or any(
+            word.lower() in candidate for word in self.required_keywords
+        )
+        return has_event_term and has_required_term
 
     def handle_starttag(self, tag: str, attrs: list[tuple[str, str | None]]) -> None:
         if tag in {"script", "style", "noscript", "svg"}:
@@ -69,7 +83,9 @@ class RelevantHTMLParser(HTMLParser):
         label = normalize_text(" ".join(self.anchor_text))
         absolute = urljoin(self.base_url, self.anchor_href)
         candidate = f"{label} {absolute}".lower()
-        if DOWNLOAD_HINT.search(absolute) or any(word.lower() in candidate for word in self.keywords):
+        if (
+            DOWNLOAD_HINT.search(absolute) and not self.required_keywords
+        ) or self.is_relevant(candidate):
             self.links.add(f"{label or '(無標題附件)'} | {absolute}")
         self.anchor_href = None
         self.anchor_text = []
@@ -82,7 +98,7 @@ class RelevantHTMLParser(HTMLParser):
             return
         if self.anchor_href:
             self.anchor_text.append(text)
-        if any(word.lower() in text.lower() for word in self.keywords):
+        if self.is_relevant(text):
             self.snippets.add(text[:500])
 
 
@@ -123,13 +139,24 @@ def decode_html(body: bytes, content_type: str) -> str:
     return body.decode("utf-8", errors="replace")
 
 
-def inspect_source(source: dict[str, Any], default_keywords: list[str]) -> dict[str, Any]:
+def inspect_source(
+    source: dict[str, Any],
+    default_keywords: list[str],
+    keyword_profiles: dict[str, dict[str, list[str]]] | None = None,
+) -> dict[str, Any]:
     body, final_url, content_type = fetch(source["url"])
-    keywords = source.get("keywords", default_keywords)
+    profile_name = source.get("keyword_profile")
+    profile = (keyword_profiles or {}).get(profile_name, {})
+    if profile_name and not profile:
+        raise RuntimeError(f"找不到關鍵字設定檔：{profile_name}")
+    keywords = source.get("keywords", profile.get("keywords", default_keywords))
+    required_keywords = source.get(
+        "required_keywords", profile.get("required_keywords", [])
+    )
     if "html" not in content_type.lower() and not body.lstrip().startswith(b"<"):
         signals = [f"binary-sha256:{hashlib.sha256(body).hexdigest()}"]
     else:
-        parser = RelevantHTMLParser(final_url, keywords)
+        parser = RelevantHTMLParser(final_url, keywords, required_keywords)
         parser.feed(decode_html(body, content_type))
         signals = sorted(parser.links) + sorted(f"文字 | {item}" for item in parser.snippets)
     if not signals:
@@ -229,7 +256,11 @@ def main() -> int:
     for source in config["sources"]:
         base_row = {key: source[key] for key in ("id", "agency", "name", "url")}
         try:
-            observation = inspect_source(source, config["default_keywords"])
+            observation = inspect_source(
+                source,
+                config["default_keywords"],
+                config.get("keyword_profiles"),
+            )
             previous = previous_sources.get(source["id"])
             is_changed = previous is not None and (
                 previous.get("fingerprint") != observation["fingerprint"]
