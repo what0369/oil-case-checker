@@ -1,87 +1,213 @@
 # 官方來源監控報告
 
-檢查時間（UTC）：`2026-07-13T15:01:33+00:00`
+檢查時間（UTC）：`2026-09-26T16:25:35+00:00`
 
 > 本報告只指出官方頁面或附件可能有變更；資料寫入網站前仍須人工核對。
 
 | 機關 | 來源 | 結果 | 訊號數 | 網址 |
 | --- | --- | --- | ---: | --- |
-| 衛生福利部食品藥物管理署 | 中聯油脂專區 | 建立基準 | 17 | [開啟](https://www.fda.gov.tw/TC/site13712.aspx) |
-| 臺北市政府衛生局 | 食安資訊專區 | 建立基準 | 69 | [開啟](https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D) |
-| 新北市政府衛生局 | 焦點新聞 | 建立基準 | 19 | [開啟](https://www.health.ntpc.gov.tw/) |
-| 桃園市政府衛生局 | 桃食安心資訊平台 | 建立基準 | 29 | [開啟](https://food-safety.tycg.gov.tw/) |
-| 新竹市衛生局 | 食品專區 | 建立基準 | 5 | [開啟](https://dep.hcchb.gov.tw/ch/home.jsp?id=170&parentpath=0%2C40%2C75) |
-| 新竹縣政府衛生局 | 最新消息 | 建立基準 | 12 | [開啟](https://www.hcshb.gov.tw/) |
-| 苗栗縣政府衛生局 | 中聯油脂事件專區 | 建立基準 | 6 | [開啟](https://www.mlshb.gov.tw/nc/content-list?idNavigations=7&tag=156) |
-| 臺中市政府衛生局 | 中聯油脂事件專區 | 建立基準 | 43 | [開啟](https://www.health.taichung.gov.tw/3313372/Lpsimplelist) |
-| 彰化縣衛生局 | 問題油品下架回收公告 | 建立基準 | 4 | [開啟](https://www.chshb.gov.tw/node/219119838) |
-| 彰化縣政府 | 問題油品流向業者清單 | 建立基準 | 20 | [開啟](https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874) |
-| 高雄市政府衛生局 | 中聯油脂事件專區 | 建立基準 | 7 | [開啟](https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B) |
+| 衛生福利部食品藥物管理署 | 本署新聞（油脂事件） | 有變更 | 4 | [開啟](https://www.fda.gov.tw/TC/news.aspx?cid=4) |
+| 衛生福利部食品藥物管理署 | 國內衛生局新聞（油脂事件） | 抓取失敗 | — | [開啟](https://www.fda.gov.tw/Tc/csmnews.aspx) |
+| 衛生福利部食品藥物管理署 | 國際消費警訊（油脂事件） | 抓取失敗 | — | [開啟](https://www.fda.gov.tw/TC/csmLight.aspx) |
+| 衛生福利部食品藥物管理署 | 中聯油脂專區 | 有變更 | 23 | [開啟](https://www.fda.gov.tw/TC/site13712.aspx) |
+| 臺北市政府衛生局 | 食安資訊專區 | 抓取失敗 | — | [開啟](https://health.gov.taipei/cp.aspx?n=6555F4B30177F97D) |
+| 新北市政府衛生局 | 焦點新聞 | 有變更 | 6 | [開啟](https://www.health.ntpc.gov.tw/) |
+| 桃園市政府衛生局 | 桃食安心資訊平台 | 有變更 | 19 | [開啟](https://food-safety.tycg.gov.tw/) |
+| 新竹市衛生局 | 食品專區 | 有變更 | 7 | [開啟](https://dep.hcchb.gov.tw/ch/home.jsp?id=170&parentpath=0%2C40%2C75) |
+| 新竹縣政府衛生局 | 最新消息 | 有變更 | 3 | [開啟](https://www.hcshb.gov.tw/) |
+| 苗栗縣政府衛生局 | 中聯油脂事件專區 | 有變更 | 6 | [開啟](https://www.mlshb.gov.tw/nc/content-list?idNavigations=7&tag=156) |
+| 臺中市政府衛生局 | 中聯油脂事件專區 | 抓取失敗 | — | [開啟](https://www.health.taichung.gov.tw/3313372/Lpsimplelist) |
+| 彰化縣衛生局 | 問題油品下架回收公告 | 無變更 | 4 | [開啟](https://www.chshb.gov.tw/node/219119838) |
+| 彰化縣政府 | 問題油品流向業者清單 | 無變更 | 20 | [開啟](https://www.chcg.gov.tw/ch2/newsdetail.aspx?bull_id=433874) |
+| 高雄市政府衛生局 | 中聯油脂事件專區 | 無變更 | 7 | [開啟](https://health.kcg.gov.tw/Content_List.aspx?n=CD6EBC84144C4E1B) |
 
-## 115 年 8 月 3 日人工複核
+## 偵測到的變更
 
-- 中聯油脂 30 批分類未變：7 批不得上架、19 批可重新上架、3 批留置、1 批外銷無檢體。
-- 食藥署於 115 年 7 月 27 日公布第三方獨立調查結果，新增原料風險管理、製程監控及檢驗監測等多項管理缺失說明。
-- 連淨苦茶油 939 瓶曾售出；新北市 7 月 23 日資訊為消費者端回收 33 瓶、架上已無問題批號商品。
-- 臺北市 7 月 24 日資訊為棉花田通路 720 瓶中售出 710 瓶、回收 10 瓶。
-- 食藥署於 7 月 27 日記者會說明：連淨案業者自主通報 7 批產品，其中 2 批檢出苯駢芘 2.9 ppb；其餘 5 批由新北市衛生局抽驗、食藥署檢驗，其中 4 批不合格、1 批合格。
-- 同原料同製程共 7 批產品均已於 7 月 23 日中午前完成下架；其餘連淨苦茶油批次持續停止生產及販售。
-- 政府公開頁面目前僅列出兩個通路產品批號 `26V224XW01`、`26S624XW01`，未找到其餘批號的官方公開明細，因此網站不推測補列。
-- 鼎泰豐、路易莎及全家原始公告未見較晚更新；饗賓仍缺可直接歸屬於該企業的實際批號或效期，維持待補證據。
+### 衛生福利部食品藥物管理署 — 本署新聞（油脂事件）
 
-檢驗結果補充來源：[食藥署 7 月 27 日說明（NOWnews 記者會報導）](https://www.nownews.com/news/6860595)
+指紋：`新來源` → `d69ab9fc8294`
 
-## 115 年 8 月 3 日第三件事件深入查核
+**新增訊號**
 
-### 已確認不合格的產品
+- 文字 | 食藥署公布食用油脂全國抽驗結果，中央地方攜手維護食安
+- 文字 | 食藥署說明「麻油車冷壓黑麻油」檢出苯駢芘超標一案查核情形
+- 食藥署公布食用油脂全國抽驗結果，中央地方攜手維護食安 | https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634636
+- 食藥署說明「麻油車冷壓黑麻油」檢出苯駢芘超標一案查核情形 | https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634638
 
-- 永豐餘生技「在地金花小菓苦茶油」250mL，有效日期 `2028/05/25`，苯駢芘 2.9 ppb；問題批次共生產 924 瓶，自 7 月 1 日起販售。
-- 威加國際「高仰三苦茶油」有效日期 `2028/06/22`，苯駢芘 2.4 ppb。
-- 威加國際「高仰三苦茶油」有效日期 `2028/06/15`，苯駢芘 2.6 ppb；兩批合計生產 2,349 瓶，流向臺北市 7 家下游及長庚生物科技 18 家自有門市。
-- 國際機能食品「江醫師健康舖子台灣苦茶油」500mL，有效日期 `2027/12/25`，苯駢芘 2.6 ppb；生產 780 瓶，其中 773 瓶已售出。
+**移除訊號**
 
-### 預防性管制或待驗，不得標示為已確認超標
+- 無
 
-- 源春製油廠以同批苦茶籽製成在地金花小菓、高仰三及庭茂苦茶油，共涉及 `2028/01/02`、`2028/02/22`、`2028/03/17`、`2028/05/25`、`2028/06/15`、`2028/06/22` 六個有效日期；主管機關要求同原料相關產品全面預防性下架，但公開資料沒有逐一確認六批均超標。
-- 永豐餘「猴頭菇香鬆」190g 使用源春苦茶油，但不是本次檢出問題批次，屬預防性下架。
-- 江醫師另有有效日期 `2028/05/24` 的 599 瓶產品尚未出貨，已停止流通；公開資料未提供該批檢驗值。
-- 源春自有苦茶油約 150 公斤就地保管並停止販售；嘉義縣衛生局於 8 月 4 日公布另抽驗 1 件苦茶油符合規定。此單一合格樣品不撤銷先前不合格批次及回收措施。
+### 衛生福利部食品藥物管理署 — 中聯油脂專區
 
-### 源頭與證據限制
+指紋：`ace98d35e4f2` → `adcd3f1ce1cf`
 
-- 供應鏈為永豐餘生技向威加國際下單，威加委託嘉義縣源春製油廠製造桶裝油，再由雲林縣亞世家企業分裝貼標；高仰三亦為威加委託源春代工，江醫師產品由源春代工代料。
-- 嘉義縣衛生局已要求源春停工，待釐清原因並改善製程後始得復工；因苦茶籽來源欠缺明確佐證，食藥署已報請檢察機關協助偵查。
-- 江醫師健康舖子「台灣苦茶油」效期 `2027/12/25` 已找到新北市政府衛生局 115 年 7 月 31 日正式公告，確認規格、檢驗值、產量、已售數量及源春代工關係，網站改列為官方資料並附原始連結。
-- 其餘源春供應鏈產品、檢驗值、產量與流向主要依食力 115 年 8 月 1 日報導，該文具名轉述食藥署、臺北市、新北市及嘉義縣衛生局說明。公開搜尋尚未找到逐項對應的主管機關固定原始新聞稿網址，因此網站仍標為「新聞整理」，不冒充官方原始公告。
-- 已另核對永豐餘生技、江醫師健康舖子與源春製油廠公開商品頁，確認品牌、規格或源頭自有商品存在；商品頁本身不作為超標檢驗值的證據。
+**新增訊號**
 
-主要來源：[新北市衛生局 7 月 31 日江醫師苦茶油公告](https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634565&mid=267) ・ [臺東縣衛生局 7 月 31 日流向與抽驗公告](https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634564&mid=267) ・ [食力 8 月 1 日供應鏈整理](https://www.foodnext.net/news/newsnow/paper/6611188269) ・ [永豐餘生技商品頁](https://www.green-n-safe.com/Products/SubList?id=49) ・ [江醫師商品頁](https://www.drfish.com.tw/products/taiwan-bitter-tea-oil) ・ [源春自有油品頁](https://www.yuanchuen.com.tw/product.php?cid=2&lang=tw&tb=1)
+- 文字 | 中聯大豆沙拉油案專家學者會議
+- 文字 | 中聯油脂股份有限公司大豆油苯(a)駢芘超標事件調查報告
+- 文字 | 強制性下架產品下游業者清單查詢
+- 文字 | 食藥署主動公開7月4日中聯大豆沙拉油案專家會議資料與紀錄
+- 文字 | 食藥署公布食用油脂全國抽驗結果，中央地方攜手維護食安
+- 文字 | 食藥署說明「麻油車冷壓黑麻油」檢出苯駢芘超標一案查核情形
+- 文字 | 💬 中聯大豆沙拉油案專家學者會議
+- 文字 | 📝 中聯油脂股份有限公司大豆油苯(a)駢芘超標事件調查報告
+- 文字 | 🛢 強制性下架產品下游業者清單查詢
+- 食藥署主動公開7月4日中聯大豆沙拉油案專家會議資料與紀錄 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=31685
+- 食藥署公布食用油脂全國抽驗結果，中央地方攜手維護食安 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634636
+- 食藥署說明「麻油車冷壓黑麻油」檢出苯駢芘超標一案查核情形 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634638
+- 💬 中聯大豆沙拉油案專家學者會議 NEW | https://www.fda.gov.tw/TC/siteList.aspx?sid=13731
+- 💬 中聯大豆沙拉油案專家學者會議 NEW 相關紀錄 | https://www.fda.gov.tw/TC/siteList.aspx?sid=13731
+- 📄 強制性下架產品下游業者清單查詢 資料查詢 | https://www.fda.gov.tw/EdibleOilOperator/index.aspx
+- 📈 稽查及下架回收情形 稽查結果與回收措施 | https://www.fda.gov.tw/TC/site.aspx?sid=13707&r=768700034
+- 📊 稽查及下架回收情形 | https://www.fda.gov.tw/TC/site.aspx?sid=13707&r=768700034
+- 📝 中聯油脂股份有限公司大豆油苯(a)駢芘超標事件調查報告 NEW | https://www.fda.gov.tw/TC/includes/GetFile.ashx?id=f639209533902835574&type=3&iid=13727
+- 📝 中聯油脂股份有限公司大豆油苯(a)駢芘超標事件調查報告 NEW 調查報告 | https://www.fda.gov.tw/TC/includes/GetFile.ashx?id=f639209533902835574&type=3&iid=13727
+- 🛢 強制性下架產品下游業者清單查詢 | https://www.fda.gov.tw/EdibleOilOperator/index.aspx
 
-## 115 年 8 月 3 日地方衛生局入口複核
+**移除訊號**
 
-- 臺南市問題油品專區於 8 月 2–3 日新增台糖拒收中聯半成品油品及通報責任調查，但未新增問題產品、批號或流向名單。
-- 宜蘭縣公布影響下游業者 7 家、回收油品 702 公升、預防性回收相關食品 63,931.3 公斤，並完成 201 家業者查核。
-- 花蓮縣截至 7 月 16 日完成 193 家業者查核，未公布新增問題產品或業者名單。
-- 連江縣完成 40 家業者查核、預防性下架 288 件相關油品；官方明示預防性下架不代表產品均經檢驗不合格。
-- 臺東縣確認問題苦茶油未流入臺東販售，地方苦茶油抽驗結果仍待公布；此項已在網站呈現。
-- 基隆、嘉義縣、屏東及金門的公開入口，目前未見比網站既有資料更新的逐項產品、批號或流向名單。
-- 上述地方資訊只補入追蹤摘要，不增加產品搜尋筆數。
+- 文字 | 中聯油脂案專區
+- 文字 | 本專區提供中聯油脂案相關資訊，內容將持續更新，請定期查閱最新消息。
+- 文字 | 確保資訊透明! 食藥署持續每日更新中聯油脂案受影響產品流向
+- 文字 | 食藥署召集中聯油脂案四家業者說明會，超標原因未釐清前不得恢復生產
+- 文字 | 食藥署擴大受影響產品預防性下架範圍 要求7月8日24時前完成全面下架
+- 文字 | 食藥署擴大要求中聯公司應於7月10日中午12時前完成4至6月生產油品及其產品下架
+- 文字 | 食藥署擴大追查中聯油脂案 全面啟動4家油脂工廠實地稽查及抽驗
+- 確保資訊透明! 食藥署持續每日更新中聯油脂案受影響產品流向 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634479
+- 食藥署召集中聯油脂案四家業者說明會，超標原因未釐清前不得恢復生產 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634476
+- 食藥署擴大受影響產品預防性下架範圍 要求7月8日24時前完成全面下架 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634443
+- 食藥署擴大要求中聯公司應於7月10日中午12時前完成4至6月生產油品及其產品下架 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634464
+- 食藥署擴大追查中聯油脂案 全面啟動4家油脂工廠實地稽查及抽驗 | http://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634454
+- 📈 稽查及下架回收情形 NEW 稽查結果與回收措施 | https://www.fda.gov.tw/TC/site.aspx?sid=13707&r=768700034
+- 📊 稽查及下架回收情形 NEW | https://www.fda.gov.tw/TC/site.aspx?sid=13707&r=768700034
 
-主要來源：[臺南市問題油品專區](https://health.tainan.gov.tw/list.asp?orcaid=7F827088-05ED-4277-8679-783BB5E47C5C) ・ [宜蘭縣衛生局追蹤結果](https://www.ilshb.gov.tw/News_Content.aspx?n=15702&s=403587&sms=15513) ・ [花蓮縣衛生局查核說明](https://www.fda.gov.tw/tc/csmnewsContent.aspx?id=t634507&mid=267) ・ [臺東縣衛生局流向與抽驗說明](https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634564&mid=267) ・ [連江縣衛生局查核說明](https://www.fda.gov.tw/tc/csmnewsContent.aspx?id=t634493&mid=267) ・ [金門縣中聯油脂專區](https://phb.kinmen.gov.tw/Content_List.aspx?n=A705B93C56187665)
+### 新北市政府衛生局 — 焦點新聞
 
-## 115 年 8 月 10 日官方更新複核
+指紋：`923ead09ec25` → `b6d976b81c11`
 
-### 新增確認不合格產品
+**新增訊號**
 
-- 臺南市 8 月 4 日公布 23 件擴大抽驗結果，其中「臺南福利站苦茶油」苯駢芘 2.5 μg/kg、「東山苦茶油」2.1 μg/kg、「德昌商號苦茶油」3.0 μg/kg，其他 20 件符合規定。
-- 新北市「農七十冬化技研苦茶油」，效期 `2028/06/01`，苯駢芘 6.4 μg/kg；共製造 157 瓶，已要求全批回收。
-- 臺北市「百年堂黃金苦茶油」，批號 `20260720K`、效期 `2028/07/20`，苯駢芘 6.3 μg/kg；上游供應商為鑫隆發實業股份有限公司。
+- 文字 | 新北市接獲永利油廠公司自主通報胡麻油苯駢芘超標 衛生局要求下架回收
+- 文字 | 永利油廠胡麻油苯駢芘超標 全產線停止生產及販售
+- 新北市接獲永利油廠公司自主通報胡麻油苯駢芘超標 衛生局要求下架回收 | https://www.health.ntpc.gov.tw/news/新北市接獲永利油廠公司自主通報胡麻油苯駢芘超標_衛生局要求下架回收
+- 永利油廠胡麻油苯駢芘超標 全產線停止生產及販售 | https://www.health.ntpc.gov.tw/news/永利油廠胡麻油苯駢芘超標_全產線停止生產及販售
 
-### 供應鏈及回收追蹤
+**移除訊號**
 
-- 嘉義縣鑫隆發實業（鑫隆麻油廠）自主通報 7 月 20 日製造的苦茶油異常，產量約 330 公斤，已停止生產、販售並啟動回收。官方公告沒有列出可獨立辨識的品牌與數值，因此網站作為百年堂上游追蹤，不重複新增產品筆數。
-- 台南截至 8 月 4 日已查核 2,048 家業者，累計下架或回收問題油品約 72,150 公斤。
-- 中聯油脂 30 批分類未見改變；食藥署重新上架清單仍顯示最後更新為 7 月 24 日。
-- 臺北市 8 月 7 日另公布第三波抽驗 2 件苦茶油不合格；正式納入產品資料前仍須排除與既有百年堂案件重複並取得可辨識的品名、批號或效期。
+- (無標題附件) | https://www.health.ntpc.gov.tw/article/稽查專區
+- 中聯問題油品擴大 新北市持續查察為民眾食安把關 | https://www.health.ntpc.gov.tw/news/中聯問題油品擴大_新北市持續查察為民眾食安把關
+- 擴大下架範圍 新北校園全面停用中聯油脂4至6月生產油品 | https://www.health.ntpc.gov.tw/news/擴大下架範圍_新北校園全面停用中聯油脂4至6月生產油品
+- 文字 | 中聯問題油品擴大 新北市持續查察為民眾食安把關
+- 文字 | 擴大下架範圍 新北校園全面停用中聯油脂4至6月生產油品
+- 文字 | 新北市府跨局處自7/2起啟動專案稽查
+- 文字 | 新北市持續監督問題油脂產品下架回收
+- 文字 | 新北市衛生局持續監督問題油脂產品下架回收
+- 文字 | 新北市跨局處把關 問題油品全面下架
+- 文字 | 新北持續查核問題油脂 全面落實下架回收
+- 文字 | 稽查專區
+- 新北市府跨局處自7/2起啟動專案稽查 | https://www.health.ntpc.gov.tw/news/新北市府跨局處自7_2起啟動專案稽查2026070521
+- 新北市持續監督問題油脂產品下架回收 | https://www.health.ntpc.gov.tw/news/新北市持續監督問題油脂產品下架回收2026070620
+- 新北市衛生局持續監督問題油脂產品下架回收 | https://www.health.ntpc.gov.tw/news/新北市衛生局持續監督問題油脂產品下架回收2026070318
+- 新北市跨局處把關 問題油品全面下架 | https://www.health.ntpc.gov.tw/news/新北市跨局處把關_問題油品全面下架
+- 新北持續查核問題油脂 全面落實下架回收 | https://www.health.ntpc.gov.tw/news/新北持續查核問題油脂_全面落實下架回收2026070809
+- 稽查專區 | https://www.health.ntpc.gov.tw/article/稽查專區
 
-主要來源：[臺南市 3 件不合格苦茶油公告](https://health.tainan.gov.tw/page.asp?mainid=2CA6162C-36F6-47B5-A2A2-E4FB28BD4DC7&srcorcaid=7F827088-05ED-4277-8679-783BB5E47C5C) ・ [新北市農七十公告](https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634583&mid=267) ・ [臺北市百年堂公告](https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634587&mid=267) ・ [嘉義縣鑫隆麻油廠公告](https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634588&mid=267) ・ [嘉義縣源春抽驗公告](https://www.fda.gov.tw/TC/csmnewsContent.aspx?id=t634580&mid=267)
+### 桃園市政府衛生局 — 桃食安心資訊平台
+
+指紋：`81b6290079de` → `5189d8405454`
+
+**新增訊號**
+
+- 115-07-28 115年度桃園市製造業者食品安全衛生教育訓練(9-10月) | https://food-safetyws.tycg.gov.tw/Download.ashx?u=LzAwMS9VcGxvYWQvMS9yZWxmaWxlLzEwMTQ3LzY3NDAvODVkOGYyMWEtOTk5Yy00ODIxLTg4MWUtY2IxNGZkMWFlZjQzLnBkZg%3d%3d&n=6aOf5ZOB5a6J5YWo6KGb55Sf5pWZ6IKy6KiT57e0OeaciOS7vS5wZGY%3d
+- 115-08-26 桃園擴大油品把關 不合格黑麻油即時下架 | https://food-safety.tycg.gov.tw/News_Content.aspx?n=4&s=6764
+- 115-09-03 桃園公布第三波油品抽驗結果 2件苯(a)駢芘超標啟動預防性下架 | https://food-safety.tycg.gov.tw/News_Content.aspx?n=4&s=6771
+- 文字 | 桃園公布第三波油品抽驗結果 2件苯(a)駢芘超標啟動預防性下架
+- 文字 | 桃園擴大油品把關 不合格黑麻油即時下架
+- 文字 | 苯駢芘苦茶油專區
+- 苯駢芘苦茶油專區 | https://food-safety.tycg.gov.tw/News.aspx?n=1287&sms=11310
+
+**移除訊號**
+
+- 115-05-15 115年度桃園市製造業者食品安全衛生教育訓練 | https://ws.tycg.gov.tw/Download.ashx?u=LzAwMS9VcGxvYWQvNjQvcmVsZmlsZS8xMDEyMS8xNjIyMTY4LzlkOTE5YThjLTI5ZTktNGY2My04OTBhLWVkMWMxNGI3NDBkMy5wZGY%3d&n=MTE15bm05bqm5qGD5ZyS5biC6KGb55Sf5bGA6aOf5ZOB5a6J5YWo6KGb55Sf5pWZ6IKy6KiT57e0LTEucGRm&icon=.pdf
+- 115-07-02 中聯「大豆沙拉油」檢驗異常事件 | https://food-safety.tycg.gov.tw/News.aspx?n=1268&sms=11293
+- 115-07-02 中聯油脂問題油品事件 張市長：啟動三應變機制 通路全面下架、保障退換貨、校園午餐盤點 | https://food-safety.tycg.gov.tw/News_Content.aspx?n=4&s=6245
+- 115-07-07 桃園市全面追查中聯問題油品 首波32家下架逾1.2萬公斤 | https://food-safety.tycg.gov.tw/News_Content.aspx?n=4&s=6261
+- 115-07-08 捍衛食安主動出擊！桃市已下架違規油品產品近3.5萬公斤 | https://food-safety.tycg.gov.tw/News_Content.aspx?n=4&s=6267
+- 115-07-09 落實食安把關！如期完成問題油品清查 持續全市地毯式稽查 | https://food-safety.tycg.gov.tw/News_Content.aspx?n=4&s=6707
+- 115-07-10 桃市府拚時效護食安 首件油品「義美純葵花油」抽驗提前三天完成確認合格 | https://food-safety.tycg.gov.tw/News_Content.aspx?n=4&s=6716
+- 中聯問題油專區 | https://food-safety.tycg.gov.tw/cl.aspx?n=1279
+- 中聯問題油脂資訊 | https://food-safety.tycg.gov.tw/News.aspx?n=1282&sms=11301
+- 文字 | 中聯「大豆沙拉油」檢驗異常事件
+- 文字 | 中聯問題油專區
+- 文字 | 中聯問題油脂資訊
+- 文字 | 中聯油脂問題油品事件 張市長：啟動三應變機制 通路全面下架、保障退換貨、校園午餐盤點
+- 文字 | 捍衛食安主動出擊！桃市已下架違規油品產品近3.5萬公斤
+- 文字 | 桃園市全面追查中聯問題油品 首波32家下架逾1.2萬公斤
+- 文字 | 桃市府拚時效護食安 首件油品「義美純葵花油」抽驗提前三天完成確認合格
+- 文字 | 落實食安把關！如期完成問題油品清查 持續全市地毯式稽查
+
+### 新竹市衛生局 — 食品專區
+
+指紋：`d65caeb4e67b` → `aa90bf3deaa7`
+
+**新增訊號**
+
+- 中聯油脂案專區 | https://dep.hcchb.gov.tw/ch/home.jsp?id=258&parentpath=0,115,245
+- 問題油品及業者名單 | https://dep.hcchb.gov.tw/ch/home.jsp?id=170&parentpath=0,40,75&mcustomize=onemessages_view.jsp&toolsflag=Y&dataserno=202607140003&t=HcchbOnes&mserno=201604100001
+- 文字 | 問題油品及業者名單
+- 文字 | 新竹市衛生局持續查核問題油品 近期4項產品共下架回收40瓶
+- 新竹市衛生局持續查核問題油品 近期4項產品共下架回收40瓶 | https://dep.hcchb.gov.tw/ch/home.jsp?id=170&parentpath=0,40,75&mcustomize=onemessages_view.jsp&toolsflag=Y&dataserno=202609030001&t=HcchbOnes&mserno=201604100001
+
+**移除訊號**
+
+- 中聯油脂案專區 | https://dep.hcchb.gov.tw/ch/home.jsp?id=170&parentpath=0%2C40%2C75
+- 文字 | 衛生福利部食品藥物管理署中聯油脂案專區
+- 衛生福利部食品藥物管理署中聯油脂案專區 | https://dep.hcchb.gov.tw/ch/home.jsp?id=170&parentpath=0%2C40%2C75
+
+### 新竹縣政府衛生局 — 最新消息
+
+指紋：`5e3609b86827` → `df98266749b4`
+
+**新增訊號**
+
+- 文字 | 轉知衛生福利部「藥品回收處理辦法」部分條文修正草案、「違反藥事法第四十六條、第五十三條及第七十五條規定，與業者依風險評估並經中央衛生主管機關認定應回收之藥品處理規定」訂定草案及「公告違反藥事法第三十九條、第四十六條、第五十三條、第七十五條規定者，其違規市售品及庫存品回收之處理事宜」廢止預告
+- 轉知衛生福利部「藥品回收處理辦法」部分條文修正草案、「違反藥事法第四十六條、第五十三條及第七十五條規定，與業者依風險評估並經中央衛生主管機關認定應回收之藥品處理規定」訂定草案及「公告違反藥事法第三十九條、第四十六條、第五十三條、第七十五條規定者，其違規市售品及庫存品回收之處理事宜」廢止預告 | https://www.hcshb.gov.tw/News_Content.aspx?n=24&sms=9046&s=110299
+
+**移除訊號**
+
+- unde 新竹縣護理機構收費標準 | https://ws.hcshb.gov.tw/Download.ashx?u=LzAwMS9VcGxvYWQvNDAyL3JlbGZpbGUvMC82MTcvNWFmMmQ2OTctNDI5Ny00ZmFhLWEwODEtMDk2MTRhZmM2Y2NiLnBkZg==&n=5paw56u557ij6K2355CG5qmf5qeL5pS26LK75qiZ5rqWMTA4MDgxMi5wZGY=&icon=.pdf
+- 中聯問題油延燒 竹縣衛生局今第2波稽查餐飲 | https://www.hcshb.gov.tw/News_Content.aspx?n=24&sms=9046&s=109770
+- 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局周末加強稽查保障食安 | https://www.hcshb.gov.tw/News_Content.aspx?n=24&sms=9046&s=109771
+- 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局啟動稽查保障消費者食安 | https://www.hcshb.gov.tw/News_Content.aspx?n=24&sms=9046&s=109768
+- 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局持續稽查不間斷 | https://www.hcshb.gov.tw/News_Content.aspx?n=24&sms=9046&s=109802
+- 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局持續稽查為縣民把關 | https://www.hcshb.gov.tw/News_Content.aspx?n=24&sms=9046&s=109790
+- 文字 | 中聯問題油延燒 竹縣衛生局今第2波稽查餐飲
+- 文字 | 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局周末加強稽查保障食安
+- 文字 | 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局啟動稽查保障消費者食安
+- 文字 | 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局持續稽查不間斷
+- 文字 | 中聯油脂大豆沙拉油「苯駢芘」超標 竹縣衛生局持續稽查為縣民把關
+
+### 苗栗縣政府衛生局 — 中聯油脂事件專區
+
+指紋：`3486a1c272b6` → `46a12656fb01`
+
+**新增訊號**
+
+- 文字 | 因應中聯油脂案，轉知衛生福利部食品藥物管理署（TFDA）相關資訊，請業者落實自我檢視
+- 文字 | 產品製造、販售、使用及品質管理程序是否符合相關規定，如發現不符規定情形，應儘速下架並通知上游回收，並通知衛生局。 請業者落實自我檢視。相關公告、法規內容及詳細說明，請至衛生福利部食品藥物管理署網站查閱： TFDA首頁 > 中聯油脂案專區 > 中聯油脂案專區 https://www.fda.gov.tw/tc/site.aspx?sid=13702&r=99434504 2026-07-21食藥署公布中聯油脂19批預防性下架油品及其相關產品重新上架 https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634528
+- 置頂 食品科 | 文章發布日期 2026/07/08 因應中聯油脂案，轉知衛生福利部食品藥物管理署（TFDA）相關資訊，請業者落實自我檢視 產品製造、販售、使用及品質管理程序是否符合相關規定，如發現不符規定情形，應儘速下架並通知上游回收，並通知衛生局。 請業者落實自我檢視。相關公告、法規內容及詳細說明，請至衛生福利部食品藥物管理署網站查閱： TFDA首頁 > 中聯油脂案專區 > 中聯油脂案專區 https://www.fda.gov.tw/tc/site.aspx?sid=13702&r=99434504 2026-07-21食藥署公布中聯油脂19批預防性下架油品及其相關產品重新上架 https://www.fda.gov.tw/TC/newsContent.aspx?cid=4&id=t634528 文章內容 | https://www.mlshb.gov.tw/nc/article?id=e5b5a1be-08e1-4d75-a233-727e6fea51e7
+
+**移除訊號**
+
+- 文字 | 因應中聯油脂案，轉知衛生福利部食品藥物管理署（TFDA）相關資訊，請業者落實自我檢視(0713更)
+- 文字 | 產品製造、販售、使用及品質管理程序是否符合相關規定，如發現不符規定情形，應儘速下架並通知上游回收，並通知衛生局。 請業者落實自我檢視。相關公告、法規內容及詳細說明，請至衛生福利部食品藥物管理署網站查閱： TFDA首頁 > 中聯油脂案專區 > 中聯油脂案專區 https://www.fda.gov.tw/tc/site.aspx?sid=13702&r=99434504
+- 置頂 食品科 | 文章發布日期 2026/07/08 因應中聯油脂案，轉知衛生福利部食品藥物管理署（TFDA）相關資訊，請業者落實自我檢視(0713更) 產品製造、販售、使用及品質管理程序是否符合相關規定，如發現不符規定情形，應儘速下架並通知上游回收，並通知衛生局。 請業者落實自我檢視。相關公告、法規內容及詳細說明，請至衛生福利部食品藥物管理署網站查閱： TFDA首頁 > 中聯油脂案專區 > 中聯油脂案專區 https://www.fda.gov.tw/tc/site.aspx?sid=13702&r=99434504 文章內容 | https://www.mlshb.gov.tw/nc/article?id=e5b5a1be-08e1-4d75-a233-727e6fea51e7
+
+
+## 抓取錯誤
+
+- **衛生福利部食品藥物管理署**：頁面可開啟，但找不到關鍵字或附件；網站版型可能已變更
+- **衛生福利部食品藥物管理署**：頁面可開啟，但找不到關鍵字或附件；網站版型可能已變更
+- **臺北市政府衛生局**：抓取失敗：Remote end closed connection without response
+- **臺中市政府衛生局**：抓取失敗：<urlopen error [Errno 101] Network is unreachable>
